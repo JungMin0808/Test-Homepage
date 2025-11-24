@@ -2,6 +2,9 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .faq-search-container {
@@ -86,7 +89,12 @@
 .save-faq-btn-main:hover:not(:disabled) {
   background: #16a34a; /* 조금 더 짙은 초록색으로 호버 효과 */
   opacity: 0.95;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.save-faq-btn-main:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .save-faq-btn-main:disabled {
@@ -127,16 +135,17 @@
 
 .faq-actions button,
 .faq-actions .file-input {
-  padding: 0.45rem 0.9rem;
+  padding: 0.6rem 1.1rem;
   border-radius: 10px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   cursor: pointer;
   border: 0;
   transition: all 0.2s ease;
   flex: 0 0 auto;
   text-align: center;
-  width: 120px; /* 두 버튼 동일한 작고 균일한 크기 */
+  min-width: 130px;
+  min-height: 44px;
 }
 
 .add-faq-btn {
@@ -155,12 +164,17 @@
 }
 
 .faq-actions button:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+  opacity: 0.95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.faq-actions button:active {
+  transform: translateY(0);
 }
 
 .edit-mode-btn {
-  padding: 0.6rem 1.2rem;
+  padding: 0.65rem 1.3rem;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
@@ -168,18 +182,26 @@
   background: var(--surface);
   color: var(--text-strong);
   transition: all 0.2s ease;
+  min-height: 44px;
 }
 
 .edit-mode-btn:hover {
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.edit-mode-btn:active {
+  transform: translateY(0);
 }
 
 .edit-mode-btn.active {
   background: var(--primary);
   color: #fff;
   border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .faq-list {
@@ -197,17 +219,24 @@
 }
 
 .faq-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.3);
 }
 
 .faq-question {
-  padding: 1.25rem 1.5rem;
+  padding: 1.35rem 1.6rem;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
   user-select: none;
+  transition: background 0.2s ease;
+}
+
+.faq-question:hover {
+  background: rgba(37, 99, 235, 0.05);
 }
 
 .faq-question-text {
@@ -283,13 +312,14 @@
 }
 
 .faq-item-actions button {
-  padding: 0.4rem 0.8rem;
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   border: 0;
   transition: all 0.2s ease;
+  min-height: 40px;
 }
 
 .faq-edit-btn {
@@ -303,7 +333,13 @@
 }
 
 .faq-item-actions button:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.faq-item-actions button:active {
+  transform: translateY(0);
 }
 
 .faq-form {
@@ -335,12 +371,22 @@
 }
 
 .faq-form-actions button {
-  padding: 0.6rem 1.2rem;
+  padding: 0.65rem 1.3rem;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
   border: 0;
   transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.faq-form-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.faq-form-actions button:active {
+  transform: translateY(0);
 }
 
 .faq-save-btn {

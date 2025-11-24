@@ -581,7 +581,8 @@ function setLodgingGuests(value) {
   const maxGuests = getActiveMaxGuests();
   const limited = maxGuests ? Math.min(parsed, maxGuests) : parsed;
   
-  // 총 리프트 인원보다 작아지지 않도록 제한
+  // 현재 활성화된 날짜의 리프트 인원보다 작아지지 않도록 제한
+  // 다른 날짜의 리프트 인원은 고려하지 않음
   const totalLiftGuests = getTotalLiftGuests();
   const finalValue = Math.max(limited, totalLiftGuests);
   
@@ -599,12 +600,13 @@ function setLodgingGuests(value) {
 
 function handleLodgingGuestsDelta(delta) {
   const currentState = getCurrentLodgingState();
+  // 현재 활성화된 날짜의 리프트 인원만 고려 (다른 날짜의 리프트 인원은 고려하지 않음)
   const totalLiftGuests = getTotalLiftGuests();
   const currentGuests = currentState.guests || 1;
   
-  // 감소 시 총 리프트 인원보다 작아지지 않도록 제한
+  // 감소 시 현재 활성화된 날짜의 리프트 인원보다 작아지지 않도록 제한
   if (delta < 0 && currentGuests + delta < totalLiftGuests) {
-    // 총 리프트 인원보다 작아질 수 없으므로 변경하지 않음
+    // 현재 활성화된 날짜의 리프트 인원보다 작아질 수 없으므로 변경하지 않음
     return;
   }
   
@@ -1028,7 +1030,8 @@ function setLodgingLiftCount(liftId, type, value) {
   // 현재 값 저장
   const currentValue = currentState.liftSelections[activeDay][liftId][type] || 0;
   
-  // 현재 활성화된 날짜의 총 리프트 인원 계산 (현재 변경하려는 값을 제외하고)
+  // 현재 활성화된 날짜의 총 리프트 인원만 계산 (다른 날짜의 리프트 인원은 고려하지 않음)
+  // 현재 변경하려는 값을 제외하고 계산한 후 새 값을 더함
   let totalLiftGuests = 0;
   const activeDaySelections = currentState.liftSelections[activeDay];
   if (activeDaySelections && typeof activeDaySelections === 'object') {
@@ -1041,10 +1044,11 @@ function setLodgingLiftCount(liftId, type, value) {
   // 현재 변경하려는 값을 제외하고 계산한 후 새 값을 더함
   totalLiftGuests = totalLiftGuests - currentValue + value;
   
-  // 총 숙박 인원보다 많아지지 않도록 제한
+  // 총 숙박 인원보다 많아지지 않도록 제한 (현재 활성화된 날짜의 리프트 인원만 고려)
   const totalGuests = Math.max(1, currentState.guests || 1);
   if (totalLiftGuests > totalGuests) {
-    // 최대 허용 가능한 값 계산 (현재 활성화된 날짜의 리프트 인원 기준)
+    // 최대 허용 가능한 값 계산 (현재 활성화된 날짜의 리프트 인원 기준만)
+    // 다른 날짜의 리프트 인원은 전혀 고려하지 않음
     const currentActiveDayTotal = totalLiftGuests - value + currentValue; // 현재 변경 전 총 인원
     const maxAllowedValue = currentValue + (totalGuests - currentActiveDayTotal);
     value = Math.max(0, maxAllowedValue);
@@ -1076,10 +1080,11 @@ function setLodgingLiftCount(liftId, type, value) {
 function updateSkiersFromLiftSelections() {
   const currentState = getCurrentLodgingState();
   let totalSkiers = 0;
-  // 선택한 날짜(첫째날)의 리프트 선택만 합산
-  const firstDaySelections = currentState.liftSelections.first;
-  if (firstDaySelections && typeof firstDaySelections === 'object') {
-    Object.values(firstDaySelections).forEach((selection) => {
+  // 활성화된 날짜의 리프트 선택만 합산 (날짜별로 독립적으로 계산)
+  const activeDay = currentState.activeDay || "first";
+  const activeDaySelections = currentState.liftSelections[activeDay];
+  if (activeDaySelections && typeof activeDaySelections === 'object') {
+    Object.values(activeDaySelections).forEach((selection) => {
       if (selection && typeof selection === 'object') {
         totalSkiers += (selection.adult || 0) + (selection.child || 0);
       }
@@ -1469,10 +1474,25 @@ function getCategoryQuoteInfo(category) {
   let basePrice = 0;
   let periodKey = categoryState.resolvedPeriod || "weekday";
   
+  // 선택한 날짜(첫째날)에 대해서만 요금 계산
   if (selectedDate && activeType?.sharedRates) {
     const { period } = resolvePeriodAndHoliday(selectedDate);
     periodKey = period || "weekday";
-    basePrice = activeType.sharedRates?.[periodKey] ?? 0;
+    
+    // 특수 케이스: 선택한 날짜가 주말/공휴일이고 다음날이 주중이면 숙박은 주중 금액으로 계산
+    let lodgingPeriodKey = periodKey;
+    if (periodKey === "weekend") {
+      const nextDate = getNextDate(selectedDate);
+      if (nextDate) {
+        const nextPeriodInfo = resolvePeriodAndHoliday(nextDate);
+        // 다음날이 주중이면 (주말/공휴일이 아니면) 숙박은 주중 금액 사용
+        if (nextPeriodInfo.period === "weekday") {
+          lodgingPeriodKey = "weekday";
+        }
+      }
+    }
+    
+    basePrice = activeType.sharedRates?.[lodgingPeriodKey] ?? 0;
   } else if (categoryState.date && activeType?.sharedRates) {
     periodKey = categoryState.resolvedPeriod || "weekday";
     basePrice = activeType.sharedRates?.[periodKey] ?? 0;
@@ -1557,10 +1577,18 @@ function getCategoryQuoteInfo(category) {
   const seasonLabel = seasonKey === "peakSeason" ? "성수기" : "비수기";
   const periodLabel = periodKey === "weekend" ? "주말·공휴일" : "주중";
   
+  // 카테고리 이름 매핑
+  const categoryNameMap = {
+    "대분류1": "첫째날",
+    "대분류2": "둘째날",
+    "대분류3": "셋째날"
+  };
+  const displayCategory = categoryNameMap[category] || category;
+  
   currentLodgingCategory = originalCategory;
   
   return {
-    category,
+    category: displayCategory,
     activeType,
     categoryState,
     dateFormatted,
@@ -2242,6 +2270,18 @@ function renderItemGrid(categories) {
         // 선택된 날짜를 첫째날로 설정
         stateForCategory.dates.first = selectedDate;
         stateForCategory.activeDay = "first";
+        
+        // 날짜 변경 시 해당 날짜의 리프트 인원만 고려하도록 리프트 옵션 다시 렌더링
+        // 날짜별로 독립적으로 계산되므로 다른 날짜의 리프트 인원은 고려하지 않음
+        renderLodgingLiftOptions();
+        
+        // 날짜 변경 후 리프트 인원 제한 재확인 (현재 활성화된 날짜의 리프트 인원만 고려)
+        const currentActiveDayLiftGuests = getTotalLiftGuests();
+        const currentGuests = stateForCategory.guests || 1;
+        // 현재 활성화된 날짜의 리프트 인원이 총 숙박 인원보다 많으면 총 숙박 인원 자동 증가
+        if (currentActiveDayLiftGuests > currentGuests) {
+          setLodgingGuests(currentActiveDayLiftGuests);
+        }
         
         // 둘째날, 셋째날 자동 계산
         const firstDate = new Date(`${selectedDate}T00:00:00`);

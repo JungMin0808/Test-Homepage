@@ -230,6 +230,26 @@ body.phone-page .toggle-view-btn {
   border-color: rgba(192, 132, 252, 0.4);
 }
 
+body.phone-page .toggle-view-btn:hover {
+  background: rgba(192, 132, 252, 0.15);
+  border-color: rgba(192, 132, 252, 0.6);
+  color: #c084fc;
+}
+
+body.phone-page .category-btn.active {
+  box-shadow: 0 4px 12px rgba(192, 132, 252, 0.3);
+}
+
+body.phone-page .summary__total {
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.15) 0%, rgba(168, 85, 247, 0.1) 100%);
+  border: 2px solid rgba(192, 132, 252, 0.3);
+  box-shadow: 0 4px 12px rgba(192, 132, 252, 0.1);
+}
+
+body.phone-page .summary__total strong {
+  text-shadow: 0 2px 8px rgba(192, 132, 252, 0.3);
+}
+
 body.phone-page .split-result strong {
   color: #c084fc;
 }
@@ -237,7 +257,7 @@ body.phone-page .split-result strong {
 .season-btn {
   border: 0;
   background: transparent;
-  padding: 0.6rem 1.4rem;
+  padding: 0.65rem 1.5rem;
   font-size: 1rem;
   border-radius: 999px;
   color: var(--text-muted);
@@ -245,11 +265,19 @@ body.phone-page .split-result strong {
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  min-height: 44px;
+}
+
+.season-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-strong);
 }
 
 .season-btn.active {
   background: var(--primary);
   color: #020617;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+  transform: translateY(-1px);
 }
 
 .pos-layout {
@@ -261,11 +289,11 @@ body.phone-page .split-result strong {
 .pos-panel {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 1.75rem;
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .pos-panel.pos-panel--collapsed .category-nav {
@@ -295,10 +323,20 @@ body.phone-page .split-result strong {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--divider);
   border-radius: 12px;
-  padding: 0.55rem 1.1rem;
+  padding: 0.6rem 1.2rem;
   color: var(--text-strong);
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.toggle-view-btn:hover {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: rgba(6, 182, 212, 0.4);
+  color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.15);
 }
 
 .category-nav {
@@ -310,17 +348,26 @@ body.phone-page .split-result strong {
 .category-btn {
   border: 0;
   border-radius: 999px;
-  padding: 0.45rem 1.1rem;
+  padding: 0.55rem 1.3rem;
   font-weight: 600;
   cursor: pointer;
   color: var(--text-muted);
   background: rgba(255, 255, 255, 0.05);
   transition: all 0.2s ease;
+  font-size: 0.95rem;
+  min-height: 40px;
+}
+
+.category-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
 }
 
 .category-btn.active {
   background: var(--primary);
   color: #020617;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+  transform: translateY(-1px);
 }
 
 .group-nav {
@@ -371,11 +418,11 @@ body.phone-page .split-result strong {
 
 .item-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
   max-height: 70vh;
   overflow: auto;
-  padding-right: 0.25rem;
+  padding-right: 0.5rem;
 }
 
 .lodging-panel {
@@ -1043,29 +1090,35 @@ body.phone-page .split-result strong {
 .item-button {
   border: 0;
   border-radius: 16px;
-  padding: 1rem;
+  padding: 1.25rem;
   background: var(--surface-muted);
   color: inherit;
   text-align: left;
   cursor: pointer;
-  min-height: 120px;
+  min-height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: inset 0 0 0 1px transparent;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .item-button:hover,
 .item-button:focus-visible {
-  transform: translateY(-2px);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.3), 0 4px 12px rgba(6, 182, 212, 0.15);
+  background: rgba(6, 182, 212, 0.08);
+}
+
+.item-button:active {
+  transform: translateY(-1px);
 }
 
 .item-button__name {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin: 0 0 0.35rem;
+  margin: 0 0 0.4rem;
+  line-height: 1.4;
 }
 
 .item-button__unit {
@@ -1075,19 +1128,20 @@ body.phone-page .split-result strong {
 }
 
 .item-button__price {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary);
+  margin-top: 0.25rem;
 }
 
 .summary {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 1.5rem;
+  padding: 1.75rem;
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
   max-height: calc(100vh - 3rem);
   position: sticky;
   top: 1.5rem;
@@ -1119,6 +1173,18 @@ body.phone-page .split-result strong {
   color: var(--text-strong);
   background: rgba(255, 255, 255, 0.08);
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.reset-btn:active {
+  transform: translateY(0);
 }
 
 .summary__list {
@@ -1145,6 +1211,14 @@ body.phone-page .split-result strong {
   justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
+  transition: background 0.2s ease;
+}
+
+.summary-item:hover {
+  background: rgba(6, 182, 212, 0.05);
+  margin: 0 -0.5rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
 }
 
 .summary-item__info {
@@ -1161,6 +1235,8 @@ body.phone-page .split-result strong {
 .summary-item__name {
   margin: 0;
   font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 .summary-item__price {
@@ -1188,12 +1264,26 @@ body.phone-page .split-result strong {
 
 .quantity-control button {
   border: 0;
-  background: transparent;
-  color: var(--text-strong);
-  width: 32px;
-  height: 32px;
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--primary);
+  width: 36px;
+  height: 36px;
   font-size: 1.2rem;
   cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-control button:hover {
+  background: rgba(6, 182, 212, 0.2);
+  transform: scale(1.1);
+}
+
+.quantity-control button:active {
+  transform: scale(0.95);
 }
 
 .quantity-control span {
@@ -1206,6 +1296,11 @@ body.phone-page .split-result strong {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(8, 145, 178, 0.1) 100%);
+  border-radius: 16px;
+  border: 2px solid rgba(6, 182, 212, 0.3);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
 }
 
 .summary__notice {
@@ -1215,8 +1310,10 @@ body.phone-page .split-result strong {
 }
 
 .summary__total strong {
-  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  font-size: clamp(1.75rem, 4vw, 2.6rem);
   color: var(--primary);
+  font-weight: 800;
+  text-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
 }
 
 .split-control {
@@ -1251,12 +1348,26 @@ body.phone-page .split-result strong {
 
 .split-input button {
   border: none;
-  background: transparent;
-  color: var(--text-strong);
-  width: 36px;
-  height: 36px;
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--primary);
+  width: 40px;
+  height: 40px;
   font-size: 1.2rem;
   cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.split-input button:hover {
+  background: rgba(6, 182, 212, 0.2);
+  transform: scale(1.1);
+}
+
+.split-input button:active {
+  transform: scale(0.95);
 }
 
 .split-input input {
@@ -1274,9 +1385,11 @@ body.phone-page .split-result strong {
   justify-content: space-between;
   align-items: center;
   margin-top: 0.6rem;
-  padding: 0.8rem 1rem;
+  padding: 1rem 1.25rem;
   border-radius: 12px;
-  background: rgba(6, 182, 212, 0.2);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(8, 145, 178, 0.2) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.15);
 }
 
 .split-result span {
@@ -1285,8 +1398,9 @@ body.phone-page .split-result strong {
 }
 
 .split-result strong {
-  font-size: 1.4rem;
-  color: #0ea5e9;
+  font-size: 1.5rem;
+  color: var(--primary);
+  font-weight: 800;
 }
 
 @media (max-width: 1100px) {
@@ -1357,6 +1471,10 @@ body.phone-page .split-result strong {
     padding: 0.75rem 1rem;
     font-size: 0.95rem;
     min-height: 44px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .season-toggle {
