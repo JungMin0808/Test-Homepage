@@ -1,0 +1,1552 @@
+{
+  "seasonCalendar": [
+    {
+      "label": "겨울 비수기",
+      "start": "2025-12-01",
+      "end": "2025-12-19",
+      "season": "offSeason"
+    },
+    {
+      "label": "겨울 성수기",
+      "start": "2025-12-20",
+      "end": "2026-03-01",
+      "season": "peakSeason"
+    }
+  ],
+  "lodgingPackages": {
+    "types": [
+      {
+        "id": "standard_pension",
+        "name": "프랜드A (온돌)",
+        "group": "프랜드",
+        "baseGuests": 4,
+        "maxGuests": 4,
+        "extraGuestFee": 10000,
+        "bbqPrice": 35000,
+        "description": "리버필드 (강하늘,사랑,풍경)온돌/무제한(19~21시)",
+        "reservationUrl": "https://example.com/reserve/friend-a",
+        "sharedRates": {
+          "weekday": 50000,
+          "weekend": 80000
+        }
+      },
+      {
+        "id": "premium_pension",
+        "name": "프랜드B (온돌)",
+        "group": "프랜드",
+        "baseGuests": 4,
+        "maxGuests": 6,
+        "extraGuestFee": 10000,
+        "bbqPrice": 35000,
+        "description": "힐링로드(로드1-2)온돌/14평/무제한3",
+        "reservationUrl": "https://example.com/reserve/tworoom-b",
+        "sharedRates": {
+          "weekday": 60000,
+          "weekend": 100000
+        }
+      },
+      {
+        "id": "couple_suite",
+        "name": "프랜드C (온돌)",
+        "group": "커플",
+        "baseGuests": 2,
+        "maxGuests": 4,
+        "extraGuestFee": 15000,
+        "bbqPrice": 0,
+        "description": "커플 전용 스파 객실, 2인 기준",
+        "reservationUrl": "https://example.com/reserve/couple-suite",
+        "sharedRates": {
+          "weekday": 70000,
+          "weekend": 110000
+        }
+      },
+      {
+        "id": "lodging_1763222136161",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        },
+        "group": "투룸"
+      },
+      {
+        "id": "lodging_1763222136329",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222136477",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222136651",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222136815",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222136981",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222137146",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222137313",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222137533",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222137637",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222137833",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222138266",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222138451",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222138621",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222138797",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222150564",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      },
+      {
+        "id": "lodging_1763222150730",
+        "name": "새 펜션 타입",
+        "baseGuests": 4,
+        "extraGuestFee": 0,
+        "sharedRates": {
+          "weekday": 0,
+          "weekend": 0
+        }
+      }
+    ]
+  },
+  "offSeason": {
+    "label": "비수기",
+    "categories": [
+      {
+        "name": "리프트 + 렌탈권",
+        "groups": [
+          {
+            "name": "대인",
+            "items": [
+              {
+                "id": "liftRental_weekday_adult_2h",
+                "name": "2시간",
+                "price": 41000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_3h",
+                "name": "3시간",
+                "price": 35000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_4h",
+                "name": "4시간",
+                "price": 46000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_5h",
+                "name": "5시간",
+                "price": 48500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_6h",
+                "name": "6시간",
+                "price": 51000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_7h",
+                "name": "7시간",
+                "price": 53500,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "학생",
+            "items": [
+              {
+                "id": "liftRental_weekday_student_2h",
+                "name": "2시간",
+                "price": 40000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_3h",
+                "name": "3시간",
+                "price": 42500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_4h",
+                "name": "4시간",
+                "price": 45000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_5h",
+                "name": "5시간",
+                "price": 47500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_6h",
+                "name": "6시간",
+                "price": 50000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_7h",
+                "name": "7시간",
+                "price": 52500,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "소인",
+            "items": [
+              {
+                "id": "liftRental_weekday_child_2h",
+                "name": "2시간",
+                "price": 31000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_3h",
+                "name": "3시간",
+                "price": 33500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_4h",
+                "name": "4시간",
+                "price": 36000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_5h",
+                "name": "5시간",
+                "price": 38500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_6h",
+                "name": "6시간",
+                "price": 41000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_7h",
+                "name": "7시간",
+                "price": 43500,
+                "unit": "매"
+              }
+            ]
+          }
+        ],
+        "weekendGroups": [
+          {
+            "name": "대인",
+            "items": [
+              {
+                "id": "liftRental_weekend_adult_2h",
+                "name": "2시간",
+                "price": 48000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_3h",
+                "name": "3시간",
+                "price": 50500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_4h",
+                "name": "4시간",
+                "price": 53000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_5h",
+                "name": "5시간",
+                "price": 55500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_6h",
+                "name": "6시간",
+                "price": 58000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_7h",
+                "name": "7시간",
+                "price": 60500,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "학생",
+            "items": [
+              {
+                "id": "liftRental_weekend_student_2h",
+                "name": "2시간",
+                "price": 47000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_3h",
+                "name": "3시간",
+                "price": 49500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_4h",
+                "name": "4시간",
+                "price": 52000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_5h",
+                "name": "5시간",
+                "price": 54500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_6h",
+                "name": "6시간",
+                "price": 57000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_7h",
+                "name": "7시간",
+                "price": 59500,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "소인",
+            "items": [
+              {
+                "id": "liftRental_weekend_child_2h",
+                "name": "2시간",
+                "price": 38000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_3h",
+                "name": "3시간",
+                "price": 40500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_4h",
+                "name": "4시간",
+                "price": 43000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_5h",
+                "name": "5시간",
+                "price": 45500,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_6h",
+                "name": "6시간",
+                "price": 48000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_7h",
+                "name": "7시간",
+                "price": 50500,
+                "unit": "매"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "장비 · 보호장비 렌탈",
+        "items": [
+          {
+            "id": "skiRental",
+            "name": "스키 렌탈",
+            "price": 10000,
+            "unit": "세트"
+          },
+          {
+            "id": "boardRental",
+            "name": "보드 렌탈",
+            "price": 10000,
+            "unit": "세트"
+          },
+          {
+            "id": "basicWearRental",
+            "name": "일반 의류 렌탈",
+            "price": 10000,
+            "unit": "세트"
+          },
+          {
+            "id": "premiumWearRental",
+            "name": "고급 프리미엄 의류 렌탈",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "helmetRental",
+            "name": "헬멧 렌탈",
+            "price": 5000,
+            "unit": "개"
+          },
+          {
+            "id": "visorHelmetRental",
+            "name": "바이저 헬멧 렌탈",
+            "price": 10000,
+            "unit": "개"
+          },
+          {
+            "id": "turtleGuardRental",
+            "name": "거북이 보호대 렌탈",
+            "price": 15000,
+            "unit": "세트"
+          },
+          {
+            "id": "shortSkiRental",
+            "name": "숏스키 렌탈",
+            "price": 20000,
+            "unit": "세트"
+          },
+          {
+            "id": "inlineSkiRental",
+            "name": "인라인 스키 렌탈",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "hammerDeckRental",
+            "name": "헤머 데크 렌탈",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132736",
+            "name": "숏스키 변경",
+            "unit": "개",
+            "price": 10000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132559",
+            "name": "인라인 변경",
+            "unit": "개",
+            "price": 20000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132370",
+            "name": "헤머 데크 변경",
+            "unit": "개",
+            "price": 20000
+          }
+        ]
+      },
+      {
+        "name": "구매 · 액세서리",
+        "items": [
+          {
+            "id": "adultGlovesPurchase",
+            "name": "성인 장갑 구매",
+            "price": 22000,
+            "unit": "켤레"
+          },
+          {
+            "id": "kidGlovesPurchase",
+            "name": "어린이 장갑 구매",
+            "price": 18000,
+            "unit": "켤레"
+          },
+          {
+            "id": "balaclavaPurchase",
+            "name": "바라클라바 구매",
+            "price": 12000,
+            "unit": "개"
+          },
+          {
+            "id": "socksPurchase",
+            "name": "양말 구매",
+            "price": 10000,
+            "unit": "켤레"
+          },
+          {
+            "id": "warmerPurchase",
+            "name": "워머 구매",
+            "price": 10000,
+            "unit": "개"
+          },
+          {
+            "id": "leggingsPurchase",
+            "name": "레깅스 구매",
+            "price": 15000,
+            "unit": "벌"
+          }
+        ]
+      },
+      {
+        "name": "리프트권",
+        "items": [
+          {
+            "id": "lift_weekday_2h",
+            "name": "2시간",
+            "price": 37000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_3h",
+            "name": "3시간",
+            "price": 40000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_4h",
+            "name": "4시간",
+            "price": 43000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_5h",
+            "name": "5시간",
+            "price": 46000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_6h",
+            "name": "6시간",
+            "price": 49000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_7h",
+            "name": "7시간",
+            "price": 52000,
+            "unit": "매"
+          }
+        ],
+        "weekendItems": [
+          {
+            "id": "lift_weekend_2h",
+            "name": "2시간",
+            "price": 45000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_3h",
+            "name": "3시간",
+            "price": 48000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_4h",
+            "name": "4시간",
+            "price": 51000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_5h",
+            "name": "5시간",
+            "price": 54000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_6h",
+            "name": "6시간",
+            "price": 57000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_7h",
+            "name": "7시간",
+            "price": 60000,
+            "unit": "매"
+          }
+        ]
+      },
+      {
+        "name": "강습",
+        "equipmentFees": {
+          "2시간": 0,
+          "3시간": 0,
+          "4시간": 0
+        },
+        "groups": [
+          {
+            "name": "1:1",
+            "items": [
+              {
+                "id": "lesson_weekday_1to1_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to1_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to1_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:2",
+            "items": [
+              {
+                "id": "lesson_weekday_1to2_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to2_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to2_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:3",
+            "items": [
+              {
+                "id": "lesson_weekday_1to3_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to3_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to3_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          }
+        ],
+        "weekendGroups": [
+          {
+            "name": "1:1",
+            "items": [
+              {
+                "id": "lesson_weekend_1to1_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to1_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to1_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:2",
+            "items": [
+              {
+                "id": "lesson_weekend_1to2_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to2_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to2_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:3",
+            "items": [
+              {
+                "id": "lesson_weekend_1to3_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to3_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to3_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "숙박 패키지",
+        "items": []
+      }
+    ]
+  },
+  "peakSeason": {
+    "label": "성수기",
+    "categories": [
+      {
+        "name": "리프트 + 렌탈권",
+        "groups": [
+          {
+            "name": "대인",
+            "items": [
+              {
+                "id": "liftRental_weekday_adult_2h",
+                "name": "2시간",
+                "price": 47000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_3h",
+                "name": "3시간",
+                "price": 50000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_4h",
+                "name": "4시간",
+                "price": 53000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_5h",
+                "name": "5시간",
+                "price": 56000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_6h",
+                "name": "6시간",
+                "price": 59000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_adult_7h",
+                "name": "7시간",
+                "price": 65000,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "학생",
+            "items": [
+              {
+                "id": "liftRental_weekday_student_2h",
+                "name": "2시간",
+                "price": 46000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_3h",
+                "name": "3시간",
+                "price": 49000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_4h",
+                "name": "4시간",
+                "price": 52000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_5h",
+                "name": "5시간",
+                "price": 55000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_6h",
+                "name": "6시간",
+                "price": 58000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_student_7h",
+                "name": "7시간",
+                "price": 64000,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "소인",
+            "items": [
+              {
+                "id": "liftRental_weekday_child_2h",
+                "name": "2시간",
+                "price": 35000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_3h",
+                "name": "3시간",
+                "price": 38000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_4h",
+                "name": "4시간",
+                "price": 41000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_5h",
+                "name": "5시간",
+                "price": 44000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_6h",
+                "name": "6시간",
+                "price": 47000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekday_child_7h",
+                "name": "7시간",
+                "price": 53000,
+                "unit": "매"
+              }
+            ]
+          }
+        ],
+        "weekendGroups": [
+          {
+            "name": "대인",
+            "items": [
+              {
+                "id": "liftRental_weekend_adult_2h",
+                "name": "2시간",
+                "price": 55000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_3h",
+                "name": "3시간",
+                "price": 58000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_4h",
+                "name": "4시간",
+                "price": 61000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_5h",
+                "name": "5시간",
+                "price": 64000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_6h",
+                "name": "6시간",
+                "price": 67000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_adult_7h",
+                "name": "7시간",
+                "price": 70000,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "학생",
+            "items": [
+              {
+                "id": "liftRental_weekend_student_2h",
+                "name": "2시간",
+                "price": 54000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_3h",
+                "name": "3시간",
+                "price": 57000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_4h",
+                "name": "4시간",
+                "price": 60000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_5h",
+                "name": "5시간",
+                "price": 63000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_6h",
+                "name": "6시간",
+                "price": 66000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_student_7h",
+                "name": "7시간",
+                "price": 69000,
+                "unit": "매"
+              }
+            ]
+          },
+          {
+            "name": "소인",
+            "items": [
+              {
+                "id": "liftRental_weekend_child_2h",
+                "name": "2시간",
+                "price": 43000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_3h",
+                "name": "3시간",
+                "price": 46000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_4h",
+                "name": "4시간",
+                "price": 49000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_5h",
+                "name": "5시간",
+                "price": 52000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_6h",
+                "name": "6시간",
+                "price": 55000,
+                "unit": "매"
+              },
+              {
+                "id": "liftRental_weekend_child_7h",
+                "name": "7시간",
+                "price": 58000,
+                "unit": "매"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "장비 · 보호장비 렌탈",
+        "items": [
+          {
+            "id": "skiRental",
+            "name": "스키 렌탈",
+            "price": 10000,
+            "unit": "세트"
+          },
+          {
+            "id": "boardRental",
+            "name": "보드 렌탈",
+            "price": 10000,
+            "unit": "세트"
+          },
+          {
+            "id": "basicWearRental",
+            "name": "일반 의류 렌탈",
+            "price": 10000,
+            "unit": "세트"
+          },
+          {
+            "id": "premiumWearRental",
+            "name": "고급 프리미엄 의류 렌탈",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "helmetRental",
+            "name": "헬멧 렌탈",
+            "price": 5000,
+            "unit": "개"
+          },
+          {
+            "id": "visorHelmetRental",
+            "name": "바이저 헬멧 렌탈",
+            "price": 15000,
+            "unit": "개"
+          },
+          {
+            "id": "turtleGuardRental",
+            "name": "거북이 보호대 렌탈",
+            "price": 10000,
+            "unit": "세트"
+          },
+          {
+            "id": "shortSkiRental",
+            "name": "숏스키 렌탈",
+            "price": 20000,
+            "unit": "세트"
+          },
+          {
+            "id": "inlineSkiRental",
+            "name": "인라인 스키 렌탈",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "hammerDeckRental",
+            "name": "헤머 데크 렌탈",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763192700807",
+            "name": "숏스키 변경 ",
+            "unit": "개",
+            "price": 10000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763192700524",
+            "name": "인라인 스키 변경",
+            "unit": "개",
+            "price": 20000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763192699070",
+            "name": "헤머 데크 변경",
+            "unit": "개",
+            "price": 20000
+          }
+        ]
+      },
+      {
+        "name": "구매 · 액세서리",
+        "items": [
+          {
+            "id": "adultGlovesPurchase",
+            "name": "성인 장갑 구매",
+            "price": 25000,
+            "unit": "켤레"
+          },
+          {
+            "id": "kidGlovesPurchase",
+            "name": "어린이 장갑 구매",
+            "price": 20000,
+            "unit": "켤레"
+          },
+          {
+            "id": "balaclavaPurchase",
+            "name": "바라클라바 구매",
+            "price": 14000,
+            "unit": "개"
+          },
+          {
+            "id": "socksPurchase",
+            "name": "양말 구매",
+            "price": 9000,
+            "unit": "켤레"
+          },
+          {
+            "id": "warmerPurchase",
+            "name": "워머 구매",
+            "price": 12000,
+            "unit": "개"
+          },
+          {
+            "id": "leggingsPurchase",
+            "name": "레깅스 구매",
+            "price": 17000,
+            "unit": "벌"
+          }
+        ]
+      },
+      {
+        "name": "리프트권",
+        "items": [
+          {
+            "id": "lift_weekday_2h",
+            "name": "2시간",
+            "price": 59000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_3h",
+            "name": "3시간",
+            "price": 69000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_4h",
+            "name": "4시간",
+            "price": 79000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_5h",
+            "name": "5시간",
+            "price": 89000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_6h",
+            "name": "6시간",
+            "price": 99000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekday_7h",
+            "name": "7시간",
+            "price": 109000,
+            "unit": "매"
+          }
+        ],
+        "weekendItems": [
+          {
+            "id": "lift_weekend_2h",
+            "name": "2시간",
+            "price": 61000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_3h",
+            "name": "3시간",
+            "price": 71000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_4h",
+            "name": "4시간",
+            "price": 81000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_5h",
+            "name": "5시간",
+            "price": 91000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_6h",
+            "name": "6시간",
+            "price": 101000,
+            "unit": "매"
+          },
+          {
+            "id": "lift_weekend_7h",
+            "name": "7시간",
+            "price": 111000,
+            "unit": "매"
+          }
+        ]
+      },
+      {
+        "name": "강습",
+        "equipmentFees": {
+          "2시간": 0,
+          "3시간": 0,
+          "4시간": 0
+        },
+        "groups": [
+          {
+            "name": "1:1",
+            "items": [
+              {
+                "id": "lesson_weekday_1to1_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to1_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to1_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:2",
+            "items": [
+              {
+                "id": "lesson_weekday_1to2_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to2_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to2_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:3",
+            "items": [
+              {
+                "id": "lesson_weekday_1to3_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to3_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekday_1to3_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          }
+        ],
+        "weekendGroups": [
+          {
+            "name": "1:1",
+            "items": [
+              {
+                "id": "lesson_weekend_1to1_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to1_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to1_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:2",
+            "items": [
+              {
+                "id": "lesson_weekend_1to2_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to2_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to2_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          },
+          {
+            "name": "1:3",
+            "items": [
+              {
+                "id": "lesson_weekend_1to3_2h",
+                "name": "2시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to3_3h",
+                "name": "3시간",
+                "price": 0,
+                "unit": "회"
+              },
+              {
+                "id": "lesson_weekend_1to3_4h",
+                "name": "4시간",
+                "price": 0,
+                "unit": "회"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "숙박 패키지",
+        "items": []
+      }
+    ]
+  },
+  "holidays": [
+    {
+      "date": "2025-12-25",
+      "label": "크리스마스"
+    },
+    {
+      "date": "2026-01-01",
+      "label": "신정"
+    },
+    {
+      "date": "2026-02-17",
+      "label": "설날"
+    },
+    {
+      "date": "2026-02-18",
+      "label": "설날 연휴"
+    },
+    {
+      "date": "2026-02-16",
+      "label": "설날 연휴"
+    },
+    {
+      "date": "2026-03-01",
+      "label": "삼일절"
+    },
+    {
+      "date": "2026-05-05",
+      "label": "어린이날"
+    },
+    {
+      "date": "2026-05-24",
+      "label": "부처님오신날"
+    },
+    {
+      "date": "2026-06-06",
+      "label": "현충일"
+    },
+    {
+      "date": "2026-08-15",
+      "label": "광복절"
+    },
+    {
+      "date": "2026-09-25",
+      "label": "추석"
+    },
+    {
+      "date": "2026-09-26",
+      "label": "추석 연휴"
+    },
+    {
+      "date": "2026-10-03",
+      "label": "개천절"
+    },
+    {
+      "date": "2026-10-09",
+      "label": "한글날"
+    },
+    {
+      "date": "2026-12-25",
+      "label": "크리스마스"
+    },
+    {
+      "date": "2026-03-02",
+      "label": "대체 공휴일"
+    },
+    {
+      "date": "2026-05-25",
+      "label": "대체 공휴일"
+    },
+    {
+      "date": "2026-06-03",
+      "label": "지방선거"
+    },
+    {
+      "date": "2026-08-17",
+      "label": "대체 공휴일"
+    },
+    {
+      "date": "2026-09-24",
+      "label": "추석 연휴"
+    },
+    {
+      "date": "2026-10-05",
+      "label": "대체 공휴일"
+    }
+  ]
+}

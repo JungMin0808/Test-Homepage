@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>월드스키 전화 상담 계산기</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="phone-page">
+    <main class="app">
+      <header class="app__header">
+        <div class="header-main">
+          <p class="app__brand">월드스키 카운터 <span class="app__time" id="time-label"></span></p>
+          <h1>전화 상담 실시간 요금 계산기</h1>
+          <p class="app__subtitle">
+            태블릿 카운터에서 빠르게 입력할 수 있는 버튼형 계산기입니다.
+          </p>
+          <p class="app__date" id="date-label"></p>
+          <div class="period-info">
+            <span class="period-pill period-pill--current" id="current-period-pill">날짜를 선택하세요</span>
+            <span class="period-pill period-pill--legend">주중/주말은 날짜 선택으로 판단합니다.</span>
+          </div>
+          <div class="manual-date-control">
+            <label for="manual-date">상담 날짜</label>
+            <input type="date" id="manual-date" />
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="header-actions">
+            <div class="link-btn-group">
+              <a class="link-btn" href="pricing.html" aria-label="요금표 관리 페이지로 이동">요금표 관리</a>
+              <a class="link-btn" href="index.html" aria-label="전화 상담 전용 계산기로 이동">현장 상담</a>
+              <a class="link-btn" href="faq.html" aria-label="자주하는 질문 페이지로 이동">자주하는 질문</a>
+            </div>
+            <div class="season-toggle" role="group" aria-label="성수기 / 비수기 선택">
+              <button class="season-btn active" data-season="offSeason">비수기</button>
+              <button class="season-btn" data-season="peakSeason">성수기</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="pos-layout">
+        <section class="pos-panel">
+          <div class="pos-panel__top">
+            <div>
+              <p class="pos-panel__hint">버튼을 누를 때마다 1개씩 추가됩니다.</p>
+              <p class="pos-panel__hint">길게 누르지 않아도 연속 입력이 가능합니다.</p>
+            </div>
+            <button id="toggle-view-btn" class="toggle-view-btn" type="button">
+              카테고리 접기
+            </button>
+          </div>
+          <nav class="category-nav" id="category-nav" aria-label="상품 카테고리"></nav>
+          <div id="group-nav" class="group-nav" aria-label="하위 카테고리" hidden></div>
+          <div id="item-grid" class="item-grid" aria-live="polite"></div>
+          <div id="lodging-panel" class="lodging-panel" aria-hidden="true">
+            <div class="lodging-category-buttons" id="lodging-category-buttons">
+              <button type="button" class="lodging-category-btn" data-category="대분류1">대분류1</button>
+              <button type="button" class="lodging-category-btn" data-category="대분류2">대분류2</button>
+              <button type="button" class="lodging-category-btn" data-category="대분류3">대분류3</button>
+            </div>
+            
+            <!-- 대분류1 섹션 -->
+            <div class="lodging-category-content" data-category="대분류1" id="lodging-content-대분류1">
+              <div class="lodging-groups">
+                <div class="lodging-group lodging-group--schedule">
+                  <div class="lodging-field">
+                    <label for="lodging-date-select-대분류1">이용 날짜 선택</label>
+                    <input type="date" id="lodging-date-select-대분류1" class="lodging-date-select" data-category="대분류1" />
+                    <p class="lodging-note">상담 날짜와 별도로 날짜를 지정할 수 있습니다.</p>
+                  </div>
+                  <div class="lodging-field lodging-field--badges">
+                    <p class="lodging-note">선택된 날짜 정보</p>
+                    <div class="lodging-badges" data-category="대분류1"></div>
+                  </div>
+                  <div class="lodging-field">
+                    <label>시즌</label>
+                    <label class="lodging-auto">
+                      <input type="checkbox" class="lodging-season-auto" data-category="대분류1" checked />
+                      날짜 기준 자동 판정
+                    </label>
+                    <div class="lodging-season-toggle">
+                      <button type="button" data-lodging-season="offSeason" data-category="대분류1">비수기</button>
+                      <button type="button" data-lodging-season="peakSeason" data-category="대분류1">성수기</button>
+                    </div>
+                  </div>
+                  <div class="lodging-field">
+                    <label>리프트 + 렌탈권</label>
+                    <div class="lodging-lift-selections" data-category="대분류1"></div>
+                    <p class="lodging-note">각 시간권별로 대인/소인 인원을 설정하세요.</p>
+                  </div>
+                </div>
+
+                <div class="lodging-group lodging-group--options">
+                  <div class="lodging-field">
+                    <label>펜션 카테고리</label>
+                    <div class="lodging-type-groups" data-category="대분류1"></div>
+                  </div>
+                  <div class="lodging-field">
+                    <label for="lodging-type-대분류1">펜션 타입</label>
+                    <select id="lodging-type-대분류1" data-category="대분류1"></select>
+                  </div>
+                  <div class="lodging-field">
+                    <label>총 숙박 인원</label>
+                    <div class="lodging-number">
+                      <button type="button" class="lodging-guests-dec" data-category="대분류1" aria-label="인원 감소">-</button>
+                      <input type="number" class="lodging-guests" data-category="대분류1" min="1" value="4" aria-label="인원 입력" />
+                      <button type="button" class="lodging-guests-inc" data-category="대분류1" aria-label="인원 증가">+</button>
+                    </div>
+                    <p class="lodging-note lodging-guest-limit-note" data-category="대분류1">기준 인원 초과 시 추가 요금이 적용됩니다.</p>
+                  </div>
+                  <div class="lodging-field lodging-bbq-field" data-category="대분류1" hidden>
+                    <label class="lodging-bbq-label" data-category="대분류1">무제한 바베큐 인원</label>
+                    <div class="lodging-number">
+                      <button type="button" class="bbq-guests-dec" data-category="대분류1" aria-label="바베큐 인원 감소">-</button>
+                      <input type="number" class="bbq-guests" data-category="대분류1" min="0" value="0" aria-label="바베큐 인원 입력" />
+                      <button type="button" class="bbq-guests-inc" data-category="대분류1" aria-label="바베큐 인원 증가">+</button>
+                    </div>
+                    <p class="lodging-note lodging-bbq-note" data-category="대분류1">바베큐 인원 수 × 35,000원이 추가됩니다.</p>
+                  </div>
+                  <div class="lodging-type-info">
+                    <p class="lodging-type-info__text is-placeholder lodging-type-detail" data-category="대분류1">
+                      펜션 타입을 선택하면 상세 설명이 표시됩니다.
+                    </p>
+                  </div>
+                  <div class="lodging-field lodging-field--reservation">
+                    <a
+                      class="lodging-reservation-btn"
+                      data-category="대분류1"
+                      href="#"
+                      target="_blank"
+                      rel="noopener"
+                      hidden
+                      >실시간 예약현황</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="lodging-lift-summary">
+                <span>리프트·렌탈 추가 금액</span>
+                <strong class="lodging-lift-total" data-category="대분류1">₩0</strong>
+              </div>
+              <div class="lodging-bbq-summary">
+                <span>무제한 바베큐 추가 금액</span>
+                <strong class="lodging-bbq-total" data-category="대분류1">₩0</strong>
+              </div>
+              <div class="lodging-result lodging-summary" data-category="대분류1">
+                <div>
+                  <p class="lodging-result__label">총 패키지 금액</p>
+                  <strong class="lodging-total" data-category="대분류1">₩0</strong>
+                </div>
+                <div class="lodging-per-person-list" data-category="대분류1">
+                  <!-- 리프트권별 인당 금액이 여기에 동적으로 표시됩니다 -->
+                </div>
+                <div class="lodging-result__meta" data-category="대분류1"></div>
+              </div>
+            </div>
+            
+            <!-- 대분류2 섹션 -->
+            <div class="lodging-category-content" data-category="대분류2" id="lodging-content-대분류2" hidden>
+              <div class="lodging-groups">
+                <div class="lodging-group lodging-group--schedule">
+                  <div class="lodging-field">
+                    <label for="lodging-date-select-대분류2">이용 날짜 선택</label>
+                    <input type="date" id="lodging-date-select-대분류2" class="lodging-date-select" data-category="대분류2" />
+                    <p class="lodging-note">상담 날짜와 별도로 날짜를 지정할 수 있습니다.</p>
+                  </div>
+                  <div class="lodging-field lodging-field--badges">
+                    <p class="lodging-note">선택된 날짜 정보</p>
+                    <div class="lodging-badges" data-category="대분류2"></div>
+                  </div>
+                  <div class="lodging-field">
+                    <label>시즌</label>
+                    <label class="lodging-auto">
+                      <input type="checkbox" class="lodging-season-auto" data-category="대분류2" checked />
+                      날짜 기준 자동 판정
+                    </label>
+                    <div class="lodging-season-toggle">
+                      <button type="button" data-lodging-season="offSeason" data-category="대분류2">비수기</button>
+                      <button type="button" data-lodging-season="peakSeason" data-category="대분류2">성수기</button>
+                    </div>
+                  </div>
+                  <div class="lodging-field">
+                    <label>리프트 + 렌탈권</label>
+                    <div class="lodging-lift-selections" data-category="대분류2"></div>
+                    <p class="lodging-note">각 시간권별로 대인/소인 인원을 설정하세요.</p>
+                  </div>
+                </div>
+
+                <div class="lodging-group lodging-group--options">
+                  <div class="lodging-field">
+                    <label>펜션 카테고리</label>
+                    <div class="lodging-type-groups" data-category="대분류2"></div>
+                  </div>
+                  <div class="lodging-field">
+                    <label for="lodging-type-대분류2">펜션 타입</label>
+                    <select id="lodging-type-대분류2" data-category="대분류2"></select>
+                  </div>
+                  <div class="lodging-field">
+                    <label>총 숙박 인원</label>
+                    <div class="lodging-number">
+                      <button type="button" class="lodging-guests-dec" data-category="대분류2" aria-label="인원 감소">-</button>
+                      <input type="number" class="lodging-guests" data-category="대분류2" min="1" value="4" aria-label="인원 입력" />
+                      <button type="button" class="lodging-guests-inc" data-category="대분류2" aria-label="인원 증가">+</button>
+                    </div>
+                    <p class="lodging-note lodging-guest-limit-note" data-category="대분류2">기준 인원 초과 시 추가 요금이 적용됩니다.</p>
+                  </div>
+                  <div class="lodging-field lodging-bbq-field" data-category="대분류2" hidden>
+                    <label class="lodging-bbq-label" data-category="대분류2">무제한 바베큐 인원</label>
+                    <div class="lodging-number">
+                      <button type="button" class="bbq-guests-dec" data-category="대분류2" aria-label="바베큐 인원 감소">-</button>
+                      <input type="number" class="bbq-guests" data-category="대분류2" min="0" value="0" aria-label="바베큐 인원 입력" />
+                      <button type="button" class="bbq-guests-inc" data-category="대분류2" aria-label="바베큐 인원 증가">+</button>
+                    </div>
+                    <p class="lodging-note lodging-bbq-note" data-category="대분류2">바베큐 인원 수 × 35,000원이 추가됩니다.</p>
+                  </div>
+                  <div class="lodging-type-info">
+                    <p class="lodging-type-info__text is-placeholder lodging-type-detail" data-category="대분류2">
+                      펜션 타입을 선택하면 상세 설명이 표시됩니다.
+                    </p>
+                  </div>
+                  <div class="lodging-field lodging-field--reservation">
+                    <a
+                      class="lodging-reservation-btn"
+                      data-category="대분류2"
+                      href="#"
+                      target="_blank"
+                      rel="noopener"
+                      hidden
+                      >실시간 예약현황</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="lodging-lift-summary">
+                <span>리프트·렌탈 추가 금액</span>
+                <strong class="lodging-lift-total" data-category="대분류2">₩0</strong>
+              </div>
+              <div class="lodging-bbq-summary">
+                <span>무제한 바베큐 추가 금액</span>
+                <strong class="lodging-bbq-total" data-category="대분류2">₩0</strong>
+              </div>
+              <div class="lodging-result lodging-summary" data-category="대분류2">
+                <div>
+                  <p class="lodging-result__label">총 패키지 금액</p>
+                  <strong class="lodging-total" data-category="대분류2">₩0</strong>
+                </div>
+                <div class="lodging-per-person-list" data-category="대분류2">
+                  <!-- 리프트권별 인당 금액이 여기에 동적으로 표시됩니다 -->
+                </div>
+                <div class="lodging-result__meta" data-category="대분류2"></div>
+              </div>
+            </div>
+            
+            <!-- 대분류3 섹션 -->
+            <div class="lodging-category-content" data-category="대분류3" id="lodging-content-대분류3" hidden>
+              <div class="lodging-groups">
+                <div class="lodging-group lodging-group--schedule">
+                  <div class="lodging-field">
+                    <label for="lodging-date-select-대분류3">이용 날짜 선택</label>
+                    <input type="date" id="lodging-date-select-대분류3" class="lodging-date-select" data-category="대분류3" />
+                    <p class="lodging-note">상담 날짜와 별도로 날짜를 지정할 수 있습니다.</p>
+                  </div>
+                  <div class="lodging-field lodging-field--badges">
+                    <p class="lodging-note">선택된 날짜 정보</p>
+                    <div class="lodging-badges" data-category="대분류3"></div>
+                  </div>
+                  <div class="lodging-field">
+                    <label>시즌</label>
+                    <label class="lodging-auto">
+                      <input type="checkbox" class="lodging-season-auto" data-category="대분류3" checked />
+                      날짜 기준 자동 판정
+                    </label>
+                    <div class="lodging-season-toggle">
+                      <button type="button" data-lodging-season="offSeason" data-category="대분류3">비수기</button>
+                      <button type="button" data-lodging-season="peakSeason" data-category="대분류3">성수기</button>
+                    </div>
+                  </div>
+                  <div class="lodging-field">
+                    <label>리프트 + 렌탈권</label>
+                    <div class="lodging-lift-selections" data-category="대분류3"></div>
+                    <p class="lodging-note">각 시간권별로 대인/소인 인원을 설정하세요.</p>
+                  </div>
+                </div>
+
+                <div class="lodging-group lodging-group--options">
+                  <div class="lodging-field">
+                    <label>펜션 카테고리</label>
+                    <div class="lodging-type-groups" data-category="대분류3"></div>
+                  </div>
+                  <div class="lodging-field">
+                    <label for="lodging-type-대분류3">펜션 타입</label>
+                    <select id="lodging-type-대분류3" data-category="대분류3"></select>
+                  </div>
+                  <div class="lodging-field">
+                    <label>총 숙박 인원</label>
+                    <div class="lodging-number">
+                      <button type="button" class="lodging-guests-dec" data-category="대분류3" aria-label="인원 감소">-</button>
+                      <input type="number" class="lodging-guests" data-category="대분류3" min="1" value="4" aria-label="인원 입력" />
+                      <button type="button" class="lodging-guests-inc" data-category="대분류3" aria-label="인원 증가">+</button>
+                    </div>
+                    <p class="lodging-note lodging-guest-limit-note" data-category="대분류3">기준 인원 초과 시 추가 요금이 적용됩니다.</p>
+                  </div>
+                  <div class="lodging-field lodging-bbq-field" data-category="대분류3" hidden>
+                    <label class="lodging-bbq-label" data-category="대분류3">무제한 바베큐 인원</label>
+                    <div class="lodging-number">
+                      <button type="button" class="bbq-guests-dec" data-category="대분류3" aria-label="바베큐 인원 감소">-</button>
+                      <input type="number" class="bbq-guests" data-category="대분류3" min="0" value="0" aria-label="바베큐 인원 입력" />
+                      <button type="button" class="bbq-guests-inc" data-category="대분류3" aria-label="바베큐 인원 증가">+</button>
+                    </div>
+                    <p class="lodging-note lodging-bbq-note" data-category="대분류3">바베큐 인원 수 × 35,000원이 추가됩니다.</p>
+                  </div>
+                  <div class="lodging-type-info">
+                    <p class="lodging-type-info__text is-placeholder lodging-type-detail" data-category="대분류3">
+                      펜션 타입을 선택하면 상세 설명이 표시됩니다.
+                    </p>
+                  </div>
+                  <div class="lodging-field lodging-field--reservation">
+                    <a
+                      class="lodging-reservation-btn"
+                      data-category="대분류3"
+                      href="#"
+                      target="_blank"
+                      rel="noopener"
+                      hidden
+                      >실시간 예약현황</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="lodging-lift-summary">
+                <span>리프트·렌탈 추가 금액</span>
+                <strong class="lodging-lift-total" data-category="대분류3">₩0</strong>
+              </div>
+              <div class="lodging-bbq-summary">
+                <span>무제한 바베큐 추가 금액</span>
+                <strong class="lodging-bbq-total" data-category="대분류3">₩0</strong>
+              </div>
+              <div class="lodging-result lodging-summary" data-category="대분류3">
+                <div>
+                  <p class="lodging-result__label">총 패키지 금액</p>
+                  <strong class="lodging-total" data-category="대분류3">₩0</strong>
+                </div>
+                <div class="lodging-per-person-list" data-category="대분류3">
+                  <!-- 리프트권별 인당 금액이 여기에 동적으로 표시됩니다 -->
+                </div>
+                <div class="lodging-result__meta" data-category="대분류3"></div>
+              </div>
+            </div>
+            <div class="lodging-quote-action">
+              <button id="generate-quote-btn" class="quote-btn" type="button">
+                📋 견적서 이미지 복사
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="summary" aria-live="polite">
+          <div class="summary__header">
+            <div>
+              <h2>선택 항목</h2>
+              <p class="summary__season-label" id="season-label">현재: 비수기</p>
+            </div>
+            <button id="reset-btn" class="reset-btn" type="button">초기화</button>
+          </div>
+          <ul id="selection-list" class="summary__list"></ul>
+          <div class="summary__total">
+            <div>
+              <span>총 합계</span>
+            </div>
+            <strong id="grand-total">₩0</strong>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="pricing.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+

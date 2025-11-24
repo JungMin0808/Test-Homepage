@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>월드스키 카운터 계산기</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <div class="header-main">
+          <p class="app__brand">월드스키 카운터 <span class="app__time" id="time-label"></span></p>
+          <h1>현장 상담 실시간 요금 계산기</h1>
+          <p class="app__subtitle">
+            태블릿 카운터에서 빠르게 입력할 수 있는 버튼형 계산기입니다.
+          </p>
+          <p class="app__date" id="date-label"></p>
+          <div class="period-info">
+            <span class="period-pill period-pill--current" id="current-period-pill">주중 요금 확인 중...</span>
+            <span class="period-pill period-pill--legend">주중: 월~금 · 주말/공휴일: 토·일·공휴일</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="lift-timer-pill" id="lift-timer-display">리프트 시간권을 선택하지 않았습니다.</span>
+          <div class="header-actions">
+            <div class="link-btn-group">
+              <a class="link-btn" href="pricing.html" aria-label="요금표 관리 페이지로 이동">요금표 관리</a>
+              <a class="link-btn" href="phone.html" aria-label="전화 상담 전용 계산기로 이동">상담 전용</a>
+              <a class="link-btn" href="faq.html" aria-label="자주하는 질문 페이지로 이동">자주하는 질문</a>
+            </div>
+            <div class="season-toggle" role="group" aria-label="성수기 / 비수기 선택">
+              <button class="season-btn active" data-season="offSeason">비수기</button>
+              <button class="season-btn" data-season="peakSeason">성수기</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="pos-layout">
+        <section class="pos-panel">
+          <div class="pos-panel__top">
+            <div>
+              <p class="pos-panel__hint">버튼을 누를 때마다 1개씩 추가됩니다.</p>
+              <p class="pos-panel__hint">길게 누르지 않아도 연속 입력이 가능합니다.</p>
+            </div>
+            <button id="toggle-view-btn" class="toggle-view-btn" type="button">
+              카테고리 접기
+            </button>
+          </div>
+          <nav class="category-nav" id="category-nav" aria-label="상품 카테고리"></nav>
+          <div id="group-nav" class="group-nav" aria-label="하위 카테고리" hidden></div>
+          <div id="item-grid" class="item-grid" aria-live="polite"></div>
+          <div id="lodging-panel" class="lodging-panel" aria-hidden="true">
+            <div class="lodging-groups">
+              <div class="lodging-group lodging-group--schedule">
+                <!-- 이용 날짜 입력 필드는 각 날짜 버튼 옆에 표시되므로 여기서는 제거 -->
+                <div class="lodging-field lodging-field--badges">
+                  <p class="lodging-note">선택된 날짜 정보</p>
+                  <div id="lodging-badges" class="lodging-badges"></div>
+                </div>
+                <div class="lodging-field">
+                  <label>시즌</label>
+                  <label class="lodging-auto">
+                    <input type="checkbox" id="lodging-season-auto" checked />
+                    날짜 기준 자동 판정
+                  </label>
+                  <div class="lodging-season-toggle">
+                    <button type="button" data-lodging-season="offSeason">비수기</button>
+                    <button type="button" data-lodging-season="peakSeason">성수기</button>
+                  </div>
+                </div>
+                <div class="lodging-field">
+                  <label>리프트 + 렌탈권</label>
+                  <div class="lodging-lift-selections" id="lodging-lift-selections"></div>
+                  <p class="lodging-note">각 시간권별로 대인/소인 인원을 설정하세요.</p>
+                </div>
+              </div>
+
+              <div class="lodging-group lodging-group--options">
+                <div class="lodging-field">
+                  <label>펜션 카테고리</label>
+                  <div class="lodging-type-groups" id="lodging-type-groups"></div>
+                </div>
+                <div class="lodging-field">
+                  <label for="lodging-type">펜션 타입</label>
+                  <select id="lodging-type"></select>
+                </div>
+                <div class="lodging-field">
+                  <label>총 숙박 인원</label>
+                  <div class="lodging-number">
+                    <button type="button" id="lodging-guests-dec" aria-label="인원 감소">-</button>
+                    <input type="number" id="lodging-guests" min="1" value="4" aria-label="인원 입력" />
+                    <button type="button" id="lodging-guests-inc" aria-label="인원 증가">+</button>
+                  </div>
+                  <p class="lodging-note" id="lodging-guest-limit-note">기준 인원 초과 시 추가 요금이 적용됩니다.</p>
+                </div>
+                <div class="lodging-field" id="lodging-bbq-field" hidden>
+                  <label id="lodging-bbq-label">무제한 바베큐 인원</label>
+                  <div class="lodging-number">
+                    <button type="button" id="bbq-guests-dec" aria-label="바베큐 인원 감소">-</button>
+                    <input type="number" id="bbq-guests" min="0" value="0" aria-label="바베큐 인원 입력" />
+                    <button type="button" id="bbq-guests-inc" aria-label="바베큐 인원 증가">+</button>
+                  </div>
+                  <p class="lodging-note" id="lodging-bbq-note">바베큐 인원 수 × 35,000원이 추가됩니다.</p>
+                </div>
+                <div class="lodging-type-info">
+                  <p id="lodging-type-detail" class="lodging-type-info__text is-placeholder">
+                    펜션 타입을 선택하면 상세 설명이 표시됩니다.
+                  </p>
+                </div>
+                <div class="lodging-field lodging-field--reservation">
+                  <a
+                    id="lodging-reservation-btn"
+                    class="lodging-reservation-btn"
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    hidden
+                    >실시간 예약현황</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="lodging-lift-summary">
+              <span>리프트·렌탈 추가 금액</span>
+              <strong id="lodging-lift-total">₩0</strong>
+            </div>
+            <div class="lodging-bbq-summary">
+              <span>무제한 바베큐 추가 금액</span>
+              <strong id="lodging-bbq-total">₩0</strong>
+            </div>
+            <div class="lodging-result" id="lodging-summary">
+              <div>
+                <p class="lodging-result__label">총 패키지 금액</p>
+                <strong id="lodging-total">₩0</strong>
+              </div>
+              <div class="lodging-per-person-list" id="lodging-per-person-list">
+                <!-- 리프트권별 인당 금액이 여기에 동적으로 표시됩니다 -->
+              </div>
+              <div class="lodging-result__meta" id="lodging-extra-info"></div>
+            </div>
+            <div class="lodging-quote-action">
+              <button id="generate-quote-btn" class="quote-btn" type="button">
+                📋 견적서 이미지 복사
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="summary" aria-live="polite">
+          <div class="summary__header">
+            <div>
+              <h2>선택 항목</h2>
+              <p class="summary__season-label" id="season-label">현재: 비수기</p>
+            </div>
+            <button id="reset-btn" class="reset-btn" type="button">초기화</button>
+          </div>
+          <ul id="selection-list" class="summary__list"></ul>
+          <div class="summary__total">
+            <div>
+              <span>총 합계</span>
+              <p class="summary__notice">수량 수정은 아래 +/- 버튼을 사용하세요.</p>
+            </div>
+            <strong id="grand-total">₩0</strong>
+          </div>
+          <div class="split-control">
+            <div class="split-label">
+              <span>1인당 금액</span>
+            </div>
+            <div class="split-input">
+              <button type="button" id="split-decrease" aria-label="인원 감소">-</button>
+              <input id="split-count" type="number" min="1" value="1" aria-label="인원 입력" />
+              <button type="button" id="split-increase" aria-label="인원 증가">+</button>
+            </div>
+          </div>
+          <div class="split-result">
+            <span>인당 금액</span>
+            <strong id="split-amount">₩0</strong>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="pricing.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
