@@ -3116,6 +3116,19 @@ toggleViewBtn.addEventListener("click", toggleCategoryView);
 splitDecreaseBtn?.addEventListener("click", () => changeSplitCount(-1));
 splitIncreaseBtn?.addEventListener("click", () => changeSplitCount(1));
 splitCountInput?.addEventListener("input", handleSplitInput);
+
+// 인원선택 접기/펼치기 기능
+const splitToggleBtn = document.getElementById("split-toggle-btn");
+const splitContent = document.getElementById("split-content");
+if (splitToggleBtn && splitContent) {
+  splitToggleBtn.addEventListener("click", () => {
+    const isCurrentlyHidden = splitContent.hidden;
+    splitContent.hidden = !isCurrentlyHidden;
+    splitToggleBtn.setAttribute("aria-expanded", !isCurrentlyHidden ? "true" : "false");
+  });
+  // 기본적으로 접힌 상태로 시작
+  splitToggleBtn.setAttribute("aria-expanded", "false");
+}
 lodgingDateInput?.addEventListener("change", (event) => {
   // 현장 상담 페이지는 날짜 변경 불가 (항상 오늘 날짜 사용)
   if (!isPhoneMode) {

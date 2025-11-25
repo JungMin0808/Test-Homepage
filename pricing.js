@@ -542,85 +542,91 @@ const pricingData = {
         "items": [
           {
             "id": "skiRental",
-            "name": "스키만 렌탈 (리프트X)",
-            "price": 10000,
-            "unit": "개"
-          },
-          {
-            "id": "boardRental",
-            "name": "보드만 렌탈 (리프트X)",
-            "price": 10000,
-            "unit": "개"
-          },
-          {
-            "id": "basicWearRental",
-            "name": "일반 의류 렌탈",
+            "name": "일반의류 렌탈",
             "price": 10000,
             "unit": "세트"
           },
           {
-            "id": "premiumWearRental",
-            "name": "고급 프리미엄 의류 렌탈",
+            "id": "boardRental",
+            "name": "고급의류 렌탈",
             "price": 30000,
             "unit": "세트"
           },
           {
+            "id": "basicWearRental",
+            "name": "헬맷 렌탈",
+            "price": 5000,
+            "unit": "개"
+          },
+          {
+            "id": "premiumWearRental",
+            "name": "바이저 헬맷 렌탈",
+            "price": 10000,
+            "unit": "개"
+          },
+          {
             "id": "helmetRental",
-            "name": "헬멧 렌탈",
+            "name": "고글 렌탈",
             "price": 5000,
             "unit": "개"
           },
           {
             "id": "visorHelmetRental",
-            "name": "바이저 헬멧 렌탈",
-            "price": 10000,
+            "name": "보호대 렌탈",
+            "price": 5000,
             "unit": "개"
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1763459240105",
-            "name": "보호대 렌탈",
+            "name": "거북이 보호대 렌탈",
             "unit": "개",
-            "price": 5000
+            "price": 15000
           },
           {
             "id": "turtleGuardRental",
-            "name": "거북이 보호대 렌탈",
-            "price": 15000,
-            "unit": "세트"
+            "name": "스키만 렌탈 (리프트X)",
+            "price": 10000,
+            "unit": "개"
           },
           {
             "id": "shortSkiRental",
-            "name": "숏스키 렌탈 (리프트X)",
-            "price": 20000,
+            "name": "보드만 렌탈 (리프트X)",
+            "price": 10000,
             "unit": "개"
           },
           {
             "id": "inlineSkiRental",
-            "name": "인라인 스키 렌탈 (리프트X)",
-            "price": 30000,
+            "name": "숏스키만 렌탈 (리프트X)",
+            "price": 20000,
             "unit": "개"
           },
           {
             "id": "hammerDeckRental",
-            "name": "헤머 데크 렌탈 (리프트X)",
+            "name": "인라인 스키만 렌탈 (리프트X)",
             "price": 30000,
             "unit": "개"
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1763197132736",
-            "name": "숏스키 변경",
+            "name": "해머 데크만 렌탈 (리프트X)",
+            "unit": "개",
+            "price": 30000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132559",
+            "name": "숏스키로 변경",
             "unit": "개",
             "price": 10000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763197132559",
-            "name": "인라인 변경",
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132370",
+            "name": "인라인 스키로 변경",
             "unit": "개",
             "price": 20000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763197132370",
-            "name": "헤머 데크 변경",
+            "id": "장비 · 보호장비 렌탈_weekday_1764046391581",
+            "name": "해머 데크로 변경",
             "unit": "개",
             "price": 20000
           }
@@ -631,13 +637,7 @@ const pricingData = {
         "items": [
           {
             "id": "adultGlovesPurchase",
-            "name": "성인 장갑 구매",
-            "price": 18000,
-            "unit": "켤레"
-          },
-          {
-            "id": "kidGlovesPurchase",
-            "name": "어린이 장갑 구매",
+            "name": "장갑 구매",
             "price": 18000,
             "unit": "켤레"
           },
@@ -656,13 +656,13 @@ const pricingData = {
           {
             "id": "warmerPurchase",
             "name": "워머 구매",
-            "price": 10000,
+            "price": 15000,
             "unit": "개"
           },
           {
             "id": "leggingsPurchase",
             "name": "레깅스 구매",
-            "price": 15000,
+            "price": 20000,
             "unit": "벌"
           },
           {
@@ -1468,79 +1468,91 @@ const pricingData = {
         "items": [
           {
             "id": "skiRental",
-            "name": "스키 렌탈",
+            "name": "일반의류 렌탈",
             "price": 10000,
             "unit": "세트"
           },
           {
             "id": "boardRental",
-            "name": "보드 렌탈",
-            "price": 10000,
-            "unit": "세트"
-          },
-          {
-            "id": "basicWearRental",
-            "name": "일반 의류 렌탈",
-            "price": 10000,
-            "unit": "세트"
-          },
-          {
-            "id": "premiumWearRental",
-            "name": "고급 프리미엄 의류 렌탈",
+            "name": "고급의류 렌탈",
             "price": 30000,
             "unit": "세트"
           },
           {
+            "id": "basicWearRental",
+            "name": "헬맷 렌탈",
+            "price": 5000,
+            "unit": "개"
+          },
+          {
+            "id": "premiumWearRental",
+            "name": "바이저 헬맷 렌탈",
+            "price": 30000,
+            "unit": "개"
+          },
+          {
             "id": "helmetRental",
-            "name": "헬멧 렌탈",
+            "name": "고글 렌탈",
             "price": 5000,
             "unit": "개"
           },
           {
             "id": "visorHelmetRental",
-            "name": "바이저 헬멧 렌탈",
-            "price": 15000,
+            "name": "보호대 렌탈",
+            "price": 5000,
             "unit": "개"
           },
           {
             "id": "turtleGuardRental",
             "name": "거북이 보호대 렌탈",
-            "price": 10000,
-            "unit": "세트"
+            "price": 15000,
+            "unit": "개"
           },
           {
             "id": "shortSkiRental",
-            "name": "숏스키 렌탈",
-            "price": 20000,
-            "unit": "세트"
+            "name": "스키만 렌탈 (리프트X)",
+            "price": 10000,
+            "unit": "개"
           },
           {
             "id": "inlineSkiRental",
-            "name": "인라인 스키 렌탈",
-            "price": 30000,
-            "unit": "세트"
+            "name": "보드만 렌탈 (리프트X)",
+            "price": 10000,
+            "unit": "개"
           },
           {
             "id": "hammerDeckRental",
-            "name": "헤머 데크 렌탈",
-            "price": 30000,
-            "unit": "세트"
+            "name": "숏스키만 렌탈 (리프트X)",
+            "price": 20000,
+            "unit": "개"
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1763192700807",
-            "name": "숏스키 변경 ",
+            "name": "인라인 스키만 렌탈 (리프트X)",
+            "unit": "개",
+            "price": 30000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763192700524",
+            "name": "해머 데크만 렌탈 (리프트X)",
+            "unit": "개",
+            "price": 30000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763192699070",
+            "name": "숏스키로 변경",
             "unit": "개",
             "price": 10000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763192700524",
-            "name": "인라인 스키 변경",
+            "id": "장비 · 보호장비 렌탈_weekday_1764047514800",
+            "name": "인라인 스키로 변경",
             "unit": "개",
             "price": 20000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763192699070",
-            "name": "헤머 데크 변경",
+            "id": "장비 · 보호장비 렌탈_weekday_1764047514950",
+            "name": "해머 데크로 변경",
             "unit": "개",
             "price": 20000
           }
@@ -1551,39 +1563,45 @@ const pricingData = {
         "items": [
           {
             "id": "adultGlovesPurchase",
-            "name": "성인 장갑 구매",
-            "price": 25000,
-            "unit": "켤레"
-          },
-          {
-            "id": "kidGlovesPurchase",
-            "name": "어린이 장갑 구매",
-            "price": 20000,
+            "name": "장갑 구매",
+            "price": 18000,
             "unit": "켤레"
           },
           {
             "id": "balaclavaPurchase",
             "name": "바라클라바 구매",
-            "price": 14000,
+            "price": 15000,
             "unit": "개"
           },
           {
             "id": "socksPurchase",
             "name": "양말 구매",
-            "price": 9000,
+            "price": 10000,
             "unit": "켤레"
           },
           {
             "id": "warmerPurchase",
             "name": "워머 구매",
-            "price": 12000,
+            "price": 15000,
             "unit": "개"
           },
           {
             "id": "leggingsPurchase",
             "name": "레깅스 구매",
-            "price": 17000,
+            "price": 20000,
             "unit": "벌"
+          },
+          {
+            "id": "구매 · 액세서리_weekday_1764047597106",
+            "name": "비니 모자 구매",
+            "unit": "개",
+            "price": 20000
+          },
+          {
+            "id": "구매 · 액세서리_weekday_1764047670138",
+            "name": "털 모자 구매",
+            "unit": "개",
+            "price": 30000
           }
         ]
       },

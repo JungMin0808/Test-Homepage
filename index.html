@@ -164,19 +164,27 @@
             </div>
             <strong id="grand-total">₩0</strong>
           </div>
-          <div class="split-control">
-            <div class="split-label">
-              <span>1인당 금액</span>
+          <div class="split-section">
+            <button type="button" class="split-toggle-btn" id="split-toggle-btn" aria-label="인당 금액 계산 접기/펼치기">
+              <span>인당 금액 계산</span>
+              <span class="split-toggle-icon">▼</span>
+            </button>
+            <div class="split-content" id="split-content" hidden>
+              <div class="split-control">
+                <div class="split-label">
+                  <span>인원 수</span>
+                </div>
+                <div class="split-input">
+                  <button type="button" id="split-decrease" aria-label="인원 감소">-</button>
+                  <input id="split-count" type="number" min="1" value="1" aria-label="인원 입력" />
+                  <button type="button" id="split-increase" aria-label="인원 증가">+</button>
+                </div>
+              </div>
+              <div class="split-result">
+                <span>1인당 금액</span>
+                <strong id="split-amount">₩0</strong>
+              </div>
             </div>
-            <div class="split-input">
-              <button type="button" id="split-decrease" aria-label="인원 감소">-</button>
-              <input id="split-count" type="number" min="1" value="1" aria-label="인원 입력" />
-              <button type="button" id="split-increase" aria-label="인원 증가">+</button>
-            </div>
-          </div>
-          <div class="split-result">
-            <span>인당 금액</span>
-            <strong id="split-amount">₩0</strong>
           </div>
         </section>
       </section>
