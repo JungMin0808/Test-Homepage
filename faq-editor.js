@@ -270,18 +270,14 @@ function renderFAQs() {
         <div class="faq-question" data-action="toggle">
           <span class="faq-question-text">${questionText}</span>
           <div class="faq-question-actions">
-            <button type="button" class="faq-delete-btn-inline" data-action="delete" data-id="${faq.id}" title="삭제">🗑️</button>
+            ${faqState.editMode ? `<button type="button" class="faq-edit-btn-inline" data-action="edit" data-id="${faq.id}">수정</button>` : ""}
+            ${faqState.editMode ? `<button type="button" class="faq-delete-btn-inline" data-action="delete" data-id="${faq.id}" title="삭제">🗑️</button>` : ""}
             <span class="faq-toggle-icon">▼</span>
           </div>
         </div>
         <div class="faq-answer">
           <div class="faq-answer-text">${answerText}</div>
         </div>
-        ${faqState.editMode ? `
-          <div class="faq-item-actions">
-            <button type="button" class="faq-edit-btn" data-action="edit" data-id="${faq.id}">수정</button>
-          </div>
-        ` : ""}
       `;
     }
     

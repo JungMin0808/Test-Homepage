@@ -27,6 +27,7 @@ const pricingData = {
         "reservationUrl": "http://www.riverfield.co.kr/reser2.htm",
         "sharedRates": {
           "weekday": 60000,
+          "friday": 60000,
           "weekend": 80000
         }
       },
@@ -42,6 +43,7 @@ const pricingData = {
         "reservationUrl": "https://booking.ddnayo.com/booking-calendar-status?accommodationId=1534",
         "sharedRates": {
           "weekday": 60000,
+          "friday": 60000,
           "weekend": 100000
         }
       },
@@ -49,15 +51,16 @@ const pricingData = {
         "id": "couple_suite",
         "name": "프랜드C [없음]",
         "group": "프랜드",
-        "baseGuests": 4,
-        "maxGuests": 6,
-        "extraGuestFee": 10000,
+        "baseGuests": 2,
+        "maxGuests": 5,
+        "extraGuestFee": 20000,
         "bbqPrice": 0,
         "description": "",
         "reservationUrl": "",
         "sharedRates": {
-          "weekday": 60000,
-          "weekend": 100000
+          "weekday": 120000,
+          "friday": 150000,
+          "weekend": 170000
         }
       },
       {
@@ -67,6 +70,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 70000,
+          "friday": 70000,
           "weekend": 100000
         },
         "group": "프랜드",
@@ -81,6 +85,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 80000,
+          "friday": 80000,
           "weekend": 120000
         },
         "group": "프랜드",
@@ -96,6 +101,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 80000,
+          "friday": 80000,
           "weekend": 140000
         },
         "group": "프랜드",
@@ -111,6 +117,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 100000,
+          "friday": 100000,
           "weekend": 150000
         },
         "group": "프랜드",
@@ -124,6 +131,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 50000,
+          "friday": 50000,
           "weekend": 80000
         },
         "group": "커플",
@@ -139,6 +147,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 50000,
+          "friday": 50000,
           "weekend": 80000
         },
         "group": "커플",
@@ -153,8 +162,9 @@ const pricingData = {
         "baseGuests": 2,
         "extraGuestFee": 10000,
         "sharedRates": {
-          "weekday": 50000,
-          "weekend": 80000
+          "weekday": 60000,
+          "friday": 60000,
+          "weekend": 90000
         },
         "group": "커플",
         "maxGuests": 3
@@ -163,33 +173,36 @@ const pricingData = {
         "id": "lodging_1763222137313",
         "name": "커플D [없음]",
         "baseGuests": 2,
-        "extraGuestFee": 10000,
+        "extraGuestFee": 15000,
         "sharedRates": {
           "weekday": 50000,
+          "friday": 50000,
           "weekend": 80000
         },
         "group": "커플",
-        "maxGuests": 3
+        "maxGuests": 4
       },
       {
         "id": "lodging_1763222137533",
         "name": "커플E [없음]",
         "baseGuests": 2,
-        "extraGuestFee": 10000,
+        "extraGuestFee": 20000,
         "sharedRates": {
-          "weekday": 50000,
+          "weekday": 60000,
+          "friday": 60000,
           "weekend": 80000
         },
         "group": "커플",
-        "maxGuests": 2
+        "maxGuests": 4
       },
       {
         "id": "lodging_1763222137637",
-        "name": "커플F",
+        "name": "커플F [없음]",
         "baseGuests": 2,
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 100000,
+          "friday": 100000,
           "weekend": 150000
         },
         "group": "커플",
@@ -197,15 +210,19 @@ const pricingData = {
       },
       {
         "id": "lodging_1763222137833",
-        "name": "투룸/복층A [없음]",
-        "baseGuests": 6,
+        "name": "투룸/복층A",
+        "baseGuests": 8,
         "extraGuestFee": 10000,
         "sharedRates": {
-          "weekday": 100000,
-          "weekend": 180000
+          "weekday": 150000,
+          "friday": 150000,
+          "weekend": 280000
         },
         "group": "투룸",
-        "maxGuests": 8
+        "maxGuests": 15,
+        "bbqPrice": 35000,
+        "description": "온돌쓰리룸 / 화장실3",
+        "reservationUrl": "http://www.riverfield.co.kr/reser2.htm"
       },
       {
         "id": "lodging_1763222138266",
@@ -214,6 +231,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 100000,
+          "friday": 100000,
           "weekend": 180000
         },
         "group": "투룸",
@@ -229,6 +247,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 100000,
+          "friday": 100000,
           "weekend": 180000
         },
         "group": "투룸",
@@ -244,6 +263,7 @@ const pricingData = {
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 110000,
+          "friday": 110000,
           "weekend": 170000
         },
         "group": "투룸",
@@ -255,22 +275,24 @@ const pricingData = {
       {
         "id": "lodging_1763222138797",
         "name": "투룸/복층E [없음]",
-        "baseGuests": 8,
-        "extraGuestFee": 10000,
+        "baseGuests": 6,
+        "extraGuestFee": 20000,
         "sharedRates": {
-          "weekday": 0,
-          "weekend": 0
+          "weekday": 240000,
+          "friday": 290000,
+          "weekend": 340000
         },
         "group": "투룸",
-        "maxGuests": 10
+        "maxGuests": 12
       },
       {
         "id": "lodging_1763222150564",
-        "name": "투룸/복층F",
+        "name": "투룸/복층F [없음]",
         "baseGuests": 8,
         "extraGuestFee": 10000,
         "sharedRates": {
           "weekday": 150000,
+          "friday": 150000,
           "weekend": 280000
         },
         "group": "투룸",
@@ -1828,21 +1850,21 @@ const pricingData = {
               {
                 "id": "lesson_weekday_1to1_2h",
                 "name": "2시간",
-                "price": 140000,
+                "price": 120000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekday_1to1_3h",
                 "name": "3시간",
-                "price": 210000,
+                "price": 180000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekday_1to1_4h",
                 "name": "4시간",
-                "price": 270000,
+                "price": 240000,
                 "unit": "회",
                 "equipmentFee": 60000
               }
@@ -1868,7 +1890,7 @@ const pricingData = {
               {
                 "id": "lesson_weekday_1to2_4h",
                 "name": "4시간",
-                "price": 270000,
+                "price": 280000,
                 "unit": "회",
                 "equipmentFee": 60000
               }
@@ -1880,21 +1902,21 @@ const pricingData = {
               {
                 "id": "lesson_weekday_1to3_2h",
                 "name": "2시간",
-                "price": 140000,
+                "price": 160000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekday_1to3_3h",
                 "name": "3시간",
-                "price": 210000,
+                "price": 240000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekday_1to3_4h",
                 "name": "4시간",
-                "price": 270000,
+                "price": 320000,
                 "unit": "회",
                 "equipmentFee": 60000
               }
@@ -1908,21 +1930,21 @@ const pricingData = {
               {
                 "id": "lesson_weekend_1to1_2h",
                 "name": "2시간",
-                "price": 170000,
+                "price": 150000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekend_1to1_3h",
                 "name": "3시간",
-                "price": 250000,
+                "price": 220000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekend_1to1_4h",
                 "name": "4시간",
-                "price": 330000,
+                "price": 300000,
                 "unit": "회",
                 "equipmentFee": 60000
               }
@@ -1934,21 +1956,21 @@ const pricingData = {
               {
                 "id": "lesson_weekend_1to2_2h",
                 "name": "2시간",
-                "price": 170000,
+                "price": 160000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekend_1to2_3h",
                 "name": "3시간",
-                "price": 250000,
+                "price": 240000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekend_1to2_4h",
                 "name": "4시간",
-                "price": 330000,
+                "price": 320000,
                 "unit": "회",
                 "equipmentFee": 60000
               }
@@ -1974,7 +1996,7 @@ const pricingData = {
               {
                 "id": "lesson_weekend_1to3_4h",
                 "name": "4시간",
-                "price": 330000,
+                "price": 340000,
                 "unit": "회",
                 "equipmentFee": 60000
               }

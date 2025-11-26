@@ -27,6 +27,7 @@
         "reservationUrl": "https://example.com/reserve/friend-a",
         "sharedRates": {
           "weekday": 50000,
+          "friday": 80000,
           "weekend": 80000
         }
       },
@@ -42,6 +43,7 @@
         "reservationUrl": "https://example.com/reserve/tworoom-b",
         "sharedRates": {
           "weekday": 60000,
+          "friday": 100000,
           "weekend": 100000
         }
       },
@@ -57,6 +59,7 @@
         "reservationUrl": "https://example.com/reserve/couple-suite",
         "sharedRates": {
           "weekday": 70000,
+          "friday": 110000,
           "weekend": 110000
         }
       },
@@ -67,6 +70,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         },
         "group": "투룸"
@@ -78,6 +82,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -88,6 +93,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -98,6 +104,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -108,6 +115,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -118,6 +126,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -128,6 +137,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -138,6 +148,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -148,6 +159,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -158,6 +170,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -168,6 +181,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -178,6 +192,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -188,6 +203,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -198,6 +214,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -208,6 +225,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -218,6 +236,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       },
@@ -228,6 +247,7 @@
         "extraGuestFee": 0,
         "sharedRates": {
           "weekday": 0,
+          "friday": 0,
           "weekend": 0
         }
       }

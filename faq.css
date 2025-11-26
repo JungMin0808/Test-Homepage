@@ -253,6 +253,28 @@
   flex-shrink: 0;
 }
 
+.faq-edit-btn-inline {
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  background: var(--primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 34px;
+}
+
+.faq-edit-btn-inline:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .faq-delete-btn-inline {
   padding: 0.4rem 0.6rem;
   border-radius: 8px;

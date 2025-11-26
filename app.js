@@ -373,6 +373,41 @@ function resolvePeriodAndHoliday(dateString) {
   };
 }
 
+function getLodgingRateKey(dateString, resolvedPeriod = "weekday") {
+  if (!dateString) return "weekday";
+  if (resolvedPeriod === "weekend") return "weekend";
+  const parsed = new Date(`${dateString}T00:00:00`);
+  if (Number.isNaN(parsed.getTime())) return "weekday";
+  return parsed.getDay() === 5 ? "friday" : "weekday";
+}
+
+function getLodgingPeriodLabel(periodKey) {
+  if (periodKey === "weekend") return "주말·공휴일";
+  if (periodKey === "friday") return "금요일";
+  return "주중";
+}
+
+function getAppliedLodgingRateKey(dateString, resolvedPeriod = "weekday") {
+  if (!dateString) {
+    return resolvedPeriod === "weekend" ? "weekend" : "weekday";
+  }
+  let rateKey = getLodgingRateKey(dateString, resolvedPeriod);
+  const nextDate = getNextDate(dateString);
+  if (!nextDate) {
+    return rateKey;
+  }
+  const { period: nextPeriod } = resolvePeriodAndHoliday(nextDate);
+  if (rateKey === "weekend" && nextPeriod === "weekday") {
+    // 다음 날이 주중이면 주중 금액 적용
+    return "weekday";
+  }
+  if (rateKey !== "weekend" && nextPeriod === "weekend") {
+    // 다음 날이 주말/공휴일이면 금요일 금액 적용
+    return "friday";
+  }
+  return rateKey;
+}
+
 function getNextDate(dateString) {
   if (!dateString) return null;
   const date = new Date(`${dateString}T00:00:00`);
@@ -417,7 +452,8 @@ function updateLodgingBadges() {
 
   const periodBadge = document.createElement("span");
   periodBadge.className = "lodging-badge";
-  periodBadge.textContent = period === "weekend" ? "주말·공휴일" : "주중";
+  const lodgingPeriodKey = getAppliedLodgingRateKey(activeDate, period);
+  periodBadge.textContent = getLodgingPeriodLabel(lodgingPeriodKey);
   lodgingBadgesEl.appendChild(periodBadge);
 
   if (holidayLabel) {
@@ -1367,32 +1403,23 @@ function calculateLodgingQuote() {
   
   // 선택한 날짜(첫째날)에 대해서만 요금 계산
   let basePrice = 0;
-  let periodKey = currentState.resolvedPeriod || "weekday";
+  let resolvedPeriodKey = currentState.resolvedPeriod || "weekday";
+  let appliedLodgingPeriodKey = resolvedPeriodKey;
   
   // 첫째날 날짜만 사용하여 계산
   const selectedDate = currentState.dates.first;
   if (selectedDate && activeType.sharedRates) {
     const { period } = resolvePeriodAndHoliday(selectedDate);
-    periodKey = period || "weekday";
-    
-    // 특수 케이스: 선택한 날짜가 주말/공휴일이고 다음날이 주중이면 숙박은 주중 금액으로 계산
-    let lodgingPeriodKey = periodKey;
-    if (periodKey === "weekend") {
-      const nextDate = getNextDate(selectedDate);
-      if (nextDate) {
-        const nextPeriodInfo = resolvePeriodAndHoliday(nextDate);
-        // 다음날이 주중이면 (주말/공휴일이 아니면) 숙박은 주중 금액 사용
-        if (nextPeriodInfo.period === "weekday") {
-          lodgingPeriodKey = "weekday";
-        }
-      }
-    }
-    
+    resolvedPeriodKey = period || "weekday";
+    const lodgingPeriodKey = getAppliedLodgingRateKey(selectedDate, resolvedPeriodKey);
+    appliedLodgingPeriodKey = lodgingPeriodKey;
     basePrice = activeType.sharedRates?.[lodgingPeriodKey] ?? 0;
   } else if (currentState.date && activeType.sharedRates) {
-    // 날짜가 없을 경우 기존 로직 사용
-    periodKey = currentState.resolvedPeriod || "weekday";
-    basePrice = activeType.sharedRates?.[periodKey] ?? 0;
+    resolvedPeriodKey = currentState.resolvedPeriod || "weekday";
+    appliedLodgingPeriodKey = getAppliedLodgingRateKey(currentState.date, resolvedPeriodKey);
+    basePrice = activeType.sharedRates?.[appliedLodgingPeriodKey] ?? 0;
+  } else if (activeType.sharedRates) {
+    basePrice = activeType.sharedRates?.[appliedLodgingPeriodKey] ?? 0;
   }
   
   const baseGuests = Math.max(1, activeType.baseGuests ?? 1);
@@ -1425,7 +1452,7 @@ function calculateLodgingQuote() {
 
   // 숙박패키지 선택 항목 추가
   const seasonLabel = seasonKey === "peakSeason" ? "성수기" : "비수기";
-  const periodLabel = periodKey === "weekend" ? "주말·공휴일" : "주중";
+  const periodLabel = getLodgingPeriodLabel(appliedLodgingPeriodKey);
   
   // 1인당 금액 항목들을 선택 항목에 추가 (updateLodgingPerPersonList에서 계산한 결과 사용)
   perPersonItems.forEach((item, index) => {
@@ -1472,33 +1499,22 @@ function getCategoryQuoteInfo(category) {
   const seasonKey = categoryState.resolvedSeason || "offSeason";
   const selectedDate = categoryState.dates?.first || categoryState.date;
   let basePrice = 0;
-  let periodKey = categoryState.resolvedPeriod || "weekday";
+  let resolvedPeriodKey = categoryState.resolvedPeriod || "weekday";
+  let appliedLodgingPeriodKey = resolvedPeriodKey;
   
   // 선택한 날짜(첫째날)에 대해서만 요금 계산
   if (selectedDate && activeType?.sharedRates) {
     const { period } = resolvePeriodAndHoliday(selectedDate);
-    periodKey = period || "weekday";
-    
-    // 특수 케이스: 선택한 날짜가 주말/공휴일이고 다음날이 주중이면 숙박은 주중 금액으로 계산
-    let lodgingPeriodKey = periodKey;
-    if (periodKey === "weekend") {
-      const nextDate = getNextDate(selectedDate);
-      if (nextDate) {
-        const nextPeriodInfo = resolvePeriodAndHoliday(nextDate);
-        // 다음날이 주중이면 (주말/공휴일이 아니면) 숙박은 주중 금액 사용
-        if (nextPeriodInfo.period === "weekday") {
-          lodgingPeriodKey = "weekday";
-        }
-      }
-    }
-    
+    resolvedPeriodKey = period || "weekday";
+    const lodgingPeriodKey = getAppliedLodgingRateKey(selectedDate, resolvedPeriodKey);
+    appliedLodgingPeriodKey = lodgingPeriodKey;
     basePrice = activeType.sharedRates?.[lodgingPeriodKey] ?? 0;
   } else if (categoryState.date && activeType?.sharedRates) {
-    periodKey = categoryState.resolvedPeriod || "weekday";
-    basePrice = activeType.sharedRates?.[periodKey] ?? 0;
-  } else {
-    periodKey = categoryState.resolvedPeriod || "weekday";
-    basePrice = activeType?.sharedRates?.[periodKey] ?? 0;
+    resolvedPeriodKey = categoryState.resolvedPeriod || "weekday";
+    appliedLodgingPeriodKey = getAppliedLodgingRateKey(categoryState.date, resolvedPeriodKey);
+    basePrice = activeType.sharedRates?.[appliedLodgingPeriodKey] ?? 0;
+  } else if (activeType?.sharedRates) {
+    basePrice = activeType.sharedRates?.[appliedLodgingPeriodKey] ?? 0;
   }
   
   const baseGuests = Math.max(1, activeType?.baseGuests ?? 1);
@@ -1575,7 +1591,7 @@ function getCategoryQuoteInfo(category) {
   });
   
   const seasonLabel = seasonKey === "peakSeason" ? "성수기" : "비수기";
-  const periodLabel = periodKey === "weekend" ? "주말·공휴일" : "주중";
+  const periodLabel = getLodgingPeriodLabel(appliedLodgingPeriodKey);
   
   // 카테고리 이름 매핑
   const categoryNameMap = {
@@ -2651,11 +2667,21 @@ function updateDateLabel() {
     const todayIso = getLocalDateString(today);
     // 무조건 오늘 날짜로 업데이트
     determinePeriod(today, todayIso);
+    // 현장 상담 페이지에서는 날짜 기준으로 시즌 자동 판정
+    const resolvedSeason = resolveSeasonByDate(todayIso);
+    state.season = resolvedSeason;
   }
   
   if (!state.dateInfo) return;
   
   const { iso, isHoliday, holidayLabel } = state.dateInfo;
+  
+  // 전화 상담 모드에서도 날짜 기준으로 시즌 자동 판정
+  if (isPhoneMode) {
+    const resolvedSeason = resolveSeasonByDate(iso);
+    state.season = resolvedSeason;
+  }
+  
   const display = new Date(iso).toLocaleDateString("ko-KR", {
     month: "long",
     day: "numeric",
@@ -2665,8 +2691,11 @@ function updateDateLabel() {
   const holidayText = isHoliday && holidayLabel ? ` · ${holidayLabel}` : "";
   dateLabelEl.textContent = `${display}${holidayText} ${suffix}`;
   if (periodPillEl) {
-    periodPillEl.textContent =
-      state.period === "weekend" ? "오늘은 주말/공휴일 요금이 적용됩니다" : "오늘은 주중 요금이 적용됩니다";
+    // 날짜 기준으로 시즌 자동 판정
+    const resolvedSeason = resolveSeasonByDate(iso);
+    const seasonLabel = resolvedSeason === "peakSeason" ? "성수기" : "비수기";
+    const periodLabel = state.period === "weekend" ? "주말/공휴일" : "주중";
+    periodPillEl.textContent = `오늘은 ${seasonLabel} ${periodLabel} 요금이 적용됩니다`;
   }
   
   // 시간 정보 업데이트
@@ -2716,7 +2745,7 @@ function updateSummary() {
   if (!orderedSelections.length) {
     const emptyState = document.createElement("li");
     emptyState.textContent = "선택된 항목이 없습니다.";
-    emptyState.style.color = "#94a3b8";
+    emptyState.style.color = isPhoneMode ? "#A67C5A" : "#94a3b8";
     summaryListEl.appendChild(emptyState);
     grandTotalEl.textContent = "₩0";
     updateSplitAmount(0);
@@ -2796,6 +2825,67 @@ function resetCalculator() {
   state.selections = {};
   updateSummary();
   resetLiftTimerDisplay();
+  
+  // 전화 상담 모드에서 숙박 패키지 상태 초기화
+  if (isPhoneMode) {
+    const today = getLocalDateString(new Date());
+    const categories = ["대분류1", "대분류2", "대분류3"];
+    categories.forEach((category, index) => {
+      // 상태 초기화
+      lodgingStates[category] = createLodgingState();
+      
+      // 첫째날(대분류1)은 오늘 날짜로 설정, 나머지는 빈 값
+      const dateValue = index === 0 ? today : "";
+      if (index === 0) {
+        lodgingStates[category].date = today;
+        lodgingStates[category].dates.first = today;
+      }
+      
+      // UI 요소 초기화
+      const dateInput = document.getElementById(`lodging-date-select-${category}`);
+      if (dateInput) dateInput.value = dateValue;
+      
+      const typeSelect = document.getElementById(`lodging-type-${category}`);
+      if (typeSelect) {
+        typeSelect.value = "";
+        typeSelect.disabled = false;
+      }
+      
+      const guestsInput = document.querySelector(`.lodging-guests[data-category="${category}"]`);
+      if (guestsInput) guestsInput.value = "4";
+      
+      const bbqInput = document.querySelector(`.bbq-guests[data-category="${category}"]`);
+      if (bbqInput) bbqInput.value = "0";
+      
+      // 숙박 없음 체크박스 찾기 (각 대분류의 lodging-type-groups 내부)
+      const typeGroupsEl = document.querySelector(`[data-category="${category}"].lodging-type-groups`);
+      if (typeGroupsEl) {
+        const noLodgingCheckbox = typeGroupsEl.querySelector('input[type="checkbox"][id*="no-lodging"]');
+        if (noLodgingCheckbox) {
+          noLodgingCheckbox.checked = true;
+          // 체크박스 변경 이벤트 트리거
+          noLodgingCheckbox.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+      
+      // 리프트 선택은 상태 초기화 후 renderLodgingLiftOptions에서 자동으로 업데이트됨
+    });
+    
+    // 각 대분류의 UI 및 계산 결과 업데이트
+    categories.forEach((category, index) => {
+      const originalCategory = currentLodgingCategory;
+      currentLodgingCategory = category;
+      renderLodgingGroupFilters();
+      renderLodgingLiftOptions();
+      // 첫째날의 경우 날짜 설정 함수 호출하여 관련 상태 업데이트
+      if (index === 0 && today) {
+        setLodgingDate(today);
+      }
+      updateLodgingBadges();
+      calculateLodgingQuote();
+      currentLodgingCategory = originalCategory;
+    });
+  }
 }
 
 function renderLodgingGroupFilters() {

@@ -406,6 +406,7 @@ function renderLodgingTypeEditor() {
 function renderLodgingRateInputs(type, index) {
   const entries = [
     { period: "weekday", label: "주중" },
+    { period: "friday", label: "금요일" },
     { period: "weekend", label: "주말/공휴일" }
   ];
   return entries
@@ -438,7 +439,7 @@ function addNewLodgingType() {
     maxGuests: null,
     extraGuestFee: 0,
     bbqPrice: 0,
-    sharedRates: { weekday: 0, weekend: 0 },
+    sharedRates: { weekday: 0, friday: 0, weekend: 0 },
     description: "",
     reservationUrl: ""
   });
