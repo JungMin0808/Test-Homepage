@@ -1615,7 +1615,7 @@ function getCategoryQuoteInfo(category) {
     perPersonItems,
     combinedTotal,
     baseGuests,
-    periodKey
+    periodKey: appliedLodgingPeriodKey
   };
 }
 
@@ -1637,7 +1637,11 @@ function generateQuoteImage() {
   }
   
   if (quoteInfos.length === 0) {
-    alert("견적서를 생성할 정보가 없습니다. 최소 하나의 대분류에서 총 패키지 금액이 0원이 아니어야 합니다.");
+    alert("견적서를 생성할 정보가 없습니다.\n\n다음 조건을 확인해주세요:\n- 최소 하나의 대분류에서 총 패키지 금액이 0원이 아니어야 합니다\n- 숙박 패키지 설정이 완료되어야 합니다\n- 리프트권이나 바베큐가 선택되어야 합니다");
+    if (generateQuoteBtn) {
+      generateQuoteBtn.disabled = false;
+      generateQuoteBtn.textContent = "📋 견적서 이미지 복사";
+    }
     return;
   }
   
@@ -1657,67 +1661,67 @@ function generateQuoteImage() {
   const quoteHTML = `
     <div class="quote-container" style="
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
-      background: #1a1f3a;
-      color: #ffffff;
+      background: linear-gradient(135deg, #FFFBF5 0%, #F5E6D3 100%);
+      color: #6B4423;
       padding: 2.5rem;
       border-radius: 20px;
       max-width: 600px;
       margin: 0 auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 60px rgba(201, 125, 96, 0.2);
     ">
       <div style="text-align: center; margin-bottom: 2rem;">
         <h1 style="
           font-size: 1.75rem;
           font-weight: 700;
-          color: #06b6d4;
+          color: #8B4513;
           margin: 0 0 0.5rem;
         ">월드스키 숙박 패키지 견적서</h1>
-        <p style="color: #94a3b8; margin: 0; font-size: 0.95rem;">${mainDateFormatted}</p>
+        <p style="color: #A67C5A; margin: 0; font-size: 0.95rem;">${mainDateFormatted}</p>
       </div>
 
       ${quoteInfos.map((info, infoIndex) => `
       <div style="
-        background: rgba(30, 41, 59, 0.8);
+        background: rgba(255, 251, 245, 0.8);
         border-radius: 16px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        border: 1px solid rgba(201, 125, 96, 0.3);
       ">
         <h2 style="
           font-size: 1.25rem;
           font-weight: 600;
-          color: #ffffff;
+          color: #8B4513;
           margin: 0 0 1rem;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-        "><span style="color: #ef4444; font-size: 1.5rem;">📍</span> ${info.category} 기본 정보</h2>
+        "><span style="color: #C97D60; font-size: 1.5rem;">📍</span> ${info.category} 기본 정보</h2>
         <table style="width: 100%; border-collapse: collapse;">
           ${info.activeType ? `
           <tr>
-            <td style="padding: 0.5rem 0; color: #cbd5e1; width: 40%;">펜션 타입</td>
-            <td style="padding: 0.5rem 0; font-weight: 600; color: #ffffff;">${info.activeType.name}</td>
+            <td style="padding: 0.5rem 0; color: #A67C5A; width: 40%;">펜션 타입</td>
+            <td style="padding: 0.5rem 0; font-weight: 600; color: #6B4423;">${info.activeType.name}</td>
           </tr>
           ${info.activeType.description ? `
           <tr>
-            <td style="padding: 0.5rem 0; color: #cbd5e1;">상세 설명</td>
-            <td style="padding: 0.5rem 0; color: #ffffff;">${info.activeType.description}</td>
+            <td style="padding: 0.5rem 0; color: #A67C5A;">상세 설명</td>
+            <td style="padding: 0.5rem 0; color: #6B4423;">${info.activeType.description}</td>
           </tr>
           ` : ''}
           ` : ''}
           <tr>
-            <td style="padding: 0.5rem 0; color: #cbd5e1;">이용 날짜</td>
-            <td style="padding: 0.5rem 0; font-weight: 600; color: #ffffff;">${info.dateFormatted}</td>
+            <td style="padding: 0.5rem 0; color: #A67C5A;">이용 날짜</td>
+            <td style="padding: 0.5rem 0; font-weight: 600; color: #6B4423;">${info.dateFormatted}</td>
           </tr>
           <tr>
-            <td style="padding: 0.5rem 0; color: #cbd5e1;">시즌</td>
+            <td style="padding: 0.5rem 0; color: #A67C5A;">시즌</td>
             <td style="padding: 0.5rem 0;">
               <span style="
                 display: inline-block;
                 padding: 0.25rem 0.75rem;
                 border-radius: 999px;
-                background: ${info.seasonLabel === "성수기" ? "rgba(239, 68, 68, 0.3)" : "rgba(59, 130, 246, 0.3)"};
-                color: ${info.seasonLabel === "성수기" ? "#fca5a5" : "#93c5fd"};
+                background: ${info.seasonLabel === "성수기" ? "rgba(201, 125, 96, 0.3)" : "rgba(212, 184, 150, 0.3)"};
+                color: ${info.seasonLabel === "성수기" ? "#8B4513" : "#A67C5A"};
                 font-weight: 600;
                 font-size: 0.9rem;
               ">${info.seasonLabel}</span>
@@ -1726,8 +1730,8 @@ function generateQuoteImage() {
                 margin-left: 0.5rem;
                 padding: 0.25rem 0.75rem;
                 border-radius: 999px;
-                background: rgba(148, 163, 184, 0.3);
-                color: #cbd5e1;
+                background: rgba(201, 125, 96, 0.2);
+                color: #A67C5A;
                 font-weight: 600;
                 font-size: 0.9rem;
               ">${info.periodLabel}</span>
@@ -1737,75 +1741,76 @@ function generateQuoteImage() {
       </div>
 
       <div style="
-        background: rgba(30, 41, 59, 0.8);
+        background: rgba(255, 251, 245, 0.8);
         border-radius: 16px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        border: 1px solid rgba(201, 125, 96, 0.3);
       ">
         <h2 style="
           font-size: 1.25rem;
           font-weight: 600;
-          color: #ffffff;
+          color: #8B4513;
           margin: 0 0 1rem;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-        "><span style="color: #a78bfa; font-size: 1.5rem;">👥</span> ${info.category} 인원 정보</h2>
+        "><span style="color: #C97D60; font-size: 1.5rem;">👥</span> ${info.category} 인원 정보</h2>
         <table style="width: 100%; border-collapse: collapse;">
           <tr>
-            <td style="padding: 0.5rem 0; color: #cbd5e1; width: 40%;">총 숙박 인원</td>
-            <td style="padding: 0.5rem 0; font-weight: 600; color: #ffffff;">${info.guestCount}명</td>
+            <td style="padding: 0.5rem 0; color: #A67C5A; width: 40%;">총 숙박 인원</td>
+            <td style="padding: 0.5rem 0; font-weight: 600; color: #6B4423;">${info.guestCount}명</td>
           </tr>
           <tr>
-            <td style="padding: 0.5rem 0; color: #cbd5e1;">스키 타는 인원</td>
-            <td style="padding: 0.5rem 0; font-weight: 600; color: #ffffff;">${info.skiers}명</td>
+            <td style="padding: 0.5rem 0; color: #A67C5A;">스키 타는 인원</td>
+            <td style="padding: 0.5rem 0; font-weight: 600; color: #6B4423;">${info.skiers}명</td>
           </tr>
         </table>
       </div>
       `).join('')}
 
       <div style="
-        background: rgba(30, 41, 59, 0.8);
+        background: rgba(255, 251, 245, 0.8);
         border-radius: 16px;
         padding: 1.5rem;
         margin-bottom: 1.5rem;
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        border: 1px solid rgba(201, 125, 96, 0.3);
       ">
         <h2 style="
           font-size: 1.25rem;
           font-weight: 600;
-          color: #ffffff;
+          color: #8B4513;
           margin: 0 0 1rem;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-        "><span style="color: #fbbf24; font-size: 1.5rem;">💰</span> 요금 상세</h2>
+        "><span style="color: #C97D60; font-size: 1.5rem;">💰</span> 요금 상세</h2>
         <table style="width: 100%; border-collapse: collapse;">
           ${allPerPersonItems.length > 0 ? allPerPersonItems.map((item, index) => `
           <tr>
-            <td style="padding: 0.75rem 0.5rem 0.75rem 0; color: #cbd5e1; border-bottom: 1px solid rgba(148, 163, 184, 0.2); word-wrap: break-word; word-break: break-word; text-align: left;">${item.label}</td>
-            <td style="padding: 0.75rem 0 0.75rem 0.5rem; border-bottom: 1px solid rgba(148, 163, 184, 0.2); text-align: right; white-space: nowrap;">
-              <strong style="font-weight: 600; color: #ffffff;">${formatCurrency(item.perPerson)}(${item.count}명)</strong>
+            <td style="padding: 0.75rem 0.5rem 0.75rem 0; color: #A67C5A; border-bottom: 1px solid rgba(201, 125, 96, 0.2); word-wrap: break-word; word-break: break-word; text-align: left;">${item.label}</td>
+            <td style="padding: 0.75rem 0 0.75rem 0.5rem; border-bottom: 1px solid rgba(201, 125, 96, 0.2); text-align: right; white-space: nowrap;">
+              <strong style="font-weight: 600; color: #6B4423;">${formatCurrency(item.perPerson)}(${item.count}명)</strong>
             </td>
           </tr>
           `).join('') : `
           <tr>
-            <td colspan="2" style="padding: 0.75rem 0; color: #cbd5e1; border-bottom: 1px solid rgba(148, 163, 184, 0.2);">요금 정보 없음 ₩0</td>
+            <td colspan="2" style="padding: 0.75rem 0; color: #A67C5A; border-bottom: 1px solid rgba(201, 125, 96, 0.2);">요금 정보 없음 ₩0</td>
           </tr>
           `}
         </table>
       </div>
 
       <div style="
-        background: rgba(59, 130, 246, 0.3);
+        background: linear-gradient(135deg, rgba(201, 125, 96, 0.3) 0%, rgba(212, 184, 150, 0.25) 100%);
         border-radius: 16px;
         padding: 2rem;
-        border: 1px solid rgba(59, 130, 246, 0.5);
+        border: 2px solid rgba(201, 125, 96, 0.5);
+        box-shadow: 0 4px 16px rgba(201, 125, 96, 0.2);
       ">
         <div>
-          <span style="font-size: 1.5rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 0.5rem;">총 패키지 금액</span>
-          <span style="font-size: 2rem; font-weight: 700; color: #ffffff; display: block; text-align: right;">${formatCurrency(totalCombinedAmount)}</span>
+          <span style="font-size: 1.5rem; font-weight: 700; color: #8B4513; display: block; margin-bottom: 0.5rem;">총 패키지 금액</span>
+          <span style="font-size: 2rem; font-weight: 700; color: #6B4423; display: block; text-align: right;">${formatCurrency(totalCombinedAmount)}</span>
         </div>
       </div>
 
@@ -1813,8 +1818,8 @@ function generateQuoteImage() {
         text-align: center;
         margin-top: 2rem;
         padding-top: 1.5rem;
-        border-top: 1px solid rgba(148, 163, 184, 0.2);
-        color: #ffffff;
+        border-top: 1px solid rgba(201, 125, 96, 0.2);
+        color: #A67C5A;
         font-size: 0.875rem;
       ">
         <p style="margin: 0;">월드스키 카운터 계산기로 생성된 견적서입니다.</p>
@@ -1832,6 +1837,12 @@ function generateQuoteImage() {
   document.body.appendChild(tempContainer);
 
   const quoteElement = tempContainer.querySelector(".quote-container");
+  
+  if (!quoteElement) {
+    alert("견적서 요소를 생성하는 중 오류가 발생했습니다.");
+    document.body.removeChild(tempContainer);
+    return;
+  }
 
   // 버튼 비활성화
   if (generateQuoteBtn) {
@@ -1846,7 +1857,14 @@ function generateQuoteImage() {
     logging: false,
     useCORS: true,
     width: quoteElement.offsetWidth,
-    height: quoteElement.offsetHeight
+    height: quoteElement.offsetHeight,
+    onclone: (clonedDoc) => {
+      // 복제된 문서에서도 스타일이 제대로 적용되도록 보장
+      const clonedElement = clonedDoc.querySelector(".quote-container");
+      if (clonedElement) {
+        clonedElement.style.visibility = "visible";
+      }
+    }
   })
     .then((canvas) => {
       // Canvas를 Blob으로 변환
@@ -1879,7 +1897,10 @@ function generateQuoteImage() {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `월드스키_견적서_${currentState.date || "날짜"}_${activeType.name}.png`;
+            const firstInfo = quoteInfos[0];
+            const typeName = firstInfo?.activeType?.name || "패키지";
+            const dateStr = firstInfo?.categoryState?.date || firstInfo?.categoryState?.dates?.first || "날짜";
+            a.download = `월드스키_견적서_${dateStr}_${typeName}.png`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
