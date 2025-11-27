@@ -3,17 +3,19 @@
   font-family: "Pretendard", "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 1.4;
-  --bg: #0b1221;
-  --surface: #121a2c;
-  --surface-muted: #1c253a;
-  --primary: #06b6d4;
-  --primary-dark: #0891b2;
-  --accent: #f97316;
-  --text-strong: #f8fafc;
+  /* 파란색 팔레트 - 이미지 기반 */
+  --bg: #0a1628;
+  --surface: #1e3a5f;
+  --surface-muted: #1b3a57;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-light: #60a5fa;
+  --accent: #60a5fa;
+  --text-strong: #f0f9ff;
   --text-muted: #94a3b8;
-  --divider: rgba(148, 163, 184, 0.2);
+  --divider: rgba(148, 163, 184, 0.3);
   --radius: 18px;
-  --shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  --shadow: 0 30px 60px rgba(30, 58, 95, 0.4);
 }
 
 *,
@@ -25,7 +27,7 @@
 body {
   margin: 0;
   padding: clamp(1rem, 2vw, 2.5rem);
-  background: radial-gradient(circle at top, #1c2a4a, #070b16 60%);
+  background: radial-gradient(circle at top, #1e3a5f, #0a1628 60%);
   color: var(--text-strong);
 }
 
@@ -68,7 +70,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.25rem;
   font-weight: 600;
-  color: var(--accent);
+  color: var(--primary-light);
   margin: 0 0 0.4rem;
 }
 
@@ -113,8 +115,9 @@ body {
 }
 
 .period-pill--current {
-  background: rgba(6, 182, 212, 0.2);
+  background: rgba(59, 130, 246, 0.2);
   color: var(--primary);
+  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .period-pill--legend {
@@ -154,13 +157,13 @@ body {
   align-items: center;
   justify-content: flex-start;
   gap: 0.35rem;
-  background: rgba(96, 165, 250, 0.18);
+  background: rgba(59, 130, 246, 0.2);
   color: #e0f2fe;
   border-radius: 20px;
   padding: 0.45rem 1.1rem;
   font-size: 1rem;
   font-weight: 600;
-  border: 1px solid rgba(96, 165, 250, 0.35);
+  border: 1px solid rgba(59, 130, 246, 0.4);
   white-space: normal;
   margin-right: auto;
   flex-wrap: wrap;
@@ -182,12 +185,19 @@ body {
   border: 0;
   border-radius: 999px;
   padding: 0.55rem 1.2rem;
-  background: rgba(6, 182, 212, 0.15);
+  background: rgba(59, 130, 246, 0.15);
   color: var(--primary);
   font-weight: 600;
   text-decoration: none;
-  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.4);
   white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.link-btn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.6);
+  transform: translateY(-1px);
 }
 
 .link-btn-group {
@@ -1014,8 +1024,8 @@ body.phone-page .lodging-lift-button.is-selected {
 
 .season-btn.active {
   background: var(--primary);
-  color: #020617;
-  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+  color: #f0f9ff;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   transform: translateY(-1px);
 }
 
@@ -1040,7 +1050,7 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .pos-panel.pos-panel--collapsed .toggle-view-btn {
-  background: rgba(6, 182, 212, 0.15);
+  background: rgba(59, 130, 246, 0.2);
   color: var(--primary);
 }
 
@@ -1059,8 +1069,8 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .toggle-view-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--divider);
+  background: rgba(37, 99, 235, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 12px;
   padding: 0.6rem 1.2rem;
   color: var(--text-strong);
@@ -1071,11 +1081,11 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .toggle-view-btn:hover {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: rgba(6, 182, 212, 0.4);
-  color: var(--primary);
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: var(--primary-light);
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.15);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
 }
 
 .category-nav {
@@ -1085,27 +1095,31 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .category-btn {
-  border: 0;
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 999px;
   padding: 0.55rem 1.3rem;
   font-weight: 600;
   cursor: pointer;
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-strong);
+  background: rgba(37, 99, 235, 0.2);
   transition: all 0.2s ease;
   font-size: 0.95rem;
   min-height: 40px;
 }
 
 .category-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.6);
+  color: var(--primary-light);
   transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
 .category-btn.active {
   background: var(--primary);
-  color: #020617;
-  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+  color: #f0f9ff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
   transform: translateY(-1px);
 }
 
@@ -1123,10 +1137,10 @@ body.phone-page .lodging-lift-button.is-selected {
 .lesson-package-notice {
   margin: 0;
   padding: 0.5rem 0.75rem;
-  background: rgba(6, 182, 212, 0.1);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 8px;
-  color: #e2e8f0;
+  color: #e0f2fe;
   font-size: 0.85rem;
   font-weight: 500;
   line-height: 1.5;
@@ -1139,20 +1153,29 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .group-btn {
-  border: 0;
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 999px;
   padding: 0.4rem 1rem;
   font-weight: 600;
   cursor: pointer;
-  color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-strong);
+  background: rgba(37, 99, 235, 0.2);
   transition: all 0.2s ease;
 }
 
+.group-btn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.6);
+  color: var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
 .group-btn.active {
-  background: rgba(6, 182, 212, 0.2);
-  color: var(--primary);
-  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.2);
+  background: rgba(59, 130, 246, 0.35);
+  color: var(--primary-light);
+  border-color: rgba(59, 130, 246, 0.8);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
 }
 
 .item-grid {
@@ -1164,9 +1187,14 @@ body.phone-page .lodging-lift-button.is-selected {
   padding-right: 0.5rem;
 }
 
+.item-grid.no-scroll {
+  max-height: none;
+  overflow: visible;
+}
+
 .lodging-panel {
-  background: rgba(15, 23, 42, 0.35);
-  border: 1px solid var(--divider);
+  background: rgba(30, 58, 95, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.2);
   border-radius: var(--radius);
   padding: 1.5rem;
   display: none;
@@ -1209,24 +1237,26 @@ body.phone-page .lodging-lift-button.is-selected {
 .lodging-group {
   padding: 1rem;
   border-radius: 20px;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  background: rgba(15, 23, 42, 0.35);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: rgba(30, 58, 95, 0.3);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
 .lodging-group--schedule {
-  background: rgba(15, 23, 42, 0.55);
+  background: rgba(30, 58, 95, 0.4);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
 .lodging-group--guests {
-  background: rgba(6, 182, 212, 0.08);
-  border-color: rgba(6, 182, 212, 0.25);
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
 .lodging-group--options {
-  background: rgba(15, 23, 42, 0.45);
+  background: rgba(30, 58, 95, 0.35);
+  border-color: rgba(59, 130, 246, 0.25);
 }
 
 .lodging-field {
@@ -1270,8 +1300,9 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .lodging-badge {
-  background: rgba(148, 163, 184, 0.2);
+  background: rgba(59, 130, 246, 0.2);
   color: var(--text-strong);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 999px;
   padding: 0.2rem 0.8rem;
   font-size: 0.85rem;
@@ -1284,7 +1315,8 @@ body.phone-page .lodging-lift-button.is-selected {
   border-radius: 999px;
   padding: 0.25rem;
   gap: 0.25rem;
-  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+  box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .lodging-season-toggle button {
@@ -1295,11 +1327,17 @@ body.phone-page .lodging-lift-button.is-selected {
   color: var(--text-muted);
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lodging-season-toggle button:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--primary-light);
 }
 
 .lodging-season-toggle button.active {
   background: var(--primary);
-  color: #020617;
+  color: #f0f9ff;
 }
 
 .lodging-season-toggle button:disabled {
@@ -1318,20 +1356,27 @@ body.phone-page .lodging-lift-button.is-selected {
 .lodging-number {
   display: flex;
   align-items: center;
-  border: 1px solid var(--divider);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 12px;
   overflow: hidden;
   width: 100%;
+  background: rgba(30, 58, 95, 0.3);
 }
 
 .lodging-number button {
   border: 0;
-  background: rgba(148, 163, 184, 0.15);
+  background: rgba(59, 130, 246, 0.2);
   color: var(--text-strong);
   padding: 0.4rem 0.75rem;
   font-size: 1.1rem;
   cursor: pointer;
   flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.lodging-number button:hover {
+  background: rgba(59, 130, 246, 0.3);
+  color: var(--primary-light);
 }
 
 .lodging-number input {
@@ -1356,22 +1401,22 @@ body.phone-page .lodging-lift-button.is-selected {
   margin-bottom: 0.75rem;
   padding: 0.875rem 1rem;
   border-radius: 12px;
-  background: rgba(6, 182, 212, 0.15);
-  border: 2px solid rgba(6, 182, 212, 0.3);
+  background: rgba(59, 130, 246, 0.15);
+  border: 2px solid rgba(59, 130, 246, 0.3);
   transition: all 0.2s ease;
   width: 100%;
   flex-basis: 100%;
 }
 
 .lodging-no-lodging-container:hover {
-  background: rgba(6, 182, 212, 0.2);
-  border-color: rgba(6, 182, 212, 0.5);
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
 }
 
 .lodging-no-lodging-container:has(input:checked) {
-  background: rgba(6, 182, 212, 0.25);
+  background: rgba(59, 130, 246, 0.25);
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .lodging-no-lodging-label {
@@ -1406,38 +1451,40 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .lodging-category-btn {
-  border: 0;
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 999px;
   padding: 0.5rem 1.25rem;
-  background: rgba(96, 165, 250, 0.18);
-  color: #e2e8f0;
+  background: rgba(37, 99, 235, 0.2);
+  color: var(--text-strong);
   font-weight: 600;
   font-size: 0.95rem;
-  cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.35);
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .lodging-category-btn:hover {
-  background: rgba(96, 165, 250, 0.25);
-  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.5);
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.6);
+  color: var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
 .lodging-category-btn.active {
   background: var(--primary);
-  color: #020617;
-  box-shadow: none;
+  color: #f0f9ff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
 }
 
 .lodging-type-group-btn {
-  border: 0;
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 999px;
   padding: 0.35rem 0.9rem;
-  background: rgba(96, 165, 250, 0.18);
-  color: #e2e8f0;
+  background: rgba(37, 99, 235, 0.2);
+  color: var(--text-strong);
   font-weight: 600;
   cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.35);
   transition: all 0.2s ease;
   min-width: 80px;
   text-align: center;
@@ -1445,10 +1492,19 @@ body.phone-page .lodging-lift-button.is-selected {
   flex: 0 0 auto;
 }
 
+.lodging-type-group-btn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.6);
+  color: var(--primary-light);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
 .lodging-type-group-btn.active {
   background: var(--primary);
-  color: #020617;
-  box-shadow: none;
+  color: #f0f9ff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   /* active 상태에서도 동일한 크기 유지 */
   padding: 0.35rem 0.9rem;
   min-width: 80px;
@@ -1560,6 +1616,7 @@ body.phone-page .lodging-lift-button.is-selected {
   grid-template-columns: 1fr;
   gap: 0.75rem;
   width: 100%;
+  justify-items: start;
 }
 
 .lodging-date-section {
@@ -1602,9 +1659,9 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .lodging-lift-card {
-  border: 1px solid var(--divider);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 12px;
-  background: var(--surface);
+  background: rgba(30, 58, 95, 0.3);
   padding: 0.85rem;
   transition: border-color 0.2s ease;
   display: flex;
@@ -1767,11 +1824,12 @@ body.phone-page .lodging-lift-button.is-selected {
   text-align: center;
   flex-shrink: 0;
   transition: background 0.2s ease, color 0.2s ease;
+  background: rgba(59, 130, 246, 0.1);
 }
 
 .lodging-reservation-btn:hover {
   background: var(--primary);
-  color: #0f172a;
+  color: #f0f9ff;
 }
 
 .lodging-lift-summary,
@@ -1779,10 +1837,10 @@ body.phone-page .lodging-lift-button.is-selected {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(15, 23, 42, 0.3);
+  background: rgba(30, 58, 95, 0.3);
   border-radius: 12px;
   padding: 0.8rem 1rem;
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
 .lodging-lift-summary span,
@@ -1805,20 +1863,20 @@ body.phone-page .lodging-lift-button.is-selected {
   border: 0;
   border-radius: 12px;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(8, 145, 178, 0.2) 100%);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%);
   color: var(--primary);
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   border: 2px solid var(--primary);
-  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .quote-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(8, 145, 178, 0.3) 100%);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(37, 99, 235, 0.3) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
 }
 
 .quote-btn:active:not(:disabled) {
@@ -1831,26 +1889,26 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .item-button {
-  border: 0;
+  border: 1px solid rgba(59, 130, 246, 0.25);
   border-radius: 16px;
   padding: 1.25rem;
-  background: var(--surface-muted);
-  color: inherit;
+  background: rgba(37, 99, 235, 0.15);
+  color: var(--text-strong);
   text-align: left;
   cursor: pointer;
   min-height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: inset 0 0 0 1px transparent;
   transition: all 0.2s ease;
 }
 
 .item-button:hover,
 .item-button:focus-visible {
   transform: translateY(-3px);
-  box-shadow: inset 0 0 0 1px rgba(6, 182, 212, 0.3), 0 4px 12px rgba(6, 182, 212, 0.15);
-  background: rgba(6, 182, 212, 0.08);
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: rgba(30, 58, 95, 0.7);
 }
 
 .item-button:active {
@@ -1901,28 +1959,30 @@ body.phone-page .lodging-lift-button.is-selected {
   margin: 0.35rem 0 0;
   padding: 0.2rem 0.75rem;
   border-radius: 999px;
-  background: rgba(6, 182, 212, 0.15);
+  background: rgba(59, 130, 246, 0.2);
   color: var(--primary);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   font-weight: 600;
   font-size: 0.95rem;
 }
 
 .reset-btn {
-  border: 0;
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 12px;
   padding: 0.65rem 1.2rem;
   font-weight: 600;
   color: var(--text-strong);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(37, 99, 235, 0.15);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .reset-btn:hover {
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
   color: #fca5a5;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
 }
 
 .reset-btn:active {
@@ -2065,9 +2125,9 @@ body.phone-page .lodging-lift-button.is-selected {
   justify-content: space-between;
   align-items: center;
   padding: 0.9rem 1rem;
-  border: 1px solid var(--divider);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 14px;
-  background: rgba(15, 23, 42, 0.25);
+  background: rgba(30, 58, 95, 0.3);
   color: var(--text-strong);
   font-weight: 600;
   cursor: pointer;
@@ -2076,7 +2136,7 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .split-toggle-btn:hover {
-  background: rgba(15, 23, 42, 0.35);
+  background: rgba(30, 58, 95, 0.4);
   border-color: var(--primary);
 }
 
@@ -2118,9 +2178,9 @@ body.phone-page .lodging-lift-button.is-selected {
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 1rem;
-  border: 1px solid var(--divider);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 14px;
-  background: rgba(15, 23, 42, 0.25);
+  background: rgba(30, 58, 95, 0.3);
 }
 
 .split-label span {
@@ -2136,14 +2196,15 @@ body.phone-page .lodging-lift-button.is-selected {
 .split-input {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--divider);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 999px;
   overflow: hidden;
+  background: rgba(30, 58, 95, 0.3);
 }
 
 .split-input button {
   border: none;
-  background: rgba(6, 182, 212, 0.1);
+  background: rgba(59, 130, 246, 0.2);
   color: var(--primary);
   width: 40px;
   height: 40px;
@@ -2157,7 +2218,8 @@ body.phone-page .lodging-lift-button.is-selected {
 }
 
 .split-input button:hover {
-  background: rgba(6, 182, 212, 0.2);
+  background: rgba(59, 130, 246, 0.3);
+  color: var(--primary-light);
   transform: scale(1.1);
 }
 
@@ -2182,9 +2244,9 @@ body.phone-page .lodging-lift-button.is-selected {
   margin-top: 0.6rem;
   padding: 1rem 1.25rem;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(8, 145, 178, 0.2) 100%);
-  border: 1px solid rgba(6, 182, 212, 0.4);
-  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.15);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(37, 99, 235, 0.2) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
 .split-result span {

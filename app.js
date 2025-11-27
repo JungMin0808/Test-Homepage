@@ -2136,6 +2136,13 @@ function renderItemGrid(categories) {
   }
   itemGridEl.innerHTML = "";
   itemGridEl.hidden = false;
+  
+  // 장비 · 보호장비 렌탈 카테고리일 때 스크롤 제거
+  if (activeCategory && activeCategory.name === "장비 · 보호장비 렌탈") {
+    itemGridEl.classList.add("no-scroll");
+  } else {
+    itemGridEl.classList.remove("no-scroll");
+  }
 
   if (!activeCategory) {
     const emptyMessage = document.createElement("p");
