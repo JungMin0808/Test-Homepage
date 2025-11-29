@@ -3,7 +3,8 @@ let faqState = {
   editMode: false,
   editingId: null,
   isDirty: false,
-  searchQuery: ""
+  searchQuery: "",
+  selectedCategory: "all"
 };
 
 const faqListEl = document.getElementById("faq-list");
@@ -23,7 +24,11 @@ async function loadFAQs() {
   // 1. 먼저 로컬 스토리지에서 확인
   const localData = loadFAQsFromLocal();
   if (localData && localData.length > 0) {
-    faqState.faqs = localData;
+    // 기존 데이터에 category가 없으면 '미분류'로 설정
+    faqState.faqs = localData.map(faq => ({
+      ...faq,
+      category: faq.category || "미분류"
+    }));
     faqState.isDirty = false;
     updateSaveButtonState();
     renderFAQs();
@@ -34,7 +39,11 @@ async function loadFAQs() {
 
   // 2. 로컬 파일에서 데이터 확인 (faq.js가 이미 로드된 경우)
   if (Array.isArray(window.faqData) && window.faqData.length) {
-    faqState.faqs = window.faqData;
+    // 기존 데이터에 category가 없으면 '미분류'로 설정
+    faqState.faqs = window.faqData.map(faq => ({
+      ...faq,
+      category: faq.category || "미분류"
+    }));
     faqState.isDirty = false;
     updateSaveButtonState();
     renderFAQs();
@@ -49,7 +58,11 @@ async function loadFAQs() {
     if (!response.ok) throw new Error("network error");
     const result = await response.json();
     if (result.success && Array.isArray(result.faqs)) {
-      faqState.faqs = result.faqs || [];
+      // 기존 데이터에 category가 없으면 '미분류'로 설정
+      faqState.faqs = (result.faqs || []).map(faq => ({
+        ...faq,
+        category: faq.category || "미분류"
+      }));
       faqState.isDirty = false;
       // 로컬 스토리지에 저장
       saveFAQsToLocal();
@@ -59,7 +72,11 @@ async function loadFAQs() {
   } catch (error) {
     // 서버 API 실패 시 로컬 파일에서 직접 로드
     if (Array.isArray(window.faqData) && window.faqData.length) {
-      faqState.faqs = window.faqData;
+      // 기존 데이터에 category가 없으면 '미분류'로 설정
+      faqState.faqs = window.faqData.map(faq => ({
+        ...faq,
+        category: faq.category || "미분류"
+      }));
       faqState.isDirty = false;
       updateSaveButtonState();
       renderFAQs();
@@ -193,18 +210,29 @@ function updateSaveButtonState() {
   }
 }
 
-// 검색어로 FAQ 필터링
-function filterFAQs(faqs, query) {
-  if (!query || query.trim() === "") {
-    return faqs;
+// 검색어와 대분류로 FAQ 필터링
+function filterFAQs(faqs, query, category) {
+  let filtered = faqs;
+  
+  // 대분류 필터링
+  if (category && category !== "all") {
+    filtered = filtered.filter((faq) => {
+      const faqCategory = faq.category || "미분류";
+      return faqCategory === category;
+    });
   }
   
-  const lowerQuery = query.toLowerCase().trim();
-  return faqs.filter((faq) => {
-    const question = (faq.question || "").toLowerCase();
-    const answer = (faq.answer || "").toLowerCase();
-    return question.includes(lowerQuery) || answer.includes(lowerQuery);
-  });
+  // 검색어 필터링
+  if (query && query.trim() !== "") {
+    const lowerQuery = query.toLowerCase().trim();
+    filtered = filtered.filter((faq) => {
+      const question = (faq.question || "").toLowerCase();
+      const answer = (faq.answer || "").toLowerCase();
+      return question.includes(lowerQuery) || answer.includes(lowerQuery);
+    });
+  }
+  
+  return filtered;
 }
 
 // 텍스트에서 검색어 하이라이트
@@ -223,8 +251,8 @@ function highlightText(text, query) {
 function renderFAQs() {
   faqListEl.innerHTML = "";
   
-  // 검색어로 필터링
-  const filteredFAQs = filterFAQs(faqState.faqs, faqState.searchQuery);
+  // 검색어와 대분류로 필터링
+  const filteredFAQs = filterFAQs(faqState.faqs, faqState.searchQuery, faqState.selectedCategory);
   
   if (filteredFAQs.length === 0) {
     faqEmptyEl.hidden = false;
@@ -251,10 +279,22 @@ function renderFAQs() {
     
     if (faqState.editingId === faq.id) {
       // 편집 모드
+      const currentCategory = faq.category || "미분류";
       item.innerHTML = `
         <div class="faq-form">
           <input type="text" class="faq-form-input faq-edit-question" value="${escapeHtml(faq.question)}" placeholder="질문을 입력하세요" />
           <textarea class="faq-form-input faq-form-textarea faq-edit-answer" placeholder="답변을 입력하세요">${escapeHtml(faq.answer)}</textarea>
+          <div class="faq-form-category">
+            <label for="faq-category-${faq.id}" class="faq-form-label">대분류</label>
+            <select id="faq-category-${faq.id}" class="faq-form-input faq-edit-category" data-id="${faq.id}">
+              <option value="영업문의" ${currentCategory === "영업문의" ? "selected" : ""}>영업문의</option>
+              <option value="패키지문의" ${currentCategory === "패키지문의" ? "selected" : ""}>패키지문의</option>
+              <option value="교통문의" ${currentCategory === "교통문의" ? "selected" : ""}>교통문의</option>
+              <option value="펜션문의" ${currentCategory === "펜션문의" ? "selected" : ""}>펜션문의</option>
+              <option value="강습문의" ${currentCategory === "강습문의" ? "selected" : ""}>강습문의</option>
+              <option value="미분류" ${currentCategory === "미분류" ? "selected" : ""}>미분류</option>
+            </select>
+          </div>
           <div class="faq-form-actions">
             <button type="button" class="faq-save-btn" data-action="save-edit" data-id="${faq.id}">저장</button>
             <button type="button" class="faq-cancel-btn" data-action="cancel-edit">취소</button>
@@ -329,6 +369,8 @@ function attachEventListeners() {
       const item = e.target.closest(".faq-item");
       const question = item.querySelector(".faq-edit-question").value.trim();
       const answer = item.querySelector(".faq-edit-answer").value.trim();
+      const categorySelect = item.querySelector(".faq-edit-category");
+      const category = categorySelect ? categorySelect.value : "미분류";
       
       if (!question || !answer) {
         alert("질문과 답변을 모두 입력해주세요.");
@@ -339,13 +381,14 @@ function attachEventListeners() {
       if (faq) {
         faq.question = question;
         faq.answer = answer;
+        faq.category = category;
       }
       
       faqState.editingId = null;
+      faqState.isDirty = true;
+      updateSaveButtonState();
       // 편집 결과는 "저장" 버튼을 눌렀을 때만 실제로 저장되도록 변경
       renderFAQs();
-      // 로컬/서버 저장은 저장 버튼 클릭 시에만 수행
-      saveFAQs();
     });
   });
   
@@ -382,10 +425,13 @@ function addNewFAQ() {
   const newFAQ = {
     id: newId,
     question: "",
-    answer: ""
+    answer: "",
+    category: "미분류"
   };
   faqState.faqs.push(newFAQ);
   faqState.editingId = newId;
+  faqState.isDirty = true;
+  updateSaveButtonState();
   // 새로 추가된 항목도 실제 "저장" 버튼을 누르기 전까지는 저장되지 않도록 함
   renderFAQs();
   
@@ -430,7 +476,11 @@ function importFAQs(file) {
       if (!Array.isArray(data)) {
         throw new Error("올바른 FAQ 데이터 형식이 아닙니다.");
       }
-      faqState.faqs = data;
+      // 기존 데이터에 category가 없으면 '미분류'로 설정
+      faqState.faqs = data.map(faq => ({
+        ...faq,
+        category: faq.category || "미분류"
+      }));
       faqState.isDirty = true;
       saveFAQsToLocal(); // 즉시 로컬 저장
       updateSaveButtonState();
@@ -486,6 +536,27 @@ faqSearchClear?.addEventListener("click", () => {
     faqSearchInput.focus();
   }
 });
+
+// 대분류 필터 이벤트 리스너
+const faqCategoryFilter = document.getElementById("faq-category-filter");
+if (faqCategoryFilter) {
+  faqCategoryFilter.addEventListener("click", (e) => {
+    const btn = e.target.closest(".faq-category-btn");
+    if (!btn) return;
+    
+    const category = btn.dataset.category;
+    faqState.selectedCategory = category;
+    
+    // 모든 버튼에서 active 클래스 제거
+    faqCategoryFilter.querySelectorAll(".faq-category-btn").forEach(b => {
+      b.classList.remove("active");
+    });
+    // 클릭한 버튼에 active 클래스 추가
+    btn.classList.add("active");
+    
+    renderFAQs();
+  });
+}
 
 // 초기화 - 페이지 로드 완료 후 FAQ 로드
 function initializeFAQs() {

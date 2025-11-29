@@ -2579,11 +2579,10 @@ function renderItemGrid(categories) {
     }
     
     button.innerHTML = `
-      <div>
+      <div class="item-button__content">
         <p class="item-button__name">${item.name}</p>
-        <p class="item-button__unit">${item.unit} · ${priceText}</p>
+        <p class="item-button__price">${priceText}</p>
       </div>
-      <p class="item-button__price">+1</p>
     `;
     button.addEventListener("click", () => adjustSelection(item.id, 1));
     itemGridEl.appendChild(button);
@@ -2772,6 +2771,7 @@ function updateSummary() {
 
   if (!orderedSelections.length) {
     const emptyState = document.createElement("li");
+    emptyState.className = "summary__empty-state";
     emptyState.textContent = "선택된 항목이 없습니다.";
     emptyState.style.color = isPhoneMode ? "#A67C5A" : "#94a3b8";
     summaryListEl.appendChild(emptyState);
@@ -2793,21 +2793,18 @@ function updateSummary() {
     // 숙박패키지 항목인지 확인
     const isLodgingItem = selection.id?.startsWith("lodging_");
     
-    // 강습 아이템인 경우 패찰비 정보 표시
-    let priceText = `단가 ${formatCurrency(itemPrice)}`;
-    if (equipmentFee > 0) {
-      priceText += ` (강습 ${formatCurrency(basePrice)} + 패찰비 ${formatCurrency(equipmentFee)})`;
-    }
+    // 가격 텍스트 생성: '53,000원 x 2명 = 106,000원' 형식
+    let priceText = "";
     
-    // 숙박패키지 항목인 경우 단가 대신 수량과 합계 표시
-    if (isLodgingItem) {
-      if (selection.unit) {
-        priceText = `${selection.unit} · ${formatCurrency(itemPrice)} × ${selection.quantity} = ${formatCurrency(selection.subtotal)}`;
-      } else {
-        priceText = `단가 ${formatCurrency(itemPrice)} · 수량 ${selection.quantity} · 합계 ${formatCurrency(selection.subtotal)}`;
-      }
+    // 강습 아이템인 경우 패찰비 정보 표시
+    if (equipmentFee > 0) {
+      priceText = `${formatCurrency(itemPrice)} (강습 ${formatCurrency(basePrice)} + 패찰비 ${formatCurrency(equipmentFee)}) × ${selection.quantity}명 = ${formatCurrency(selection.subtotal)}`;
+    } else if (isLodgingItem) {
+      // 숙박패키지 항목
+      priceText = `${formatCurrency(itemPrice)} × ${selection.quantity}명 = ${formatCurrency(selection.subtotal)}`;
     } else {
-      priceText += ` · 합계 ${formatCurrency(selection.subtotal)}`;
+      // 일반 항목
+      priceText = `${formatCurrency(itemPrice)} × ${selection.quantity}명 = ${formatCurrency(selection.subtotal)}`;
     }
     
     const item = document.createElement("li");
@@ -2862,12 +2859,14 @@ function resetCalculator() {
       // 상태 초기화
       lodgingStates[category] = createLodgingState();
       
-      // 첫째날(대분류1)은 오늘 날짜로 설정, 나머지는 빈 값
-      const dateValue = index === 0 ? today : "";
-      if (index === 0) {
-        lodgingStates[category].date = today;
-        lodgingStates[category].dates.first = today;
-      }
+      // 각 날짜 계산: 첫째날은 오늘, 둘째날은 오늘+1일, 셋째날은 오늘+2일
+      const baseDate = new Date(`${today}T00:00:00`);
+      const targetDate = new Date(baseDate);
+      targetDate.setDate(targetDate.getDate() + index);
+      const dateValue = getLocalDateString(targetDate);
+      
+      lodgingStates[category].date = dateValue;
+      lodgingStates[category].dates.first = dateValue;
       
       // UI 요소 초기화
       const dateInput = document.getElementById(`lodging-date-select-${category}`);
@@ -2905,9 +2904,10 @@ function resetCalculator() {
       currentLodgingCategory = category;
       renderLodgingGroupFilters();
       renderLodgingLiftOptions();
-      // 첫째날의 경우 날짜 설정 함수 호출하여 관련 상태 업데이트
-      if (index === 0 && today) {
-        setLodgingDate(today);
+      // 각 날짜 설정 함수 호출하여 관련 상태 업데이트
+      const categoryDate = lodgingStates[category].date;
+      if (categoryDate) {
+        setLodgingDate(categoryDate);
       }
       updateLodgingBadges();
       calculateLodgingQuote();
