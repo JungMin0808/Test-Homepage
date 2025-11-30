@@ -297,12 +297,6 @@ const pricingData = {
                 "name": "7시간",
                 "price": 54000,
                 "unit": "매"
-              },
-              {
-                "id": "리프트 + 렌탈권_weekday_0_1764493838122",
-                "name": "8시간",
-                "unit": "매",
-                "price": 57000
               }
             ]
           },
