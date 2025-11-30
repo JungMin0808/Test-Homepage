@@ -611,12 +611,45 @@ body {
 
 .item-row {
   display: grid;
-  grid-template-columns: minmax(160px, 2fr) minmax(110px, 1fr) minmax(110px, 1fr) minmax(100px, auto);
+  grid-template-columns: auto minmax(160px, 2fr) minmax(110px, 1fr) minmax(110px, 1fr) minmax(100px, auto);
   gap: 1rem;
   padding: 0.9rem 1.2rem;
   border-bottom: 1px solid var(--border);
   align-items: center;
   box-sizing: border-box;
+}
+
+.item-order-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-btn {
+  width: 28px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-btn:hover:not(.disabled) {
+  background: #e0f2fe;
+  border-color: #38bdf8;
+  color: #0284c7;
+}
+
+.order-btn.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .item-row:last-child {
@@ -791,7 +824,11 @@ body {
   }
 
   .item-row {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: auto repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .item-order-buttons {
+    flex-direction: column;
   }
 }
 
@@ -1020,7 +1057,7 @@ body {
   }
 
   .item-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 1fr;
     gap: 0.85rem;
     padding: 1rem 1.1rem;
     border-bottom: 1px solid var(--border);
@@ -1028,6 +1065,17 @@ body {
 
   .item-row:last-child {
     border-bottom: 0;
+  }
+
+  .item-order-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .order-btn {
+    width: 32px;
+    height: 24px;
+    font-size: 11px;
   }
 
   .item-row input {
@@ -1040,7 +1088,7 @@ body {
     border-radius: 10px;
   }
 
-  .item-row input[type="text"]:first-child {
+  .item-row input[type="text"]:first-of-type {
     font-weight: 600;
   }
 
@@ -1048,7 +1096,7 @@ body {
     font-weight: 600;
   }
 
-  .item-row button {
+  .item-row > button[data-action="remove"] {
     width: 100%;
     padding: 0.7rem 0.85rem;
     min-height: 48px;

@@ -268,7 +268,13 @@ function renderItems() {
   itemList.forEach((item, index) => {
     const row = document.createElement("div");
     row.className = "item-row";
+    const isFirst = index === 0;
+    const isLast = index === itemList.length - 1;
     row.innerHTML = `
+      <div class="item-order-buttons">
+        <button type="button" class="order-btn order-up${isFirst ? " disabled" : ""}" data-action="move-up" data-index="${index}" ${isFirst ? "disabled" : ""} title="위로 이동">▲</button>
+        <button type="button" class="order-btn order-down${isLast ? " disabled" : ""}" data-action="move-down" data-index="${index}" ${isLast ? "disabled" : ""} title="아래로 이동">▼</button>
+      </div>
       <input type="text" value="${item.name}" data-field="name" data-index="${index}" placeholder="항목명" />
       <input type="text" value="${item.unit}" data-field="unit" data-index="${index}" placeholder="단위" />
       <input type="number" value="${item.price}" data-field="price" data-index="${index}" min="0" step="1000" />
@@ -279,7 +285,11 @@ function renderItems() {
 }
 
 function renderPeriodTabs(category) {
-  const hasWeekend = category.weekendGroups?.length || category.weekendItems?.length;
+  // VAT 카테고리는 항상 주중/주말 탭을 표시 (items가 비어있더라도)
+  const isVATCategory = category.name === "VAT";
+  const hasWeekend = category.weekendGroups?.length || category.weekendItems?.length || 
+                     (isVATCategory && (category.weekendGroups !== undefined || category.weekendItems !== undefined));
+  
   if (!hasWeekend) {
     periodTabsEl.hidden = true;
     periodTabsEl.innerHTML = "";
@@ -528,14 +538,30 @@ function handleItemTableClick(event) {
 
   const action = event.target.dataset.action;
   const index = Number(event.target.dataset.index);
-  if (action !== "remove" || Number.isNaN(index)) return;
+  if (Number.isNaN(index)) return;
 
   const list = getActiveItemList();
   if (!list) return;
 
-  list.splice(index, 1);
-  markPricingDirty();
-  renderItems();
+  if (action === "remove") {
+    list.splice(index, 1);
+    markPricingDirty();
+    renderItems();
+  } else if (action === "move-up" && index > 0) {
+    // 위로 이동
+    const temp = list[index];
+    list[index] = list[index - 1];
+    list[index - 1] = temp;
+    markPricingDirty();
+    renderItems();
+  } else if (action === "move-down" && index < list.length - 1) {
+    // 아래로 이동
+    const temp = list[index];
+    list[index] = list[index + 1];
+    list[index + 1] = temp;
+    markPricingDirty();
+    renderItems();
+  }
 }
 
 function addNewCategory() {

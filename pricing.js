@@ -514,91 +514,151 @@ const pricingData = {
         "items": [
           {
             "id": "skiRental",
-            "name": "일반의류 렌탈",
+            "name": "일반의류 렌탈(2~3시간)",
             "price": 10000,
             "unit": "세트"
           },
           {
             "id": "boardRental",
-            "name": "고급의류 렌탈",
-            "price": 30000,
+            "name": "일반의류 렌탈(4~5시간)",
+            "price": 10000,
             "unit": "세트"
           },
           {
             "id": "basicWearRental",
+            "name": "일반의류 렌탈(6~8시간)",
+            "price": 15000,
+            "unit": "세트"
+          },
+          {
+            "id": "premiumWearRental",
+            "name": "고급의류 렌탈(2~3시간)",
+            "price": 25000,
+            "unit": "세트"
+          },
+          {
+            "id": "helmetRental",
+            "name": "고급의류 렌탈(4시간)",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "visorHelmetRental",
+            "name": "고급의류 렌탈(5~6시간)",
+            "price": 35000,
+            "unit": "세트"
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763459240105",
+            "name": "고급의류 렌탈(7~8시간)",
+            "unit": "세트",
+            "price": 40000
+          },
+          {
+            "id": "turtleGuardRental",
             "name": "헬맷 렌탈",
             "price": 5000,
             "unit": "개"
           },
           {
-            "id": "premiumWearRental",
+            "id": "shortSkiRental",
             "name": "바이저 헬맷 렌탈",
             "price": 10000,
             "unit": "개"
           },
           {
-            "id": "helmetRental",
+            "id": "inlineSkiRental",
             "name": "고글 렌탈",
             "price": 5000,
             "unit": "개"
           },
           {
-            "id": "visorHelmetRental",
+            "id": "hammerDeckRental",
             "name": "보호대 렌탈",
             "price": 5000,
             "unit": "개"
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763459240105",
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132736",
             "name": "거북이 보호대 렌탈",
             "unit": "개",
             "price": 15000
           },
           {
-            "id": "turtleGuardRental",
-            "name": "스키만 렌탈 (리프트X)",
-            "price": 10000,
-            "unit": "개"
-          },
-          {
-            "id": "shortSkiRental",
-            "name": "보드만 렌탈 (리프트X)",
-            "price": 10000,
-            "unit": "개"
-          },
-          {
-            "id": "inlineSkiRental",
-            "name": "숏스키만 렌탈 (리프트X)",
-            "price": 20000,
-            "unit": "개"
-          },
-          {
-            "id": "hammerDeckRental",
-            "name": "인라인 스키만 렌탈 (리프트X)",
-            "price": 30000,
-            "unit": "개"
-          },
-          {
-            "id": "장비 · 보호장비 렌탈_weekday_1763197132736",
-            "name": "해머 데크만 렌탈 (리프트X)",
-            "unit": "개",
-            "price": 30000
-          },
-          {
             "id": "장비 · 보호장비 렌탈_weekday_1763197132559",
-            "name": "숏스키로 변경",
+            "name": "스키만 렌탈 (2~4시간)",
             "unit": "개",
             "price": 10000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1763197132370",
+            "name": "스키만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 15000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764046391581",
+            "name": "보드만 렌탈(2~4시간)",
+            "unit": "개",
+            "price": 10000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510307655",
+            "name": "보드만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 15000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510307781",
+            "name": "숏스키만 렌탈(2~4시간)",
+            "unit": "개",
+            "price": 20000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510307901",
+            "name": "숏스키만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 25000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308028",
+            "name": "인라인 스키만 렌탈(2~4시간)",
+            "unit": "개",
+            "price": 30000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308163",
+            "name": "인라인 스키만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 35000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308281",
+            "name": "해머데크만 렌탈(2~4시간)",
+            "unit": "개",
+            "price": 30000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308424",
+            "name": "해머데크만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 35000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308547",
+            "name": "숏스키로 변경",
+            "unit": "개",
+            "price": 10000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308668",
             "name": "인라인 스키로 변경",
             "unit": "개",
             "price": 20000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1764046391581",
-            "name": "해머 데크로 변경",
+            "id": "장비 · 보호장비 렌탈_weekday_1764510309013",
+            "name": "해머데크로 변경",
             "unit": "개",
             "price": 20000
           }
@@ -1094,13 +1154,13 @@ const pricingData = {
                 "id": "강습 패키지_weekday_0_1763821854220",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 280000
+                "price": 277000
               },
               {
                 "id": "강습 패키지_weekday_0_1763821854477",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 340000
+                "price": 339000
               }
             ]
           },
@@ -1111,19 +1171,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_1_1763821925682",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 230000
+                "price": 225000
               },
               {
                 "id": "강습 패키지_weekday_1_1763821925950",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 320000
+                "price": 314000
               },
               {
                 "id": "강습 패키지_weekday_1_1763821926155",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 380000
+                "price": 378000
               }
             ]
           },
@@ -1140,13 +1200,13 @@ const pricingData = {
                 "id": "강습 패키지_weekday_2_1763821946181",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 360000
+                "price": 351000
               },
               {
                 "id": "강습 패키지_weekday_2_1763821946319",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 420000
+                "price": 417000
               }
             ]
           },
@@ -1157,19 +1217,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_3_1764418742603",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 320000
+                "price": 315000
               },
               {
                 "id": "강습 패키지_weekday_3_1764418742738",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 420000
+                "price": 418000
               },
               {
                 "id": "강습 패키지_weekday_3_1764418742880",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 500000
+                "price": 496000
               }
             ]
           }
@@ -1182,19 +1242,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_0_1763821956498",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 200000
+                "price": 195000
               },
               {
                 "id": "강습 패키지_weekend_0_1763821956641",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 290000
+                "price": 282000
               },
               {
                 "id": "강습 패키지_weekend_0_1763821956769",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 350000
+                "price": 344000
               }
             ]
           },
@@ -1205,19 +1265,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_1_1763821962105",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 240000
+                "price": 235000
               },
               {
                 "id": "강습 패키지_weekend_1_1763821962265",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 330000
+                "price": 324000
               },
               {
                 "id": "강습 패키지_weekend_1_1763821962411",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 390000
+                "price": 388000
               }
             ]
           },
@@ -1228,19 +1288,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_2_1763821967838",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 280000
+                "price": 275000
               },
               {
                 "id": "강습 패키지_weekend_2_1763821967979",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 370000
+                "price": 366000
               },
               {
                 "id": "강습 패키지_weekend_2_1763821968117",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 440000
+                "price": 432000
               }
             ]
           },
@@ -1251,21 +1311,112 @@ const pricingData = {
                 "id": "강습 패키지_weekend_3_1764418759370",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 340000
+                "price": 335000
               },
               {
                 "id": "강습 패키지_weekend_3_1764418759502",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 440000
+                "price": 438000
               },
               {
                 "id": "강습 패키지_weekend_3_1764418759642",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 520000
+                "price": 516000
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": "VAT",
+        "items": [
+          {
+            "id": "VAT_weekday_1764515916925",
+            "name": "2시간 VAT",
+            "unit": "개",
+            "price": 3000
+          },
+          {
+            "id": "VAT_weekday_1764515917323",
+            "name": "3시간 VAT",
+            "unit": "개",
+            "price": 3000
+          },
+          {
+            "id": "VAT_weekday_1764515917483",
+            "name": "4시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekday_1764515952154",
+            "name": "5시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekday_1764515952443",
+            "name": "6시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekday_1764515952601",
+            "name": "7시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekday_1764515984311",
+            "name": "8시간 VAT",
+            "unit": "개",
+            "price": 4000
+          }
+        ],
+        "weekendItems": [
+          {
+            "id": "VAT_weekend_1764515921403",
+            "name": "2시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekend_1764515921557",
+            "name": "3시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekend_1764515921693",
+            "name": "3시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekend_1764516011112",
+            "name": "4시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekend_1764516011341",
+            "name": "5시간 VAT",
+            "unit": "개",
+            "price": 4500
+          },
+          {
+            "id": "VAT_weekend_1764516011561",
+            "name": "6시간 VAT",
+            "unit": "개",
+            "price": 4500
+          },
+          {
+            "id": "VAT_weekend_1764516011864",
+            "name": "7시간 VAT",
+            "unit": "개",
+            "price": 4500
           }
         ]
       }
@@ -1532,91 +1683,151 @@ const pricingData = {
         "items": [
           {
             "id": "skiRental",
-            "name": "일반의류 렌탈",
+            "name": "일반의류 렌탈(2~3시간)",
             "price": 10000,
             "unit": "세트"
           },
           {
             "id": "boardRental",
-            "name": "고급의류 렌탈",
-            "price": 30000,
+            "name": "일반의류 렌탈(4~5시간)",
+            "price": 10000,
             "unit": "세트"
           },
           {
             "id": "basicWearRental",
+            "name": "일반의류 렌탈(6~8시간)",
+            "price": 15000,
+            "unit": "세트"
+          },
+          {
+            "id": "premiumWearRental",
+            "name": "고급의류 렌탈(2~3시간)",
+            "price": 25000,
+            "unit": "세트"
+          },
+          {
+            "id": "helmetRental",
+            "name": "고급의류 렌탈(4시간)",
+            "price": 30000,
+            "unit": "세트"
+          },
+          {
+            "id": "visorHelmetRental",
+            "name": "고급의류 렌탈(5~6시간)",
+            "price": 35000,
+            "unit": "세트"
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763459240105",
+            "name": "고급의류 렌탈(7~8시간)",
+            "unit": "세트",
+            "price": 40000
+          },
+          {
+            "id": "turtleGuardRental",
             "name": "헬맷 렌탈",
             "price": 5000,
             "unit": "개"
           },
           {
-            "id": "premiumWearRental",
-            "name": "바이저 헬맷 렌탈",
-            "price": 30000,
-            "unit": "개"
-          },
-          {
-            "id": "helmetRental",
-            "name": "고글 렌탈",
-            "price": 5000,
-            "unit": "개"
-          },
-          {
-            "id": "visorHelmetRental",
-            "name": "보호대 렌탈",
-            "price": 5000,
-            "unit": "개"
-          },
-          {
-            "id": "turtleGuardRental",
-            "name": "거북이 보호대 렌탈",
-            "price": 15000,
-            "unit": "개"
-          },
-          {
             "id": "shortSkiRental",
-            "name": "스키만 렌탈 (리프트X)",
+            "name": "바이저 헬맷 렌탈",
             "price": 10000,
             "unit": "개"
           },
           {
             "id": "inlineSkiRental",
-            "name": "보드만 렌탈 (리프트X)",
-            "price": 10000,
+            "name": "고글 렌탈",
+            "price": 5000,
             "unit": "개"
           },
           {
             "id": "hammerDeckRental",
-            "name": "숏스키만 렌탈 (리프트X)",
-            "price": 20000,
+            "name": "보호대 렌탈",
+            "price": 5000,
             "unit": "개"
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763192700807",
-            "name": "인라인 스키만 렌탈 (리프트X)",
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132736",
+            "name": "거북이 보호대 렌탈",
+            "unit": "개",
+            "price": 15000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132559",
+            "name": "스키만 렌탈 (2~4시간)",
+            "unit": "개",
+            "price": 10000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1763197132370",
+            "name": "스키만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 15000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764046391581",
+            "name": "보드만 렌탈(2~4시간)",
+            "unit": "개",
+            "price": 10000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510307655",
+            "name": "보드만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 15000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510307781",
+            "name": "숏스키만 렌탈(2~4시간)",
+            "unit": "개",
+            "price": 20000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510307901",
+            "name": "숏스키만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 25000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308028",
+            "name": "인라인 스키만 렌탈(2~4시간)",
             "unit": "개",
             "price": 30000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763192700524",
-            "name": "해머 데크만 렌탈 (리프트X)",
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308163",
+            "name": "인라인 스키만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 35000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308281",
+            "name": "해머데크만 렌탈(2~4시간)",
             "unit": "개",
             "price": 30000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1763192699070",
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308424",
+            "name": "해머데크만 렌탈(5~8시간)",
+            "unit": "개",
+            "price": 35000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308547",
             "name": "숏스키로 변경",
             "unit": "개",
             "price": 10000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1764047514800",
+            "id": "장비 · 보호장비 렌탈_weekday_1764510308668",
             "name": "인라인 스키로 변경",
             "unit": "개",
             "price": 20000
           },
           {
-            "id": "장비 · 보호장비 렌탈_weekday_1764047514950",
-            "name": "해머 데크로 변경",
+            "id": "장비 · 보호장비 렌탈_weekday_1764510309013",
+            "name": "해머데크로 변경",
             "unit": "개",
             "price": 20000
           }
@@ -2106,19 +2317,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_0_1763921415985",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 200000
+                "price": 195000
               },
               {
                 "id": "강습 패키지_weekday_0_1763921416160",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 290000
+                "price": 282000
               },
               {
                 "id": "강습 패키지_weekday_0_1763921416335",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 350000
+                "price": 345000
               }
             ]
           },
@@ -2129,13 +2340,13 @@ const pricingData = {
                 "id": "강습 패키지_weekday_1_1763921426436",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 240000
+                "price": 235000
               },
               {
                 "id": "강습 패키지_weekday_1_1763921426586",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 330000
+                "price": 324000
               },
               {
                 "id": "강습 패키지_weekday_1_1763921426731",
@@ -2152,19 +2363,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_2_1763921436128",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 280000
+                "price": 275000
               },
               {
                 "id": "강습 패키지_weekday_2_1763921436271",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 370000
+                "price": 366000
               },
               {
                 "id": "강습 패키지_weekday_2_1763921436423",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 440000
+                "price": 435000
               }
             ]
           },
@@ -2175,13 +2386,13 @@ const pricingData = {
                 "id": "강습 패키지_weekday_3_1764418840894",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 340000
+                "price": 335000
               },
               {
                 "id": "강습 패키지_weekday_3_1764418841051",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 440000
+                "price": 438000
               },
               {
                 "id": "강습 패키지_weekday_3_1764418841175",
@@ -2200,19 +2411,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_0_1763921444383",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 240000
+                "price": 232000
               },
               {
                 "id": "강습 패키지_weekend_0_1763921444510",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 330000
+                "price": 329000
               },
               {
                 "id": "강습 패키지_weekend_0_1763921444650",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 420000
+                "price": 411000
               }
             ]
           },
@@ -2223,19 +2434,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_1_1763921452582",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 280000
+                "price": 279000
               },
               {
                 "id": "강습 패키지_weekend_1_1763921452712",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 380000
+                "price": 378000
               },
               {
                 "id": "강습 패키지_weekend_1_1763921452862",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 470000
+                "price": 462000
               }
             ]
           },
@@ -2246,19 +2457,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_2_1763921459710",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 330000
+                "price": 326000
               },
               {
                 "id": "강습 패키지_weekend_2_1763921459851",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 430000
+                "price": 427000
               },
               {
                 "id": "강습 패키지_weekend_2_1763921459994",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 520000
+                "price": 513000
               }
             ]
           },
@@ -2269,21 +2480,112 @@ const pricingData = {
                 "id": "강습 패키지_weekend_3_1764418857996",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 400000
+                "price": 393000
               },
               {
                 "id": "강습 패키지_weekend_3_1764418858161",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 510000
+                "price": 506000
               },
               {
                 "id": "강습 패키지_weekend_3_1764418858301",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 610000
+                "price": 604000
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": "VAT",
+        "items": [
+          {
+            "id": "VAT_weekday_1764515916925",
+            "name": "2시간 VAT",
+            "unit": "개",
+            "price": 3000
+          },
+          {
+            "id": "VAT_weekday_1764515917323",
+            "name": "3시간 VAT",
+            "unit": "개",
+            "price": 3000
+          },
+          {
+            "id": "VAT_weekday_1764515917483",
+            "name": "4시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekday_1764515952154",
+            "name": "5시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekday_1764515952443",
+            "name": "6시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekday_1764515952601",
+            "name": "7시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekday_1764515984311",
+            "name": "8시간 VAT",
+            "unit": "개",
+            "price": 4000
+          }
+        ],
+        "weekendItems": [
+          {
+            "id": "VAT_weekend_1764515921403",
+            "name": "2시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekend_1764515921557",
+            "name": "3시간 VAT",
+            "unit": "개",
+            "price": 3500
+          },
+          {
+            "id": "VAT_weekend_1764515921693",
+            "name": "3시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekend_1764516011112",
+            "name": "4시간 VAT",
+            "unit": "개",
+            "price": 4000
+          },
+          {
+            "id": "VAT_weekend_1764516011341",
+            "name": "5시간 VAT",
+            "unit": "개",
+            "price": 4500
+          },
+          {
+            "id": "VAT_weekend_1764516011561",
+            "name": "6시간 VAT",
+            "unit": "개",
+            "price": 4500
+          },
+          {
+            "id": "VAT_weekend_1764516011864",
+            "name": "7시간 VAT",
+            "unit": "개",
+            "price": 4500
           }
         ]
       }

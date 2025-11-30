@@ -11,7 +11,8 @@ const state = {
   selections: {},
   period: "weekday",
   dateInfo: {},
-  splitCount: 1
+  splitCount: 1,
+  paymentMethod: "cash" // "cash" 또는 "card"
 };
 
 const DEFAULT_LODGING_GROUP = "기타";
@@ -96,6 +97,12 @@ const splitAmountEl = document.getElementById("split-amount");
 const lodgingPanelEl = document.getElementById("lodging-panel");
 const lodgingDateInput = document.getElementById("lodging-date");
 
+// 결제 방식 관련 요소
+const paymentMethodBtns = document.querySelectorAll(".payment-method-btn");
+const vatItemsSectionEl = document.getElementById("vat-items-section");
+const vatItemsListEl = document.getElementById("vat-items-list");
+const vatTotalEl = document.getElementById("vat-total");
+
 // 대분류별 DOM 요소를 가져오는 헬퍼 함수들
 function getLodgingElement(selector, category = null) {
   const cat = category || currentLodgingCategory;
@@ -164,6 +171,116 @@ function formatCurrency(value) {
     currency: "KRW",
     maximumFractionDigits: 0
   });
+}
+
+// VAT 가격 조회 함수
+function getVatPrice(hours, season, period) {
+  if (!pricingState) return 0;
+  
+  const seasonData = pricingState[season];
+  if (!seasonData?.categories) return 0;
+  
+  const vatCategory = seasonData.categories.find(cat => cat.name === "VAT");
+  if (!vatCategory) return 0;
+  
+  const vatItems = period === "weekend" ? vatCategory.weekendItems : vatCategory.items;
+  if (!vatItems?.length) return 0;
+  
+  const vatItem = vatItems.find(item => item.name === `${hours}시간 VAT`);
+  return vatItem?.price || 0;
+}
+
+// 선택된 항목에서 리프트 시간 추출
+function extractLiftHours(selection) {
+  // 아이템 이름에서 시간 정보 추출 (예: "대인 2시간", "소인 3시간", "4시간" 등)
+  const name = selection.name || "";
+  const match = name.match(/(\d+)시간/);
+  if (match) {
+    return parseInt(match[1], 10);
+  }
+  return null;
+}
+
+// 리프트+렌탈권 또는 리프트권 카테고리인지 확인
+function isLiftCategory(selection) {
+  const category = selection.category || (pricingIndex[selection.id]?.category || "");
+  return category === "리프트 + 렌탈권" || category === "리프트권";
+}
+
+// VAT 항목 계산
+function calculateVatItems() {
+  const vatItems = {};
+  
+  // 선택된 항목들 중 리프트+렌탈권, 리프트권 카테고리만 필터링
+  Object.values(state.selections).forEach(selection => {
+    if (!isLiftCategory(selection)) return;
+    
+    const hours = extractLiftHours(selection);
+    if (!hours) return;
+    
+    const key = `${hours}시간`;
+    if (!vatItems[key]) {
+      vatItems[key] = {
+        hours,
+        quantity: 0,
+        price: getVatPrice(hours, state.season, state.period)
+      };
+    }
+    vatItems[key].quantity += selection.quantity;
+  });
+  
+  return Object.values(vatItems).filter(item => item.price > 0);
+}
+
+// VAT 섹션 업데이트
+function updateVatSection() {
+  if (!vatItemsSectionEl || !vatItemsListEl || !vatTotalEl) return;
+  
+  if (state.paymentMethod !== "card") {
+    vatItemsSectionEl.hidden = true;
+    return;
+  }
+  
+  const vatItems = calculateVatItems();
+  
+  if (vatItems.length === 0) {
+    vatItemsSectionEl.hidden = true;
+    return;
+  }
+  
+  vatItemsSectionEl.hidden = false;
+  vatItemsListEl.innerHTML = "";
+  
+  let vatTotal = 0;
+  
+  vatItems.forEach(item => {
+    const subtotal = item.price * item.quantity;
+    vatTotal += subtotal;
+    
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span class="vat-item-name">${item.hours}시간 VAT × ${item.quantity}</span>
+      <span class="vat-item-price">${formatCurrency(subtotal)}</span>
+    `;
+    vatItemsListEl.appendChild(li);
+  });
+  
+  vatTotalEl.textContent = formatCurrency(vatTotal);
+  
+  return vatTotal;
+}
+
+// 결제 방식 변경 핸들러
+function handlePaymentMethodChange(method) {
+  state.paymentMethod = method;
+  
+  // 버튼 상태 업데이트
+  paymentMethodBtns.forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.payment === method);
+  });
+  
+  // VAT 섹션 및 총합계 업데이트
+  updateSummary();
 }
 
 function buildPricingIndex(categories) {
@@ -2103,10 +2220,10 @@ function renderCategoryNav(categories) {
   if (!categoryNavEl) return;
   categoryNavEl.innerHTML = "";
 
-  // 현장 상담 모드에서는 숙박 패키지 카테고리 제외
+  // VAT 카테고리는 항상 제외, 현장 상담 모드에서는 숙박 패키지 카테고리도 제외
   const filteredCategories = isPhoneMode 
-    ? categories 
-    : categories.filter((category) => !isLodgingCategory(category));
+    ? categories.filter((category) => category.name !== "VAT")
+    : categories.filter((category) => !isLodgingCategory(category) && category.name !== "VAT");
 
   if (filteredCategories.length === 0) {
     const emptyMsg = document.createElement("p");
@@ -2870,12 +2987,23 @@ function updateSummary() {
     summaryListEl.appendChild(item);
   });
 
-  grandTotalEl.textContent = formatCurrency(grandTotal);
-  updateSplitAmount(grandTotal);
+  // VAT 섹션 업데이트 및 총합계 계산
+  const vatTotal = updateVatSection() || 0;
+  const finalTotal = grandTotal + vatTotal;
+  
+  grandTotalEl.textContent = formatCurrency(finalTotal);
+  updateSplitAmount(finalTotal);
 }
 
 function resetCalculator() {
   state.selections = {};
+  state.paymentMethod = "cash";
+  
+  // 결제 방식 버튼 상태 초기화
+  paymentMethodBtns.forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.payment === "cash");
+  });
+  
   updateSummary();
   resetLiftTimerDisplay();
   
@@ -3253,12 +3381,105 @@ function handleManualDateChange(event) {
   }
 }
 
+// 선택 항목 내용 복사 기능
+function copySelectionToClipboard() {
+  const orderedSelections = renderOrder
+    .map((id) => state.selections[id])
+    .filter(Boolean);
+  
+  if (orderedSelections.length === 0) {
+    alert("복사할 선택 항목이 없습니다.");
+    return;
+  }
+  
+  // 금액을 "10,000원" 형식으로 변환하는 함수
+  const formatWon = (amount) => {
+    return amount.toLocaleString("ko-KR") + "원";
+  };
+  
+  // 날짜 정보 가져오기
+  let dateText = "";
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+  
+  if (isPhoneMode && manualDateInput && manualDateInput.value) {
+    const dateObj = new Date(`${manualDateInput.value}T00:00:00`);
+    const month = dateObj.getMonth() + 1;
+    const day = dateObj.getDate();
+    const dayName = dayNames[dateObj.getDay()];
+    dateText = `${month}월 ${day}일(${dayName})`;
+  } else if (state.dateInfo && state.dateInfo.month && state.dateInfo.day && state.dateInfo.dayName) {
+    dateText = `${state.dateInfo.month}월 ${state.dateInfo.day}일(${state.dateInfo.dayName})`;
+  } else {
+    // 날짜 정보가 없으면 오늘 날짜 사용
+    const today = new Date();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+    const dayName = dayNames[today.getDay()];
+    dateText = `${month}월 ${day}일(${dayName})`;
+  }
+  
+  // 텍스트 내용 구성 (문장 형식)
+  let lines = [];
+  
+  if (dateText) {
+    lines.push(`${dateText} 이용 기준`);
+    lines.push("");
+  }
+  
+  let grandTotal = 0;
+  orderedSelections.forEach((selection) => {
+    grandTotal += selection.subtotal;
+    
+    const itemLabel = selection.groupName 
+      ? `${selection.groupName} ${selection.name}` 
+      : selection.name;
+    const categoryName = selection.category || "";
+    
+    // 문장 형식: "리프트+렌탈권 대인 3시간 x 1명 = 51,000원"
+    // 리프트+렌탈권, 리프트권만 카테고리 이름 표시
+    let itemText = "";
+    const showCategory = categoryName && (categoryName.includes("리프트") || categoryName === "리프트권");
+    if (showCategory) {
+      itemText += `${categoryName} `;
+    }
+    itemText += `${itemLabel} x ${selection.quantity}명 = ${formatWon(selection.subtotal)}`;
+    lines.push(itemText);
+  });
+  
+  lines.push("");
+  lines.push(`총 금액은 ${formatWon(grandTotal)} 입니다.`);
+  
+  const textContent = lines.join("\n");
+  
+  // 클립보드에 복사
+  navigator.clipboard.writeText(textContent)
+    .then(() => {
+      alert("선택 항목이 클립보드에 복사되었습니다!\n메모장이나 카카오톡에서 붙여넣기(Ctrl+V) 하면 됩니다.");
+    })
+    .catch((err) => {
+      console.error("복사 실패:", err);
+      alert("복사에 실패했습니다. 브라우저 설정을 확인해주세요.");
+    });
+}
+
+const copySelectionBtn = document.getElementById("copy-selection-btn");
+if (copySelectionBtn) {
+  copySelectionBtn.addEventListener("click", copySelectionToClipboard);
+}
+
 resetBtn.addEventListener("click", resetCalculator);
 summaryListEl.addEventListener("click", handleSummaryButtonClick);
 seasonButtons.forEach((button) => {
   button.addEventListener("click", () => handleSeasonChange(button.dataset.season));
 });
 toggleViewBtn.addEventListener("click", toggleCategoryView);
+
+// 결제 방식 버튼 이벤트 리스너
+paymentMethodBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    handlePaymentMethodChange(btn.dataset.payment);
+  });
+});
 splitDecreaseBtn?.addEventListener("click", () => changeSplitCount(-1));
 splitIncreaseBtn?.addEventListener("click", () => changeSplitCount(1));
 splitCountInput?.addEventListener("input", handleSplitInput);

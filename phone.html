@@ -361,12 +361,25 @@
             <button id="reset-btn" class="reset-btn" type="button">초기화</button>
           </div>
           <ul id="selection-list" class="summary__list"></ul>
+          <div class="payment-method-selector">
+            <button type="button" class="payment-method-btn active" data-payment="cash">현금결제</button>
+            <button type="button" class="payment-method-btn" data-payment="card">카드결제</button>
+          </div>
+          <div id="vat-items-section" class="vat-items-section" hidden>
+            <p class="vat-items-title">VAT 추가 항목</p>
+            <ul id="vat-items-list" class="vat-items-list"></ul>
+            <div class="vat-items-subtotal">
+              <span>VAT 합계</span>
+              <strong id="vat-total">₩0</strong>
+            </div>
+          </div>
           <div class="summary__total">
             <div>
               <span>총 합계</span>
             </div>
             <strong id="grand-total">₩0</strong>
           </div>
+          <button type="button" class="copy-selection-btn" id="copy-selection-btn">📋 내용 복사하기</button>
           <div class="summary__account">
             <p class="summary__account-title">예약계좌</p>
             <p class="summary__account-name">국민 조승희(엘리시안강촌 월드스키 강습)</p>
