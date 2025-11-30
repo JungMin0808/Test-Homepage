@@ -311,6 +311,23 @@ body.phone-page .summary__total strong {
   text-shadow: none;
 }
 
+body.phone-page .summary__account {
+  background: rgba(201, 125, 96, 0.1);
+  border: 1px solid rgba(201, 125, 96, 0.25);
+}
+
+body.phone-page .summary__account-title {
+  color: #8B4513;
+}
+
+body.phone-page .summary__account-name {
+  color: #A67C5A;
+}
+
+body.phone-page .summary__account-number {
+  color: #6B4423;
+}
+
 body.phone-page .split-result strong {
   color: #A0522D;
 }
@@ -384,6 +401,12 @@ body.phone-page .item-button__price {
   color: #8B4513;
   font-size: 1.4rem;
   font-weight: 800;
+}
+
+body.phone-page .item-button__detail {
+  color: #A67C5A;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 /* 요약 섹션 */
@@ -1948,6 +1971,14 @@ body.phone-page .lodging-lift-button.is-selected {
   letter-spacing: -0.02em;
 }
 
+.item-button__detail {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: 0;
+  opacity: 0.9;
+}
+
 .summary {
   background: var(--surface);
   border-radius: var(--radius);
@@ -2133,6 +2164,36 @@ body.phone-page .lodging-lift-button.is-selected {
   color: var(--primary);
   font-weight: 800;
   text-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+}
+
+.summary__account {
+  text-align: center;
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: 12px;
+}
+
+.summary__account-title {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.summary__account-name {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+.summary__account-number {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-strong);
+  letter-spacing: 0.05em;
 }
 
 .split-section {

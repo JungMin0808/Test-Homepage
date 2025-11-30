@@ -786,6 +786,10 @@ function setBbqGuests(value) {
 
 function handleBbqGuestsDelta(delta) {
   const currentState = getCurrentLodgingState();
+  // bbqPrice가 0인 경우 인원 증가 불가
+  if (delta > 0 && (currentState.bbqPrice || 0) === 0) {
+    return;
+  }
   setBbqGuests((currentState.bbqGuests || 0) + delta);
 }
 
@@ -1816,7 +1820,20 @@ function generateQuoteImage() {
 
       <div style="
         text-align: center;
-        margin-top: 2rem;
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: rgba(201, 125, 96, 0.08);
+        border: 1px solid rgba(201, 125, 96, 0.2);
+        border-radius: 8px;
+      ">
+        <p style="margin: 0 0 0.5rem; font-size: 0.85rem; font-weight: 600; color: #8B4513;">예약계좌</p>
+        <p style="margin: 0 0 0.25rem; font-size: 0.9rem; color: #A67C5A;">국민 조승희(엘리시안강촌 월드스키 강습)</p>
+        <p style="margin: 0; font-size: 1.1rem; font-weight: 700; color: #6B4423; letter-spacing: 0.05em;">650701-01-486003</p>
+      </div>
+
+      <div style="
+        text-align: center;
+        margin-top: 1.5rem;
         padding-top: 1.5rem;
         border-top: 1px solid rgba(201, 125, 96, 0.2);
         color: #A67C5A;
@@ -2571,17 +2588,23 @@ function renderItemGrid(categories) {
     button.type = "button";
     button.dataset.itemId = item.id;
     // 강습 아이템인 경우 패찰비도 표시
-    const equipmentFee = item.equipmentFee || 0;
+    // 아이템에 equipmentFee가 없으면 카테고리의 equipmentFees에서 해당 시간에 맞는 패찰비 가져오기
+    let equipmentFee = item.equipmentFee || 0;
+    if (equipmentFee === 0 && activeCategory.equipmentFees && item.name) {
+      equipmentFee = activeCategory.equipmentFees[item.name] || 0;
+    }
     const itemPrice = item.price + equipmentFee;
     let priceText = formatCurrency(itemPrice);
+    let detailText = "";
     if (equipmentFee > 0) {
-      priceText = `${formatCurrency(item.price)} + 패찰비 ${formatCurrency(equipmentFee)}`;
+      detailText = `강습 ${formatCurrency(item.price)} + 패찰비 ${formatCurrency(equipmentFee)}`;
     }
     
     button.innerHTML = `
       <div class="item-button__content">
         <p class="item-button__name">${item.name}</p>
         <p class="item-button__price">${priceText}</p>
+        ${detailText ? `<p class="item-button__detail">${detailText}</p>` : ''}
       </div>
     `;
     button.addEventListener("click", () => adjustSelection(item.id, 1));
@@ -2605,7 +2628,15 @@ function adjustSelection(itemId, delta) {
     delete state.selections[itemId];
   } else {
     // 강습 아이템의 경우 패찰비도 포함하여 계산
-    const equipmentFee = meta.equipmentFee || 0;
+    // 아이템에 equipmentFee가 없으면 카테고리의 equipmentFees에서 가져오기
+    let equipmentFee = meta.equipmentFee || 0;
+    if (equipmentFee === 0 && meta.category) {
+      const seasonData = pricingData[state.season] || pricingData.offSeason;
+      const category = seasonData.categories.find(c => c.name === meta.category);
+      if (category && category.equipmentFees && meta.name) {
+        equipmentFee = category.equipmentFees[meta.name] || 0;
+      }
+    }
     const itemPrice = meta.price + equipmentFee;
     const subtotal = newQuantity * itemPrice;
     
@@ -2802,7 +2833,7 @@ function updateSummary() {
     } else if (isLodgingItem) {
       // 숙박패키지 항목
       priceText = `${formatCurrency(itemPrice)} × ${selection.quantity}명 = ${formatCurrency(selection.subtotal)}`;
-    } else {
+      } else {
       // 일반 항목
       priceText = `${formatCurrency(itemPrice)} × ${selection.quantity}명 = ${formatCurrency(selection.subtotal)}`;
     }
@@ -2817,9 +2848,6 @@ function updateSummary() {
             ${categoryName ? `<p class="summary-item__category">${categoryName}</p>` : ''}
             <p class="summary-item__name">${itemLabel}</p>
             <p class="summary-item__price">${priceText}</p>
-          </div>
-          <div class="quantity-display">
-            <span>수량: ${selection.quantity}</span>
           </div>
         </div>
       `;

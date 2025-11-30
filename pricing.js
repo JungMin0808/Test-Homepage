@@ -49,38 +49,23 @@ const pricingData = {
       },
       {
         "id": "couple_suite",
-        "name": "프랜드C [없음]",
+        "name": "프랜드C",
         "group": "프랜드",
-        "baseGuests": 2,
-        "maxGuests": 5,
-        "extraGuestFee": 20000,
+        "baseGuests": 4,
+        "maxGuests": 6,
+        "extraGuestFee": 10000,
         "bbqPrice": 0,
-        "description": "",
-        "reservationUrl": "",
+        "description": "투베드 / 복층 / 화장실1",
+        "reservationUrl": "https://booking.ddnayo.com/booking-calendar-status?accommodationId=1503",
         "sharedRates": {
-          "weekday": 120000,
-          "friday": 150000,
-          "weekend": 170000
+          "weekday": 70000,
+          "friday": 70000,
+          "weekend": 100000
         }
       },
       {
         "id": "lodging_1763222136161",
         "name": "프랜드D",
-        "baseGuests": 4,
-        "extraGuestFee": 10000,
-        "sharedRates": {
-          "weekday": 70000,
-          "friday": 70000,
-          "weekend": 100000
-        },
-        "group": "프랜드",
-        "maxGuests": 6,
-        "description": "투베드 / 복층 / 화장실1",
-        "reservationUrl": "https://booking.ddnayo.com/booking-calendar-status?accommodationId=1503"
-      },
-      {
-        "id": "lodging_1763222136329",
-        "name": "프랜드E",
         "baseGuests": 6,
         "extraGuestFee": 10000,
         "sharedRates": {
@@ -90,13 +75,13 @@ const pricingData = {
         },
         "group": "프랜드",
         "maxGuests": 8,
-        "bbqPrice": 35000,
         "description": "온돌원룸 / 화장실1",
-        "reservationUrl": "http://riverpension.net/online.htm"
+        "reservationUrl": "http://riverpension.net/online.htm",
+        "bbqPrice": 35000
       },
       {
-        "id": "lodging_1763222136477",
-        "name": "프랜드F",
+        "id": "lodging_1763222136329",
+        "name": "프랜드E",
         "baseGuests": 6,
         "extraGuestFee": 10000,
         "sharedRates": {
@@ -109,20 +94,6 @@ const pricingData = {
         "bbqPrice": 35000,
         "description": "온돌투룸 / 화장실1",
         "reservationUrl": "http://riverpension.net/online.htm"
-      },
-      {
-        "id": "lodging_1763222136651",
-        "name": "프랜드G [없음]",
-        "baseGuests": 4,
-        "extraGuestFee": 10000,
-        "sharedRates": {
-          "weekday": 100000,
-          "friday": 100000,
-          "weekend": 150000
-        },
-        "group": "프랜드",
-        "maxGuests": 5,
-        "bbqPrice": 0
       },
       {
         "id": "lodging_1763222136815",
@@ -158,20 +129,7 @@ const pricingData = {
       },
       {
         "id": "lodging_1763222137146",
-        "name": "커플C [없음]",
-        "baseGuests": 2,
-        "extraGuestFee": 10000,
-        "sharedRates": {
-          "weekday": 60000,
-          "friday": 60000,
-          "weekend": 90000
-        },
-        "group": "커플",
-        "maxGuests": 3
-      },
-      {
-        "id": "lodging_1763222137313",
-        "name": "커플D [없음]",
+        "name": "커플C",
         "baseGuests": 2,
         "extraGuestFee": 15000,
         "sharedRates": {
@@ -180,11 +138,13 @@ const pricingData = {
           "weekend": 80000
         },
         "group": "커플",
-        "maxGuests": 4
+        "maxGuests": 4,
+        "description": "매트원룸 / 화장실1",
+        "reservationUrl": "https://namisumremember.co.kr/reservation"
       },
       {
-        "id": "lodging_1763222137533",
-        "name": "커플E [없음]",
+        "id": "lodging_1763222137313",
+        "name": "커플D",
         "baseGuests": 2,
         "extraGuestFee": 20000,
         "sharedRates": {
@@ -193,35 +153,39 @@ const pricingData = {
           "weekend": 80000
         },
         "group": "커플",
-        "maxGuests": 4
+        "maxGuests": 4,
+        "description": "온돌투룸 / 10평",
+        "reservationUrl": "https://booking.pension.onda.me/137685/calendar"
       },
       {
-        "id": "lodging_1763222137637",
-        "name": "커플F [없음]",
+        "id": "lodging_1763222137533",
+        "name": "커플E",
         "baseGuests": 2,
         "extraGuestFee": 10000,
         "sharedRates": {
-          "weekday": 100000,
-          "friday": 100000,
-          "weekend": 150000
+          "weekday": 60000,
+          "friday": 60000,
+          "weekend": 90000
         },
         "group": "커플",
-        "maxGuests": 2
+        "maxGuests": 3,
+        "description": "자차전용 / 침대원룸 / 10평",
+        "reservationUrl": "https://booking.ddnayo.com/booking-calendar-status?accommodationId=102847"
       },
       {
         "id": "lodging_1763222137833",
         "name": "투룸/복층A",
-        "baseGuests": 8,
+        "baseGuests": 6,
         "extraGuestFee": 10000,
         "sharedRates": {
-          "weekday": 150000,
-          "friday": 150000,
-          "weekend": 280000
+          "weekday": 100000,
+          "friday": 100000,
+          "weekend": 180000
         },
         "group": "투룸",
-        "maxGuests": 15,
+        "maxGuests": 12,
         "bbqPrice": 35000,
-        "description": "온돌쓰리룸 / 화장실3",
+        "description": "온돌투룸 / 화장실2",
         "reservationUrl": "http://www.riverfield.co.kr/reser2.htm"
       },
       {
@@ -237,23 +201,23 @@ const pricingData = {
         "group": "투룸",
         "maxGuests": 12,
         "bbqPrice": 35000,
-        "description": "온돌투룸 / 화장실2",
+        "description": "독채투룸 / 화장실1",
         "reservationUrl": "http://www.riverfield.co.kr/reser2.htm"
       },
       {
         "id": "lodging_1763222138451",
         "name": "투룸/복층C",
-        "baseGuests": 6,
+        "baseGuests": 8,
         "extraGuestFee": 10000,
         "sharedRates": {
-          "weekday": 100000,
-          "friday": 100000,
-          "weekend": 180000
+          "weekday": 150000,
+          "friday": 150000,
+          "weekend": 280000
         },
         "group": "투룸",
-        "maxGuests": 12,
+        "maxGuests": 15,
         "bbqPrice": 35000,
-        "description": "독채투룸 / 화장실1",
+        "description": "온돌쓰리룸 / 화장실3",
         "reservationUrl": "http://www.riverfield.co.kr/reser2.htm"
       },
       {
@@ -274,7 +238,7 @@ const pricingData = {
       },
       {
         "id": "lodging_1763222138797",
-        "name": "투룸/복층E [없음]",
+        "name": "투룸/복층E",
         "baseGuests": 6,
         "extraGuestFee": 20000,
         "sharedRates": {
@@ -283,23 +247,9 @@ const pricingData = {
           "weekend": 340000
         },
         "group": "투룸",
-        "maxGuests": 12
-      },
-      {
-        "id": "lodging_1763222150564",
-        "name": "투룸/복층F [없음]",
-        "baseGuests": 8,
-        "extraGuestFee": 10000,
-        "sharedRates": {
-          "weekday": 150000,
-          "friday": 150000,
-          "weekend": 280000
-        },
-        "group": "투룸",
-        "maxGuests": 15,
-        "bbqPrice": 35000,
-        "description": "온돌쓰리룸 / 화장실3",
-        "reservationUrl": "http://www.riverfield.co.kr/reser2.htm"
+        "maxGuests": 12,
+        "description": "거실+투룸복층 / 화장실3",
+        "reservationUrl": "https://pcmap.place.naver.com/accommodation/1051501243/room?from=map&amp;from=map&amp;fromPanelNum=1&amp;additionalHeight=76&amp;timestamp=202511292053&amp;locale=ko&amp;svcName=map_pcv5&businessCategory=pension"
       }
     ]
   },
@@ -995,6 +945,29 @@ const pricingData = {
                 "equipmentFee": 60000
               }
             ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습_weekday_3_1764418527253",
+                "name": "2시간",
+                "unit": "회",
+                "price": 140000
+              },
+              {
+                "id": "강습_weekday_3_1764418527390",
+                "name": "3시간",
+                "unit": "회",
+                "price": 210000
+              },
+              {
+                "id": "강습_weekday_3_1764418527527",
+                "name": "4시간",
+                "unit": "회",
+                "price": 280000
+              }
+            ]
           }
         ],
         "weekendGroups": [
@@ -1075,6 +1048,29 @@ const pricingData = {
                 "equipmentFee": 60000
               }
             ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습_weekend_3_1764418540583",
+                "name": "2시간",
+                "unit": "회",
+                "price": 140000
+              },
+              {
+                "id": "강습_weekend_3_1764418540724",
+                "name": "3시간",
+                "unit": "회",
+                "price": 210000
+              },
+              {
+                "id": "강습_weekend_3_1764418540843",
+                "name": "4시간",
+                "unit": "회회",
+                "price": 280000
+              }
+            ]
           }
         ]
       },
@@ -1153,6 +1149,29 @@ const pricingData = {
                 "price": 420000
               }
             ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습 패키지_weekday_3_1764418742603",
+                "name": "소인 2시간 강습 패키지",
+                "unit": "개",
+                "price": 320000
+              },
+              {
+                "id": "강습 패키지_weekday_3_1764418742738",
+                "name": "소인 3시간 강습 패키지",
+                "unit": "개",
+                "price": 420000
+              },
+              {
+                "id": "강습 패키지_weekday_3_1764418742880",
+                "name": "소인 4시간 강습 패키지",
+                "unit": "개",
+                "price": 500000
+              }
+            ]
           }
         ],
         "weekendGroups": [
@@ -1222,6 +1241,29 @@ const pricingData = {
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
                 "price": 440000
+              }
+            ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습 패키지_weekend_3_1764418759370",
+                "name": "소인 2시간 강습 패키지",
+                "unit": "개",
+                "price": 340000
+              },
+              {
+                "id": "강습 패키지_weekend_3_1764418759502",
+                "name": "소인 3시간 강습 패키지",
+                "unit": "개",
+                "price": 440000
+              },
+              {
+                "id": "강습 패키지_weekend_3_1764418759642",
+                "name": "소인 4시간 강습 패키지",
+                "unit": "개",
+                "price": 520000
               }
             ]
           }
@@ -1876,21 +1918,21 @@ const pricingData = {
               {
                 "id": "lesson_weekday_1to2_2h",
                 "name": "2시간",
-                "price": 140000,
+                "price": 120000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekday_1to2_3h",
                 "name": "3시간",
-                "price": 210000,
+                "price": 180000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekday_1to2_4h",
                 "name": "4시간",
-                "price": 280000,
+                "price": 240000,
                 "unit": "회",
                 "equipmentFee": 60000
               }
@@ -1902,23 +1944,46 @@ const pricingData = {
               {
                 "id": "lesson_weekday_1to3_2h",
                 "name": "2시간",
-                "price": 160000,
+                "price": 120000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekday_1to3_3h",
                 "name": "3시간",
-                "price": 240000,
+                "price": 180000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekday_1to3_4h",
                 "name": "4시간",
-                "price": 320000,
+                "price": 240000,
                 "unit": "회",
                 "equipmentFee": 60000
+              }
+            ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습_weekday_3_1764418502327",
+                "name": "2시간",
+                "unit": "회",
+                "price": 140000
+              },
+              {
+                "id": "강습_weekday_3_1764418502458",
+                "name": "3시간",
+                "unit": "회",
+                "price": 210000
+              },
+              {
+                "id": "강습_weekday_3_1764418502594",
+                "name": "4시간",
+                "unit": "회",
+                "price": 280000
               }
             ]
           }
@@ -1956,21 +2021,21 @@ const pricingData = {
               {
                 "id": "lesson_weekend_1to2_2h",
                 "name": "2시간",
-                "price": 160000,
+                "price": 150000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekend_1to2_3h",
                 "name": "3시간",
-                "price": 240000,
+                "price": 220000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekend_1to2_4h",
                 "name": "4시간",
-                "price": 320000,
+                "price": 300000,
                 "unit": "회",
                 "equipmentFee": 60000
               }
@@ -1982,23 +2047,46 @@ const pricingData = {
               {
                 "id": "lesson_weekend_1to3_2h",
                 "name": "2시간",
-                "price": 170000,
+                "price": 150000,
                 "unit": "회",
                 "equipmentFee": 35000
               },
               {
                 "id": "lesson_weekend_1to3_3h",
                 "name": "3시간",
-                "price": 250000,
+                "price": 220000,
                 "unit": "회",
                 "equipmentFee": 60000
               },
               {
                 "id": "lesson_weekend_1to3_4h",
                 "name": "4시간",
-                "price": 340000,
+                "price": 300000,
                 "unit": "회",
                 "equipmentFee": 60000
+              }
+            ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습_weekend_3_1764418477475",
+                "name": "2시간",
+                "unit": "회",
+                "price": 170000
+              },
+              {
+                "id": "강습_weekend_3_1764418477601",
+                "name": "3시간",
+                "unit": "회",
+                "price": 250000
+              },
+              {
+                "id": "강습_weekend_3_1764418477747",
+                "name": "4시간",
+                "unit": "회",
+                "price": 340000
               }
             ]
           }
@@ -2041,19 +2129,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_1_1763921426436",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 260000
+                "price": 240000
               },
               {
                 "id": "강습 패키지_weekday_1_1763921426586",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 360000
+                "price": 330000
               },
               {
                 "id": "강습 패키지_weekday_1_1763921426731",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 430000
+                "price": 390000
               }
             ]
           },
@@ -2064,16 +2152,39 @@ const pricingData = {
                 "id": "강습 패키지_weekday_2_1763921436128",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 320000
+                "price": 280000
               },
               {
                 "id": "강습 패키지_weekday_2_1763921436271",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 430000
+                "price": 370000
               },
               {
                 "id": "강습 패키지_weekday_2_1763921436423",
+                "name": "소인 4시간 강습 패키지",
+                "unit": "개",
+                "price": 440000
+              }
+            ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습 패키지_weekday_3_1764418840894",
+                "name": "소인 2시간 강습 패키지",
+                "unit": "개",
+                "price": 340000
+              },
+              {
+                "id": "강습 패키지_weekday_3_1764418841051",
+                "name": "소인 3시간 강습 패키지",
+                "unit": "개",
+                "price": 440000
+              },
+              {
+                "id": "강습 패키지_weekday_3_1764418841175",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
                 "price": 520000
@@ -2112,19 +2223,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_1_1763921452582",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 290000
+                "price": 280000
               },
               {
                 "id": "강습 패키지_weekend_1_1763921452712",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 400000
+                "price": 380000
               },
               {
                 "id": "강습 패키지_weekend_1_1763921452862",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 490000
+                "price": 470000
               }
             ]
           },
@@ -2135,19 +2246,42 @@ const pricingData = {
                 "id": "강습 패키지_weekend_2_1763921459710",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 350000
+                "price": 330000
               },
               {
                 "id": "강습 패키지_weekend_2_1763921459851",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 460000
+                "price": 430000
               },
               {
                 "id": "강습 패키지_weekend_2_1763921459994",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 560000
+                "price": 520000
+              }
+            ]
+          },
+          {
+            "name": "1:4",
+            "items": [
+              {
+                "id": "강습 패키지_weekend_3_1764418857996",
+                "name": "소인 2시간 강습 패키지",
+                "unit": "개",
+                "price": 400000
+              },
+              {
+                "id": "강습 패키지_weekend_3_1764418858161",
+                "name": "소인 3시간 강습 패키지",
+                "unit": "개",
+                "price": 510000
+              },
+              {
+                "id": "강습 패키지_weekend_3_1764418858301",
+                "name": "소인 4시간 강습 패키지",
+                "unit": "개",
+                "price": 610000
               }
             ]
           }
