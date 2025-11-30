@@ -544,9 +544,9 @@ function handleItemTableClick(event) {
   if (!list) return;
 
   if (action === "remove") {
-    list.splice(index, 1);
-    markPricingDirty();
-    renderItems();
+  list.splice(index, 1);
+  markPricingDirty();
+  renderItems();
   } else if (action === "move-up" && index > 0) {
     // 위로 이동
     const temp = list[index];

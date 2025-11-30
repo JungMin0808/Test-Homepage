@@ -2925,6 +2925,10 @@ function updateSummary() {
     summaryListEl.appendChild(emptyState);
     grandTotalEl.textContent = "₩0";
     updateSplitAmount(0);
+    // VAT 섹션도 초기화
+    if (vatItemsSectionEl) {
+      vatItemsSectionEl.hidden = true;
+    }
     return;
   }
 
