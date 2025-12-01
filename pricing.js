@@ -347,37 +347,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekday_child_2h",
                 "name": "2시간",
-                "price": 30000,
+                "price": 35000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_3h",
                 "name": "3시간",
-                "price": 32000,
+                "price": 37000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_4h",
                 "name": "4시간",
-                "price": 34000,
+                "price": 39000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_5h",
                 "name": "5시간",
-                "price": 36000,
+                "price": 41000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_6h",
                 "name": "6시간",
-                "price": 38000,
+                "price": 43000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_7h",
                 "name": "7시간",
-                "price": 40000,
+                "price": 45000,
                 "unit": "매"
               }
             ]
@@ -472,37 +472,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekend_child_2h",
                 "name": "2시간",
-                "price": 35000,
+                "price": 40000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_3h",
                 "name": "3시간",
-                "price": 37000,
+                "price": 42000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_4h",
                 "name": "4시간",
-                "price": 39000,
+                "price": 44000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_5h",
                 "name": "5시간",
-                "price": 41000,
+                "price": 46000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_6h",
                 "name": "6시간",
-                "price": 43000,
+                "price": 48000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_7h",
                 "name": "7시간",
-                "price": 45000,
+                "price": 50000,
                 "unit": "매"
               }
             ]
