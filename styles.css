@@ -3308,6 +3308,17 @@ body.phone-page .lesson-time-selector select:focus {
   border-color: rgba(59, 130, 246, 0.6);
 }
 
+.price-table-btn--save {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+}
+
+.price-table-btn--save:hover {
+  background: rgba(34, 197, 94, 0.25);
+  border-color: rgba(34, 197, 94, 0.6);
+}
+
 .price-table-btn--reset {
   background: rgba(239, 68, 68, 0.15);
   border-color: rgba(239, 68, 68, 0.4);
