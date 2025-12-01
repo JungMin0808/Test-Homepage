@@ -129,7 +129,15 @@ function renderCategories() {
 function renderItems() {
   const category = getCurrentCategory();
   const isLodgingCategory = category?.name === "숙박 패키지";
-  addItemBtn.textContent = isLodgingCategory ? "펜션 타입 추가" : "항목 추가";
+  const isMessageCategory = category?.name === "안내문자";
+  
+  if (isLodgingCategory) {
+    addItemBtn.textContent = "펜션 타입 추가";
+  } else if (isMessageCategory) {
+    addItemBtn.textContent = "안내문자 추가";
+  } else {
+    addItemBtn.textContent = "항목 추가";
+  }
   if (groupActionsEl) {
     groupActionsEl.hidden = true;
   }
@@ -161,6 +169,16 @@ function renderItems() {
     groupTabsEl.innerHTML = "";
     if (groupActionsEl) groupActionsEl.hidden = true;
     renderLodgingTypeEditor();
+    return;
+  }
+  
+  if (isMessageCategory) {
+    periodTabsEl.hidden = true;
+    periodTabsEl.innerHTML = "";
+    groupTabsEl.hidden = true;
+    groupTabsEl.innerHTML = "";
+    if (groupActionsEl) groupActionsEl.hidden = true;
+    renderMessageEditor();
     return;
   }
 
@@ -440,6 +458,174 @@ function renderLodgingRateInputs(type, index) {
     .join("");
 }
 
+// ========== 안내문자 에디터 함수들 ==========
+
+// 안내문자 에디터 렌더링
+function renderMessageEditor() {
+  const category = getCurrentCategory();
+  if (!category) return;
+  
+  // messages 배열 초기화
+  if (!Array.isArray(category.messages)) {
+    category.messages = [];
+  }
+  
+  const messages = category.messages;
+  categoryTitleEl.textContent = `안내문자 (${messages.length}개)`;
+  itemTableEl.innerHTML = "";
+
+  // 안내문자 전용 저장 버튼 영역
+  const saveSection = document.createElement("div");
+  saveSection.className = "message-save-section";
+  saveSection.innerHTML = `
+    <button type="button" id="save-messages-btn" class="save-messages-btn">
+      💾 안내문자 저장
+    </button>
+    <span id="message-save-status" class="message-save-status"></span>
+  `;
+  itemTableEl.appendChild(saveSection);
+  
+  // 저장 버튼 이벤트 리스너
+  const saveMessagesBtn = saveSection.querySelector("#save-messages-btn");
+  saveMessagesBtn.addEventListener("click", saveMessages);
+
+  if (!messages.length) {
+    const empty = document.createElement("p");
+    empty.className = "message-empty";
+    empty.textContent = "등록된 안내문자가 없습니다. '안내문자 추가' 버튼으로 추가하세요.";
+    itemTableEl.appendChild(empty);
+    return;
+  }
+
+  messages.forEach((message, index) => {
+    const row = document.createElement("div");
+    row.className = "message-row";
+
+    row.innerHTML = `
+      <div class="message-row__header">
+        <input 
+          type="text" 
+          value="${escapeHtml(message.title || "")}" 
+          data-message-field="title" 
+          data-index="${index}" 
+          placeholder="제목을 입력하세요" 
+          class="message-title-input"
+        />
+        <button type="button" data-message-action="remove" data-index="${index}">삭제</button>
+      </div>
+      <div class="message-row__content">
+        <textarea 
+          data-message-field="content" 
+          data-index="${index}" 
+          placeholder="안내문자 내용을 입력하세요. 여러 줄로 작성할 수 있습니다."
+          class="message-content-textarea"
+          rows="8"
+        >${escapeHtml(message.content || "")}</textarea>
+      </div>
+      <p class="message-note-row">ID: ${message.id || "(자동생성)"}</p>
+    `;
+
+    itemTableEl.appendChild(row);
+  });
+}
+
+// HTML 이스케이프 함수
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// 새 안내문자 추가
+function addNewMessage() {
+  const category = getCurrentCategory();
+  if (!category || category.name !== "안내문자") return;
+  
+  if (!Array.isArray(category.messages)) {
+    category.messages = [];
+  }
+  
+  category.messages.push({
+    id: `msg_${Date.now()}`,
+    title: "새 안내문자",
+    content: ""
+  });
+  markPricingDirty();
+  renderMessageEditor();
+}
+
+// 안내문자 입력 변경 핸들러
+function handleMessageInputChange(event) {
+  const index = Number(event.target.dataset.index);
+  if (Number.isNaN(index)) return;
+  
+  const category = getCurrentCategory();
+  if (!category || !Array.isArray(category.messages)) return;
+  
+  const message = category.messages[index];
+  if (!message) return;
+
+  const field = event.target.dataset.messageField;
+  if (field === "title" || field === "content") {
+    message[field] = event.target.value;
+    markPricingDirty();
+  }
+}
+
+// 안내문자 삭제
+function removeMessage(index) {
+  const category = getCurrentCategory();
+  if (!category || !Array.isArray(category.messages)) return;
+  
+  category.messages.splice(index, 1);
+  markPricingDirty();
+  renderMessageEditor();
+}
+
+// 안내문자 저장 함수
+async function saveMessages() {
+  const saveBtn = document.getElementById("save-messages-btn");
+  const statusEl = document.getElementById("message-save-status");
+  
+  if (!state.data) return;
+  
+  saveBtn.disabled = true;
+  saveBtn.textContent = "저장 중...";
+  if (statusEl) statusEl.textContent = "";
+  
+  try {
+    const response = await fetch("/api/pricing", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state.data)
+    });
+    
+    const result = await response.json();
+    if (!response.ok || !result.success) {
+      throw new Error(result.error || "저장 실패");
+    }
+    
+    state.isPricingDirty = false;
+    if (statusEl) {
+      statusEl.textContent = "✓ 저장 완료!";
+      statusEl.style.color = "#16a34a";
+    }
+    updateSaveStatus("안내문자가 저장되었습니다.", "#16a34a");
+  } catch (error) {
+    console.error(error);
+    if (statusEl) {
+      statusEl.textContent = "✗ 저장 실패";
+      statusEl.style.color = "#dc2626";
+    }
+    updateSaveStatus("저장에 실패했습니다.", "#dc2626");
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = "💾 안내문자 저장";
+  }
+}
+
+// ========== 숙박 패키지 에디터 함수들 ==========
+
 function addNewLodgingType() {
   const types = getLodgingTypes();
   types.push({
@@ -510,6 +696,11 @@ function handleInputChange(event) {
     handleLodgingInputChange(event);
     return;
   }
+  
+  if (event.target.dataset.messageField) {
+    handleMessageInputChange(event);
+    return;
+  }
 
   const field = event.target.dataset.field;
   const index = Number(event.target.dataset.index);
@@ -532,6 +723,15 @@ function handleItemTableClick(event) {
     const lodgingIndex = Number(event.target.dataset.index);
     if (!Number.isNaN(lodgingIndex)) {
       removeLodgingType(lodgingIndex);
+    }
+    return;
+  }
+  
+  const messageAction = event.target.dataset.messageAction;
+  if (messageAction === "remove") {
+    const messageIndex = Number(event.target.dataset.index);
+    if (!Number.isNaN(messageIndex)) {
+      removeMessage(messageIndex);
     }
     return;
   }
@@ -616,6 +816,11 @@ function addNewItem() {
 
   if (category.name === "숙박 패키지") {
     addNewLodgingType();
+    return;
+  }
+  
+  if (category.name === "안내문자") {
+    addNewMessage();
     return;
   }
 

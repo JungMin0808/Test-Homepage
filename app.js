@@ -232,6 +232,114 @@ function calculateVatItems() {
   return Object.values(vatItems).filter(item => item.price > 0);
 }
 
+// 리프트 ID에서 시간 추출 (예: "liftRental_weekday_adult_4h" -> 4)
+function extractLiftHoursFromId(liftId) {
+  if (!liftId) return null;
+  const match = liftId.match(/(\d+)h$/);
+  return match ? parseInt(match[1], 10) : null;
+}
+
+// 전체 숙박 VAT 항목 계산 (전화 상담 모드에서만 사용)
+// lodgingStates에서 펜션 타입과 인원수를 기반으로 숙박금액의 10% VAT 계산
+// + 리프트+렌탈권 선택 인원에 대한 VAT도 계산
+function calculateLodgingVatItems() {
+  if (!isPhoneMode) return [];
+  
+  const lodgingVatItems = [];
+  const types = getLodgingTypes();
+  
+  // 각 대분류(첫째날, 둘째날, 셋째날)별로 순회
+  Object.keys(lodgingStates).forEach(categoryName => {
+    const categoryState = lodgingStates[categoryName];
+    if (!categoryState) return;
+    
+    // 활성화된 날짜 버튼의 날짜를 사용, 없으면 기존 날짜 사용
+    const activeDate = categoryState.activeDay && categoryState.dates[categoryState.activeDay] 
+      ? categoryState.dates[categoryState.activeDay] 
+      : categoryState.date;
+    
+    // 요일 타입 결정 (주중/금요일/주말)
+    const date = activeDate ? new Date(activeDate + "T00:00:00") : new Date();
+    const dayOfWeek = date.getDay();
+    let dayType = "weekday";
+    if (dayOfWeek === 5) dayType = "friday";
+    else if (dayOfWeek === 0 || dayOfWeek === 6) dayType = "weekend";
+    
+    // 시즌 결정
+    const season = categoryState.resolvedSeason || state.season || "offSeason";
+    // 주말 여부 (금요일도 주말로 처리)
+    const period = (dayType === "weekend" || dayType === "friday") ? "weekend" : "weekday";
+    
+    // 1. 숙박 금액 VAT 계산 (숙박 없음이 아닌 경우에만)
+    if (!categoryState.noLodging) {
+      const activeType = types.find(t => t.id === categoryState.selectedTypeId);
+      if (activeType) {
+        const sharedRates = activeType.sharedRates || {};
+        const basePrice = sharedRates[dayType] ?? sharedRates.weekday ?? 0;
+        const baseGuests = Math.max(1, activeType.baseGuests ?? 1);
+        const extraFee = activeType.extraGuestFee ?? 0;
+        const guestCount = Math.max(1, categoryState.guests || 1);
+        const extraCount = Math.max(0, guestCount - baseGuests);
+        
+        // 총 숙박 금액 (기본 금액 + 추가 인원 비용)
+        const lodgingTotal = basePrice + (extraCount * extraFee);
+        
+        if (lodgingTotal > 0) {
+          const vatAmount = Math.round(lodgingTotal * 0.1); // 10% VAT
+          const typeName = activeType.name || "숙박";
+          
+          lodgingVatItems.push({
+            name: `${typeName} VAT`,
+            baseAmount: lodgingTotal,
+            vatAmount: vatAmount
+          });
+        }
+      }
+    }
+    
+    // 2. 리프트+렌탈권 VAT 계산
+    // 첫째날(first)의 리프트 선택만 사용 (숙박패키지의 리프트 선택)
+    const firstDaySelections = categoryState.liftSelections?.first || {};
+    
+    // 시간별로 인원 집계
+    const hourlyVat = {};
+    
+    Object.entries(firstDaySelections).forEach(([liftId, selection]) => {
+      if (!selection || typeof selection !== 'object') return;
+      
+      const hours = extractLiftHoursFromId(liftId);
+      if (!hours) return;
+      
+      const totalCount = (selection.adult || 0) + (selection.child || 0);
+      if (totalCount <= 0) return;
+      
+      const key = `${hours}시간`;
+      if (!hourlyVat[key]) {
+        hourlyVat[key] = {
+          hours,
+          quantity: 0,
+          price: getVatPrice(hours, season, period)
+        };
+      }
+      hourlyVat[key].quantity += totalCount;
+    });
+    
+    // 시간별 VAT 항목 추가
+    Object.values(hourlyVat).forEach(item => {
+      if (item.quantity > 0 && item.price > 0) {
+        const vatAmount = item.price * item.quantity;
+        lodgingVatItems.push({
+          name: `${item.hours}시간 VAT × ${item.quantity}`,
+          baseAmount: 0,
+          vatAmount: vatAmount
+        });
+      }
+    });
+  });
+  
+  return lodgingVatItems;
+}
+
 // VAT 섹션 업데이트
 function updateVatSection() {
   if (!vatItemsSectionEl || !vatItemsListEl || !vatTotalEl) return;
@@ -242,8 +350,9 @@ function updateVatSection() {
   }
   
   const vatItems = calculateVatItems();
+  const lodgingVatItems = calculateLodgingVatItems();
   
-  if (vatItems.length === 0) {
+  if (vatItems.length === 0 && lodgingVatItems.length === 0) {
     vatItemsSectionEl.hidden = true;
     return;
   }
@@ -253,6 +362,7 @@ function updateVatSection() {
   
   let vatTotal = 0;
   
+  // 리프트/렌탈권 VAT 항목 표시
   vatItems.forEach(item => {
     const subtotal = item.price * item.quantity;
     vatTotal += subtotal;
@@ -261,6 +371,18 @@ function updateVatSection() {
     li.innerHTML = `
       <span class="vat-item-name">${item.hours}시간 VAT × ${item.quantity}</span>
       <span class="vat-item-price">${formatCurrency(subtotal)}</span>
+    `;
+    vatItemsListEl.appendChild(li);
+  });
+  
+  // 숙박 패키지 VAT 항목 표시 (전화 상담 모드에서만)
+  lodgingVatItems.forEach(item => {
+    vatTotal += item.vatAmount;
+    
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span class="vat-item-name">${item.name}</span>
+      <span class="vat-item-price">${formatCurrency(item.vatAmount)}</span>
     `;
     vatItemsListEl.appendChild(li);
   });
@@ -289,7 +411,7 @@ function buildPricingIndex(categories) {
   categories.forEach((category) => {
     if (category.groups?.length) {
       category.groups.forEach((group) => {
-        group.items.forEach((item) => {
+        group.items?.forEach((item) => {
           pricingIndex[item.id] = {
             ...item,
             category: category.name,
@@ -298,7 +420,7 @@ function buildPricingIndex(categories) {
           renderOrder.push(item.id);
         });
       });
-    } else {
+    } else if (category.items?.length) {
       category.items.forEach((item) => {
         pricingIndex[item.id] = {
           ...item,
@@ -322,6 +444,16 @@ function getActiveLodgingType() {
   }
   const types = getLodgingTypes();
   return types.find((type) => type.id === currentState.selectedTypeId) || null;
+}
+
+// 특정 카테고리의 활성 숙박 타입 가져오기
+function getActiveLodgingTypeForCategory(categoryName) {
+  const categoryState = lodgingStates[categoryName];
+  if (!categoryState || categoryState.noLodging || !categoryState.selectedTypeId) {
+    return null;
+  }
+  const types = getLodgingTypes();
+  return types.find((type) => type.id === categoryState.selectedTypeId) || null;
 }
 
 function getActiveMaxGuests(typeOverride) {
@@ -2186,10 +2318,10 @@ function ensureActiveCategory(categories) {
     return;
   }
 
-  // 현장 상담 모드에서는 숙박 패키지 카테고리 제외
+  // VAT, 안내문자 카테고리는 항상 제외, 현장 상담 모드에서는 숙박 패키지 카테고리도 제외
   const filteredCategories = isPhoneMode 
-    ? categories 
-    : categories.filter((category) => !isLodgingCategory(category));
+    ? categories.filter((category) => category.name !== "VAT" && category.name !== "안내문자")
+    : categories.filter((category) => !isLodgingCategory(category) && category.name !== "VAT" && category.name !== "안내문자");
 
   if (!filteredCategories.length) {
     state.activeCategory = null;
@@ -2220,10 +2352,10 @@ function renderCategoryNav(categories) {
   if (!categoryNavEl) return;
   categoryNavEl.innerHTML = "";
 
-  // VAT 카테고리는 항상 제외, 현장 상담 모드에서는 숙박 패키지 카테고리도 제외
+  // VAT, 안내문자 카테고리는 항상 제외, 현장 상담 모드에서는 숙박 패키지 카테고리도 제외
   const filteredCategories = isPhoneMode 
-    ? categories.filter((category) => category.name !== "VAT")
-    : categories.filter((category) => !isLodgingCategory(category) && category.name !== "VAT");
+    ? categories.filter((category) => category.name !== "VAT" && category.name !== "안내문자")
+    : categories.filter((category) => !isLodgingCategory(category) && category.name !== "VAT" && category.name !== "안내문자");
 
   if (filteredCategories.length === 0) {
     const emptyMsg = document.createElement("p");
@@ -2929,13 +3061,27 @@ function updateSummary() {
     if (vatItemsSectionEl) {
       vatItemsSectionEl.hidden = true;
     }
+    // 예약 안내문자 버튼 숨김
+    if (copyMessageBtn) {
+      copyMessageBtn.hidden = true;
+    }
+    // 강습 시작시간 선택기 숨김
+    if (lessonTimeSelectorEl) {
+      lessonTimeSelectorEl.hidden = true;
+    }
     return;
   }
 
   orderedSelections.forEach((selection) => {
     grandTotal += selection.subtotal;
 
-    const itemLabel = selection.groupName ? `${selection.groupName} ${selection.name}` : selection.name;
+    // 강습 카테고리의 경우 "1:1 2시간 강습" 형식으로 표시
+    let itemLabel;
+    if (selection.category === "강습" && selection.groupName) {
+      itemLabel = `${selection.groupName} ${selection.name} 강습`;
+    } else {
+      itemLabel = selection.groupName ? `${selection.groupName} ${selection.name}` : selection.name;
+    }
     const equipmentFee = selection.equipmentFee || 0;
     const basePrice = selection.price || 0;
     const itemPrice = basePrice + equipmentFee;
@@ -2997,6 +3143,9 @@ function updateSummary() {
   
   grandTotalEl.textContent = formatCurrency(finalTotal);
   updateSplitAmount(finalTotal);
+  
+  // 예약 안내문자 복사 버튼 표시/숨김 업데이트
+  updateCopyMessageButton();
 }
 
 function resetCalculator() {
@@ -3007,6 +3156,11 @@ function resetCalculator() {
   paymentMethodBtns.forEach(btn => {
     btn.classList.toggle("active", btn.dataset.payment === "cash");
   });
+  
+  // 강습 시작 시간 초기화
+  if (lessonStartTimeSelect) {
+    lessonStartTimeSelect.value = "";
+  }
   
   updateSummary();
   resetLiftTimerDisplay();
@@ -3405,27 +3559,81 @@ function copySelectionToClipboard() {
   let dateText = "";
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
   
-  if (isPhoneMode && manualDateInput && manualDateInput.value) {
-    const dateObj = new Date(`${manualDateInput.value}T00:00:00`);
-    const month = dateObj.getMonth() + 1;
-    const day = dateObj.getDate();
-    const dayName = dayNames[dateObj.getDay()];
-    dateText = `${month}월 ${day}일(${dayName})`;
-  } else if (state.dateInfo && state.dateInfo.month && state.dateInfo.day && state.dateInfo.dayName) {
-    dateText = `${state.dateInfo.month}월 ${state.dateInfo.day}일(${state.dateInfo.dayName})`;
-  } else {
-    // 날짜 정보가 없으면 오늘 날짜 사용
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const dayName = dayNames[today.getDay()];
-    dateText = `${month}월 ${day}일(${dayName})`;
+  // 숙박 패키지 항목이 있는지 확인
+  const hasLodgingPackage = orderedSelections.some(s => s.category === "숙박 패키지");
+  
+  // 전화상담 모드이고 숙박 패키지가 있는 경우 숙박패키지에서 선택한 날짜 사용
+  if (isPhoneMode && hasLodgingPackage) {
+    // lodgingStates에서 첫 번째로 날짜가 설정된 대분류의 날짜 사용
+    let lodgingDate = null;
+    for (const categoryName of ["대분류1", "대분류2", "대분류3"]) {
+      const categoryState = lodgingStates[categoryName];
+      if (categoryState && categoryState.dates && categoryState.dates.first) {
+        lodgingDate = categoryState.dates.first;
+        break;
+      }
+    }
+    
+    if (lodgingDate) {
+      const dateObj = new Date(`${lodgingDate}T00:00:00`);
+      const month = dateObj.getMonth() + 1;
+      const day = dateObj.getDate();
+      const dayName = dayNames[dateObj.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    }
+  }
+  
+  // 숙박 패키지 날짜를 못 찾은 경우 기존 로직 사용
+  if (!dateText) {
+    if (isPhoneMode && manualDateInput && manualDateInput.value) {
+      const dateObj = new Date(`${manualDateInput.value}T00:00:00`);
+      const month = dateObj.getMonth() + 1;
+      const day = dateObj.getDate();
+      const dayName = dayNames[dateObj.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    } else if (state.dateInfo && state.dateInfo.month && state.dateInfo.day && state.dateInfo.dayName) {
+      dateText = `${state.dateInfo.month}월 ${state.dateInfo.day}일(${state.dateInfo.dayName})`;
+    } else {
+      // 날짜 정보가 없으면 오늘 날짜 사용
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
+      const dayName = dayNames[today.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    }
   }
   
   // 텍스트 내용 구성 (문장 형식)
   let lines = [];
   
-  if (dateText) {
+  // 숙박 패키지가 있는 경우 펜션 타입과 인원 정보 추가
+  if (isPhoneMode && hasLodgingPackage) {
+    let lodgingTypeInfo = "";
+    
+    // lodgingStates에서 첫 번째로 펜션 타입이 선택된 대분류의 정보 사용
+    for (const categoryName of ["대분류1", "대분류2", "대분류3"]) {
+      const categoryState = lodgingStates[categoryName];
+      if (categoryState && categoryState.selectedTypeId) {
+        // 펜션 타입 이름 가져오기
+        const activeType = getActiveLodgingTypeForCategory(categoryName);
+        if (activeType) {
+          // 숙박 인원 (펜션 타입에서 설정한 인원)
+          const totalGuests = categoryState.guests || 1;
+          
+          lodgingTypeInfo = `${activeType.name} ${totalGuests}인 기준`;
+          break;
+        }
+      }
+    }
+    
+    if (dateText && lodgingTypeInfo) {
+      lines.push(`${dateText} ${lodgingTypeInfo}`);
+      lines.push("");
+    } else if (dateText) {
+      lines.push(`${dateText} 이용 기준`);
+      lines.push("");
+    }
+  } else if (dateText) {
     lines.push(`${dateText} 이용 기준`);
     lines.push("");
   }
@@ -3434,10 +3642,22 @@ function copySelectionToClipboard() {
   orderedSelections.forEach((selection) => {
     grandTotal += selection.subtotal;
     
-    const itemLabel = selection.groupName 
-      ? `${selection.groupName} ${selection.name}` 
-      : selection.name;
     const categoryName = selection.category || "";
+    
+    // 강습 카테고리의 경우 "1:1 2시간 강습" 형식으로 표시
+    let itemLabel;
+    if (categoryName === "강습" && selection.groupName) {
+      itemLabel = `${selection.groupName} ${selection.name} 강습`;
+    } else {
+      itemLabel = selection.groupName 
+        ? `${selection.groupName} ${selection.name}` 
+        : selection.name;
+    }
+    
+    // 숙박 패키지 항목의 경우 "(2명)" 같은 인원수 표기 제거
+    if (categoryName === "숙박 패키지") {
+      itemLabel = itemLabel.replace(/\s*\(\d+명\)$/, "");
+    }
     
     // 문장 형식: "리프트+렌탈권 대인 3시간 x 1명 = 51,000원"
     // 리프트+렌탈권, 리프트권만 카테고리 이름 표시
@@ -3446,7 +3666,9 @@ function copySelectionToClipboard() {
     if (showCategory) {
       itemText += `${categoryName} `;
     }
-    itemText += `${itemLabel} x ${selection.quantity}명 = ${formatWon(selection.subtotal)}`;
+    // 강습, 강습 패키지 카테고리는 "팀" 단위, 나머지는 "명" 단위
+    const unit = (categoryName === "강습" || categoryName === "강습 패키지") ? "팀" : "명";
+    itemText += `${itemLabel} x ${selection.quantity}${unit} = ${formatWon(selection.subtotal)}`;
     lines.push(itemText);
   });
   
@@ -3469,6 +3691,234 @@ function copySelectionToClipboard() {
 const copySelectionBtn = document.getElementById("copy-selection-btn");
 if (copySelectionBtn) {
   copySelectionBtn.addEventListener("click", copySelectionToClipboard);
+}
+
+// 예약 안내문자 복사 버튼
+const copyMessageBtn = document.getElementById("copy-message-btn");
+
+// 강습 시작시간 선택기
+const lessonTimeSelectorEl = document.getElementById("lesson-time-selector");
+const lessonStartTimeSelect = document.getElementById("lesson-start-time");
+
+// 숙박 패키지만 선택되어 있는지 확인하는 함수
+function hasOnlyLodgingPackageItems() {
+  const orderedSelections = renderOrder
+    .map((id) => state.selections[id])
+    .filter(Boolean);
+  
+  if (orderedSelections.length === 0) return false;
+  
+  // 모든 선택 항목이 숙박 패키지 카테고리인지 확인
+  return orderedSelections.every(selection => selection.category === "숙박 패키지");
+}
+
+// 강습만 선택되어 있는지 확인하는 함수
+function hasOnlyLessonItems() {
+  const orderedSelections = renderOrder
+    .map((id) => state.selections[id])
+    .filter(Boolean);
+  
+  if (orderedSelections.length === 0) return false;
+  
+  // 모든 선택 항목이 강습 카테고리인지 확인
+  return orderedSelections.every(selection => selection.category === "강습");
+}
+
+// 강습 패키지만 선택되어 있는지 확인하는 함수
+function hasOnlyLessonPackageItems() {
+  const orderedSelections = renderOrder
+    .map((id) => state.selections[id])
+    .filter(Boolean);
+  
+  if (orderedSelections.length === 0) return false;
+  
+  // 모든 선택 항목이 강습 패키지 카테고리인지 확인
+  return orderedSelections.every(selection => selection.category === "강습 패키지");
+}
+
+// 안내문자 복사가 가능한 타입 확인 (숙박 패키지, 강습, 강습 패키지)
+function getMessageType() {
+  if (hasOnlyLodgingPackageItems()) return "lodging";
+  if (hasOnlyLessonItems()) return "lesson";
+  if (hasOnlyLessonPackageItems()) return "lessonPackage";
+  return null;
+}
+
+// 안내문자에서 특정 제목의 메시지 찾기
+function findMessageByTitle(title) {
+  if (!pricingState) return null;
+  
+  const season = pricingState[state.season];
+  if (!season?.categories) return null;
+  
+  const messageCategory = season.categories.find(cat => cat.name === "안내문자");
+  if (!messageCategory?.messages) return null;
+  
+  return messageCategory.messages.find(msg => msg.title === title);
+}
+
+// 예약 안내문자 복사 버튼 표시/숨김 업데이트
+function updateCopyMessageButton() {
+  if (!copyMessageBtn || !isPhoneMode) return;
+  
+  const messageType = getMessageType();
+  
+  // 강습 또는 강습 패키지인 경우 시작시간 선택기 표시
+  if (lessonTimeSelectorEl) {
+    lessonTimeSelectorEl.hidden = !(messageType === "lesson" || messageType === "lessonPackage");
+  }
+  
+  // 강습 또는 강습 패키지의 경우 시작 시간이 선택되어야만 버튼 표시
+  if (messageType === "lesson" || messageType === "lessonPackage") {
+    const hasStartTime = lessonStartTimeSelect && lessonStartTimeSelect.value !== "";
+    copyMessageBtn.hidden = !hasStartTime;
+  } else {
+    copyMessageBtn.hidden = !messageType;
+  }
+}
+
+// 현재 선택 항목 내용을 텍스트로 생성 (안내문자용)
+function getSelectionContentText(messageType) {
+  const orderedSelections = renderOrder
+    .map((id) => state.selections[id])
+    .filter(Boolean);
+  
+  if (orderedSelections.length === 0) return "";
+  
+  const formatWon = (amount) => amount.toLocaleString("ko-KR") + "원";
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+  
+  let lines = [];
+  
+  // 강습 또는 강습 패키지인 경우 상담 날짜와 시작시간을 맨 앞에 추가
+  if (messageType === "lesson" || messageType === "lessonPackage") {
+    let dateText = "";
+    const manualDateInput = document.getElementById("manual-date");
+    
+    if (manualDateInput && manualDateInput.value) {
+      const dateObj = new Date(`${manualDateInput.value}T00:00:00`);
+      const month = dateObj.getMonth() + 1;
+      const day = dateObj.getDate();
+      const dayName = dayNames[dateObj.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    } else if (state.dateInfo && state.dateInfo.month && state.dateInfo.day && state.dateInfo.dayName) {
+      dateText = `${state.dateInfo.month}월 ${state.dateInfo.day}일(${state.dateInfo.dayName})`;
+    } else {
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
+      const dayName = dayNames[today.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    }
+    
+    // 시작시간 추가
+    const startTime = lessonStartTimeSelect ? lessonStartTimeSelect.value : "";
+    if (startTime) {
+      lines.push(`${dateText} ${startTime}`);
+    } else {
+      lines.push(dateText);
+    }
+  }
+  
+  orderedSelections.forEach((selection) => {
+    // 강습 카테고리의 경우 "1:1 2시간 강습" 형식으로 표시
+    let itemLabel;
+    if (selection.category === "강습" && selection.groupName) {
+      itemLabel = `${selection.groupName} ${selection.name} 강습`;
+    } else {
+      itemLabel = selection.groupName 
+        ? `${selection.groupName} ${selection.name}` 
+        : selection.name;
+    }
+    
+    // 숙박 패키지 항목의 경우 "(2명)" 같은 인원수 표기 제거
+    if (selection.category === "숙박 패키지") {
+      itemLabel = itemLabel.replace(/\s*\(\d+명\)$/, "");
+    }
+    
+    // 강습, 강습 패키지 카테고리는 "팀" 단위, 나머지는 "명" 단위
+    const unit = (selection.category === "강습" || selection.category === "강습 패키지") ? "팀" : "명";
+    const itemText = `${itemLabel} x ${selection.quantity}${unit} = ${formatWon(selection.subtotal)}`;
+    lines.push(itemText);
+  });
+  
+  return lines.join("\n");
+}
+
+// 현재 총 합계를 텍스트로 가져오기
+function getGrandTotalText() {
+  const orderedSelections = renderOrder
+    .map((id) => state.selections[id])
+    .filter(Boolean);
+  
+  let grandTotal = 0;
+  orderedSelections.forEach((selection) => {
+    grandTotal += selection.subtotal;
+  });
+  
+  // VAT 추가
+  const vatTotal = updateVatSection() || 0;
+  const finalTotal = grandTotal + vatTotal;
+  
+  return finalTotal.toLocaleString("ko-KR") + "원";
+}
+
+// 예약 안내문자 복사 기능
+function copyReservationMessage() {
+  const messageType = getMessageType();
+  
+  if (!messageType) {
+    alert("숙박 패키지, 강습, 또는 강습 패키지만 선택된 경우에만 안내문자를 복사할 수 있습니다.");
+    return;
+  }
+  
+  // 메시지 타입에 따라 다른 안내문자 제목 사용
+  let messageTitle;
+  let alertSuccessText;
+  
+  if (messageType === "lodging") {
+    messageTitle = "숙박 안내문자";
+    alertSuccessText = "숙박 안내문자가 클립보드에 복사되었습니다!";
+  } else if (messageType === "lesson") {
+    messageTitle = "강습 안내문자(강습만)";
+    alertSuccessText = "강습 안내문자가 클립보드에 복사되었습니다!";
+  } else if (messageType === "lessonPackage") {
+    messageTitle = "강습 안내문자(올인원패키지)";
+    alertSuccessText = "강습 안내문자(올인원패키지)가 클립보드에 복사되었습니다!";
+  }
+  
+  const message = findMessageByTitle(messageTitle);
+  if (!message || !message.content) {
+    alert(`'${messageTitle}'가 등록되어 있지 않습니다.\n요금표 관리 > 안내문자 카테고리에서 '${messageTitle}' 제목으로 내용을 등록해주세요.`);
+    return;
+  }
+  
+  // 선택 항목 내용과 총 합계 가져오기
+  const selectionContent = getSelectionContentText(messageType);
+  const grandTotalText = getGrandTotalText();
+  
+  // [내용1]과 [내용2]를 실제 내용으로 대체
+  let finalContent = message.content
+    .replace("[내용1]", selectionContent)
+    .replace("[내용2]", grandTotalText);
+  
+  navigator.clipboard.writeText(finalContent)
+    .then(() => {
+      alert(`${alertSuccessText}\n카카오톡이나 메모장에서 붙여넣기(Ctrl+V) 하세요.`);
+    })
+    .catch((err) => {
+      console.error("복사 실패:", err);
+      alert("복사에 실패했습니다. 브라우저 설정을 확인해주세요.");
+    });
+}
+
+if (copyMessageBtn) {
+  copyMessageBtn.addEventListener("click", copyReservationMessage);
+}
+
+// 강습 시작 시간 변경 시 버튼 표시 업데이트
+if (lessonStartTimeSelect) {
+  lessonStartTimeSelect.addEventListener("change", updateCopyMessageButton);
 }
 
 resetBtn.addEventListener("click", resetCalculator);
