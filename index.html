@@ -29,6 +29,7 @@
               <a class="link-btn" href="phone.html" aria-label="전화 상담 전용 계산기로 이동">상담 전용</a>
               <a class="link-btn" href="faq.html" aria-label="자주하는 질문 페이지로 이동">자주하는 질문</a>
               <a class="link-btn globe-btn" href="rental.html" aria-label="장비 렌탈 페이지로 이동">🌐</a>
+              <button class="link-btn circle-btn" id="circle-btn" type="button" aria-label="추가 기능">⭕</button>
             </div>
           </div>
         </div>
@@ -203,6 +204,17 @@
         </section>
       </section>
     </main>
+    <!-- Google Sheets 모달 -->
+    <div id="sheets-modal" class="sheets-modal" hidden>
+      <div class="sheets-modal__header">
+        <button type="button" class="sheets-modal__back-btn" id="sheets-back-btn">← 뒤로가기</button>
+        <span class="sheets-modal__title">금액표</span>
+      </div>
+      <div class="sheets-modal__content">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSsbY4NjKLUP4fBeyGamydCxeFa0cSfUxbX-J2aaRLPbmNo02BeLss4dp97gNg28hl0kiG9TKCBZI_Q/pubhtml?widget=true&amp;headers=false"></iframe>
+      </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="pricing.js"></script>
     <script src="app.js"></script>
@@ -216,6 +228,33 @@
         }
         return false;
       }
+
+      // Google Sheets 모달 기능
+      const circleBtn = document.getElementById("circle-btn");
+      const sheetsModal = document.getElementById("sheets-modal");
+      const sheetsBackBtn = document.getElementById("sheets-back-btn");
+
+      if (circleBtn && sheetsModal) {
+        circleBtn.addEventListener("click", () => {
+          sheetsModal.hidden = false;
+          document.body.style.overflow = "hidden";
+        });
+      }
+
+      if (sheetsBackBtn && sheetsModal) {
+        sheetsBackBtn.addEventListener("click", () => {
+          sheetsModal.hidden = true;
+          document.body.style.overflow = "";
+        });
+      }
+
+      // ESC 키로도 닫기
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && sheetsModal && !sheetsModal.hidden) {
+          sheetsModal.hidden = true;
+          document.body.style.overflow = "";
+        }
+      });
     </script>
   </body>
 </html>
