@@ -686,22 +686,22 @@ const pricingData = {
             "unit": "켤레"
           },
           {
-            "id": "warmerPurchase",
-            "name": "워머 구매",
-            "price": 15000,
-            "unit": "개"
-          },
-          {
             "id": "leggingsPurchase",
             "name": "레깅스 구매",
             "price": 20000,
             "unit": "벌"
           },
           {
+            "id": "warmerPurchase",
+            "name": "워머 구매",
+            "price": 18000,
+            "unit": "개"
+          },
+          {
             "id": "구매 · 액세서리_weekday_1763459897019",
-            "name": "비니 모자 구매",
+            "name": "고급 워머 구매",
             "unit": "개",
-            "price": 20000
+            "price": 25000
           },
           {
             "id": "구매 · 액세서리_weekday_1763459918290",
@@ -1876,22 +1876,22 @@ const pricingData = {
             "unit": "켤레"
           },
           {
-            "id": "warmerPurchase",
-            "name": "워머 구매",
-            "price": 15000,
-            "unit": "개"
-          },
-          {
             "id": "leggingsPurchase",
             "name": "레깅스 구매",
             "price": 20000,
             "unit": "벌"
           },
           {
+            "id": "warmerPurchase",
+            "name": "워머 구매",
+            "price": 18000,
+            "unit": "개"
+          },
+          {
             "id": "구매 · 액세서리_weekday_1764047597106",
-            "name": "비니 모자 구매",
+            "name": "고급 워머 구매",
             "unit": "개",
-            "price": 20000
+            "price": 25000
           },
           {
             "id": "구매 · 액세서리_weekday_1764047670138",

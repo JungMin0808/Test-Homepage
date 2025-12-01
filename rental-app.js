@@ -125,7 +125,6 @@
           <h3>금액표 관리</h3>
           <div class="price-table-actions">
             <button type="button" class="price-table-btn" id="add-item-btn">+ 품목 추가</button>
-            <button type="button" class="price-table-btn price-table-btn--save" id="save-data-btn">💾 저장</button>
             <button type="button" class="price-table-btn price-table-btn--reset" id="reset-data-btn">초기화</button>
           </div>
         </div>
@@ -150,15 +149,6 @@
     
     // 품목 추가 버튼
     document.getElementById("add-item-btn")?.addEventListener("click", showAddItemModal);
-    
-    // 저장 버튼
-    document.getElementById("save-data-btn")?.addEventListener("click", () => {
-      if (saveRentalData(rentalPricingData)) {
-        alert("금액표가 저장되었습니다.");
-      } else {
-        alert("저장에 실패했습니다.");
-      }
-    });
     
     // 초기화 버튼
     document.getElementById("reset-data-btn")?.addEventListener("click", () => {
