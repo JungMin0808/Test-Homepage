@@ -265,37 +265,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekday_adult_2h",
                 "name": "2시간",
-                "price": 41000,
+                "price": 36000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_adult_3h",
                 "name": "3시간",
-                "price": 44000,
+                "price": 39000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_adult_4h",
                 "name": "4시간",
-                "price": 46000,
+                "price": 41000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_adult_5h",
                 "name": "5시간",
-                "price": 49000,
+                "price": 44000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_adult_6h",
                 "name": "6시간",
-                "price": 51000,
+                "price": 46000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_adult_7h",
                 "name": "7시간",
-                "price": 54000,
+                "price": 49000,
                 "unit": "매"
               }
             ]
@@ -347,37 +347,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekday_child_2h",
                 "name": "2시간",
-                "price": 35000,
+                "price": 30000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_3h",
                 "name": "3시간",
-                "price": 37000,
+                "price": 32000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_4h",
                 "name": "4시간",
-                "price": 39000,
+                "price": 34000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_5h",
                 "name": "5시간",
-                "price": 41000,
+                "price": 36000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_6h",
                 "name": "6시간",
-                "price": 43000,
+                "price": 38000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_child_7h",
                 "name": "7시간",
-                "price": 45000,
+                "price": 40000,
                 "unit": "매"
               }
             ]
@@ -390,37 +390,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekend_adult_2h",
                 "name": "2시간",
-                "price": 48000,
+                "price": 43000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_adult_3h",
                 "name": "3시간",
-                "price": 51000,
+                "price": 46000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_adult_4h",
                 "name": "4시간",
-                "price": 53000,
+                "price": 48000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_adult_5h",
                 "name": "5시간",
-                "price": 56000,
+                "price": 51000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_adult_6h",
                 "name": "6시간",
-                "price": 58000,
+                "price": 53000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_adult_7h",
                 "name": "7시간",
-                "price": 61000,
+                "price": 56000,
                 "unit": "매"
               }
             ]
@@ -472,37 +472,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekend_child_2h",
                 "name": "2시간",
-                "price": 40000,
+                "price": 35000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_3h",
                 "name": "3시간",
-                "price": 42000,
+                "price": 37000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_4h",
                 "name": "4시간",
-                "price": 44000,
+                "price": 39000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_5h",
                 "name": "5시간",
-                "price": 46000,
+                "price": 41000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_6h",
                 "name": "6시간",
-                "price": 48000,
+                "price": 43000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_child_7h",
                 "name": "7시간",
-                "price": 50000,
+                "price": 45000,
                 "unit": "매"
               }
             ]
@@ -514,38 +514,38 @@ const pricingData = {
         "items": [
           {
             "id": "skiRental",
-            "name": "일반의류 렌탈(2~3시간)",
+            "name": "일반의류 렌탈(2~4시간)",
             "price": 10000,
             "unit": "세트"
           },
           {
             "id": "boardRental",
-            "name": "일반의류 렌탈(4~5시간)",
-            "price": 10000,
+            "name": "일반의류 렌탈(5~6시간)",
+            "price": 15000,
             "unit": "세트"
           },
           {
             "id": "basicWearRental",
-            "name": "일반의류 렌탈(6~8시간)",
+            "name": "일반의류 렌탈(7~8시간)",
             "price": 15000,
             "unit": "세트"
           },
           {
             "id": "premiumWearRental",
-            "name": "고급의류 렌탈(2~3시간)",
-            "price": 25000,
-            "unit": "세트"
-          },
-          {
-            "id": "helmetRental",
-            "name": "고급의류 렌탈(4시간)",
+            "name": "고급의류 렌탈(2~4시간)",
             "price": 30000,
             "unit": "세트"
           },
           {
-            "id": "visorHelmetRental",
+            "id": "helmetRental",
             "name": "고급의류 렌탈(5~6시간)",
             "price": 35000,
+            "unit": "세트"
+          },
+          {
+            "id": "visorHelmetRental",
+            "name": "고급의류 렌탈(7~8시간)",
+            "price": 40000,
             "unit": "세트"
           },
           {
@@ -562,9 +562,21 @@ const pricingData = {
           },
           {
             "id": "shortSkiRental",
-            "name": "바이저 헬맷 렌탈",
-            "price": 10000,
+            "name": "바이저 헬맷 렌탈(2~4시간)",
+            "price": 15000,
             "unit": "개"
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764598917889",
+            "name": "바이저 헬맷 렌탈(5~6시간)",
+            "unit": "개",
+            "price": 20000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764598918063",
+            "name": "바이저 헬맷 렌탈(7~8시간)",
+            "unit": "개",
+            "price": 25000
           },
           {
             "id": "inlineSkiRental",
@@ -588,25 +600,37 @@ const pricingData = {
             "id": "장비 · 보호장비 렌탈_weekday_1763197132559",
             "name": "스키만 렌탈 (2~4시간)",
             "unit": "개",
-            "price": 10000
+            "price": 15000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1763197132370",
-            "name": "스키만 렌탈(5~8시간)",
+            "name": "스키만 렌탈(5~6시간)",
             "unit": "개",
-            "price": 15000
+            "price": 20000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764599013852",
+            "name": "스키만 렌탈(7~8시간)",
+            "unit": "개",
+            "price": 25000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764046391581",
             "name": "보드만 렌탈(2~4시간)",
             "unit": "개",
-            "price": 10000
+            "price": 15000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510307655",
-            "name": "보드만 렌탈(5~8시간)",
+            "name": "보드만 렌탈(5~6시간)",
             "unit": "개",
-            "price": 15000
+            "price": 20000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764599014008",
+            "name": "보드만 렌탈(7~8시간)",
+            "unit": "개",
+            "price": 25000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510307781",
@@ -616,9 +640,15 @@ const pricingData = {
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510307901",
-            "name": "숏스키만 렌탈(5~8시간)",
+            "name": "숏스키만 렌탈(5~6시간)",
             "unit": "개",
-            "price": 25000
+            "price": 30000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764599081351",
+            "name": "숏스키만 렌탈(7~8시간)",
+            "unit": "개",
+            "price": 35000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510308028",
@@ -628,9 +658,15 @@ const pricingData = {
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510308163",
-            "name": "인라인 스키만 렌탈(5~8시간)",
+            "name": "인라인 스키만 렌탈(5~6시간)",
             "unit": "개",
             "price": 35000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764599081522",
+            "name": "인라인 스키만 렌탈(7~8시간)",
+            "unit": "개",
+            "price": 40000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510308281",
@@ -640,9 +676,15 @@ const pricingData = {
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510308424",
-            "name": "해머데크만 렌탈(5~8시간)",
+            "name": "해머데크만 렌탈(5~6시간)",
             "unit": "개",
             "price": 35000
+          },
+          {
+            "id": "장비 · 보호장비 렌탈_weekday_1764599081683",
+            "name": "해머데크만 렌탈(7~8시간)",
+            "unit": "개",
+            "price": 40000
           },
           {
             "id": "장비 · 보호장비 렌탈_weekday_1764510308547",
@@ -1148,19 +1190,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_0_1763821853776",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 190000
+                "price": 185000
               },
               {
                 "id": "강습 패키지_weekday_0_1763821854220",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 277000
+                "price": 267000
               },
               {
                 "id": "강습 패키지_weekday_0_1763821854477",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 339000
+                "price": 325000
               }
             ]
           },
@@ -1171,19 +1213,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_1_1763821925682",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 225000
+                "price": 220000
               },
               {
                 "id": "강습 패키지_weekday_1_1763821925950",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 314000
+                "price": 300000
               },
               {
                 "id": "강습 패키지_weekday_1_1763821926155",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 378000
+                "price": 360000
               }
             ]
           },
@@ -1194,19 +1236,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_2_1763821946025",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 260000
+                "price": 285000
               },
               {
                 "id": "강습 패키지_weekday_2_1763821946181",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 351000
+                "price": 375000
               },
               {
                 "id": "강습 패키지_weekday_2_1763821946319",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 417000
+                "price": 444000
               }
             ]
           },
@@ -1217,19 +1259,19 @@ const pricingData = {
                 "id": "강습 패키지_weekday_3_1764418742603",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 315000
+                "price": 352000
               },
               {
                 "id": "강습 패키지_weekday_3_1764418742738",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 418000
+                "price": 460000
               },
               {
                 "id": "강습 패키지_weekday_3_1764418742880",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 496000
+                "price": 552000
               }
             ]
           }
@@ -1242,19 +1284,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_0_1763821956498",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 195000
+                "price": 192000
               },
               {
                 "id": "강습 패키지_weekend_0_1763821956641",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 282000
+                "price": 267000
               },
               {
                 "id": "강습 패키지_weekend_0_1763821956769",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 344000
+                "price": 327000
               }
             ]
           },
@@ -1265,19 +1307,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_1_1763821962105",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 235000
+                "price": 234000
               },
               {
                 "id": "강습 패키지_weekend_1_1763821962265",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 324000
+                "price": 314000
               },
               {
                 "id": "강습 패키지_weekend_1_1763821962411",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 388000
+                "price": 374000
               }
             ]
           },
@@ -1288,19 +1330,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_2_1763821967838",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 275000
+                "price": 300000
               },
               {
                 "id": "강습 패키지_weekend_2_1763821967979",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 366000
+                "price": 390000
               },
               {
                 "id": "강습 패키지_weekend_2_1763821968117",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 432000
+                "price": 459000
               }
             ]
           },
@@ -1311,19 +1353,19 @@ const pricingData = {
                 "id": "강습 패키지_weekend_3_1764418759370",
                 "name": "소인 2시간 강습 패키지",
                 "unit": "개",
-                "price": 335000
+                "price": 380000
               },
               {
                 "id": "강습 패키지_weekend_3_1764418759502",
                 "name": "소인 3시간 강습 패키지",
                 "unit": "개",
-                "price": 438000
+                "price": 500000
               },
               {
                 "id": "강습 패키지_weekend_3_1764418759642",
                 "name": "소인 4시간 강습 패키지",
                 "unit": "개",
-                "price": 516000
+                "price": 580000
               }
             ]
           }
