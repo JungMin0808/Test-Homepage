@@ -207,6 +207,14 @@ body {
   justify-content: flex-end;
 }
 
+.globe-btn {
+  font-size: 1.2rem;
+  padding: 0.5rem 0.65rem;
+  cursor: pointer;
+  border: none;
+  line-height: 1;
+}
+
 /* 전화 상담 페이지 - 밝은 톤 색상 팔레트 */
 /* 배경: #FFFBF5 (매우 밝은 크림색) */
 /* 컨테이너: #F5E6D3 (크림색), #FFE5D9 (연한 피치), #D4B896 (탄색) */
@@ -3176,5 +3184,248 @@ body.phone-page .lesson-time-selector select:focus {
 .phone-page .payment-method-selector {
   background: transparent;
   padding: 0;
+}
+
+/* ====================================
+   장비 렌탈 계산기 페이지 스타일
+   ==================================== */
+
+/* 금액표 컨테이너 */
+.price-table-container {
+  display: block !important;
+  grid-template-columns: none !important;
+}
+
+/* 금액표 편집기 */
+.price-table-editor {
+  width: 100%;
+  padding: 1rem;
+}
+
+.price-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.price-table-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-strong);
+}
+
+.price-table-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.price-table-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.price-table-btn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.6);
+}
+
+.price-table-btn--reset {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+.price-table-btn--reset:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+.price-table-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.price-table-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(30, 58, 95, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+}
+
+.price-table-item__info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.price-table-item__category {
+  padding: 0.25rem 0.5rem;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 40px;
+  text-align: center;
+}
+
+.price-table-item__name {
+  font-size: 0.95rem;
+  color: var(--text-strong);
+  flex: 1;
+}
+
+.price-table-item__price {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 80px;
+  text-align: right;
+}
+
+.price-table-item__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.price-table-item-btn {
+  padding: 0.35rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.price-table-item-btn.edit-btn {
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--primary);
+}
+
+.price-table-item-btn.edit-btn:hover {
+  background: rgba(59, 130, 246, 0.35);
+}
+
+.price-table-item-btn.delete-btn {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.price-table-item-btn.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.35);
+}
+
+/* 모달 스타일 */
+.rental-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.rental-modal {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: 16px;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.rental-modal h3 {
+  margin: 0 0 1.25rem;
+  font-size: 1.2rem;
+  color: var(--text-strong);
+  text-align: center;
+}
+
+.rental-modal-field {
+  margin-bottom: 1rem;
+}
+
+.rental-modal-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.rental-modal-field input,
+.rental-modal-field select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  color: var(--text-strong);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.rental-modal-field input:focus,
+.rental-modal-field select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.rental-modal-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.rental-modal-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rental-modal-btn.cancel {
+  background: rgba(100, 116, 139, 0.2);
+  color: var(--text-muted);
+}
+
+.rental-modal-btn.cancel:hover {
+  background: rgba(100, 116, 139, 0.3);
+}
+
+.rental-modal-btn.confirm {
+  background: var(--primary);
+  color: white;
+}
+
+.rental-modal-btn.confirm:hover {
+  background: #2563eb;
 }
 

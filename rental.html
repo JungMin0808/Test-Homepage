@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장비 렌탈 - 월드스키 카운터</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="rental-page">
+    <main class="app">
+      <header class="app__header">
+        <div class="header-main">
+          <p class="app__brand">월드스키 카운터 <span class="app__time" id="time-label"></span></p>
+          <h1>장비 렌탈 계산기</h1>
+          <p class="app__subtitle">
+            장비 및 보호장비 렌탈, 구매/악세서리 전용 계산기입니다.
+          </p>
+          <p class="app__date" id="date-label"></p>
+          <div class="period-info">
+            <span class="period-pill period-pill--current" id="current-period-pill">주중 요금 확인 중...</span>
+            <span class="period-pill period-pill--legend">주중: 월~금 · 주말/공휴일: 토·일·공휴일</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="lift-timer-pill" id="lift-timer-display" hidden>리프트 시간권을 선택하지 않았습니다.</span>
+          <div class="header-actions">
+            <div class="link-btn-group">
+              <a class="link-btn" href="index.html" aria-label="현장 상담 페이지로 이동">현장 상담</a>
+              <a class="link-btn" href="phone.html" aria-label="전화 상담 전용 계산기로 이동">상담 전용</a>
+              <a class="link-btn" href="faq.html" aria-label="자주하는 질문 페이지로 이동">자주하는 질문</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="pos-layout">
+        <section class="pos-panel">
+          <div class="pos-panel__top">
+            <div>
+              <p class="pos-panel__hint">버튼을 누를 때마다 1개씩 추가됩니다.</p>
+              <p class="pos-panel__hint">길게 누르지 않아도 연속 입력이 가능합니다.</p>
+            </div>
+            <button id="toggle-view-btn" class="toggle-view-btn" type="button">
+              카테고리 접기
+            </button>
+          </div>
+          <nav class="category-nav" id="category-nav" aria-label="상품 카테고리"></nav>
+          <div id="group-nav" class="group-nav" aria-label="하위 카테고리" hidden></div>
+          <div id="item-grid" class="item-grid" aria-live="polite"></div>
+          <div id="lodging-panel" class="lodging-panel" aria-hidden="true" hidden></div>
+        </section>
+
+        <section class="summary" aria-live="polite">
+          <div class="summary__header">
+            <div>
+              <h2>선택 항목</h2>
+              <p class="summary__season-label" id="season-label">현재: 비수기</p>
+            </div>
+            <button id="reset-btn" class="reset-btn" type="button">초기화</button>
+          </div>
+          <ul id="selection-list" class="summary__list"></ul>
+          <div class="payment-method-selector">
+            <button type="button" class="payment-method-btn active" data-payment="cash">현금결제</button>
+            <button type="button" class="payment-method-btn" data-payment="card">카드결제</button>
+          </div>
+          <div id="vat-items-section" class="vat-items-section" hidden>
+            <p class="vat-items-title">VAT 추가 항목</p>
+            <ul id="vat-items-list" class="vat-items-list"></ul>
+            <div class="vat-items-subtotal">
+              <span>VAT 합계</span>
+              <strong id="vat-total">₩0</strong>
+            </div>
+          </div>
+          <div class="summary__total">
+            <div>
+              <span>총 합계</span>
+            </div>
+            <strong id="grand-total">₩0</strong>
+          </div>
+          <button type="button" class="copy-selection-btn" id="copy-selection-btn">📋 내용 복사하기</button>
+          <div class="split-section">
+            <button type="button" class="split-toggle-btn" id="split-toggle-btn" aria-label="인당 금액 계산 접기/펼치기">
+              <span>인당 금액 계산</span>
+              <span class="split-toggle-icon">▼</span>
+            </button>
+            <div class="split-content" id="split-content" hidden>
+              <div class="split-control">
+                <div class="split-label">
+                  <span>인원 수</span>
+                </div>
+                <div class="split-input">
+                  <button type="button" id="split-decrease" aria-label="인원 감소">-</button>
+                  <input id="split-count" type="number" min="1" value="1" aria-label="인원 입력" />
+                  <button type="button" id="split-increase" aria-label="인원 증가">+</button>
+                </div>
+              </div>
+              <div class="split-result">
+                <span>1인당 금액</span>
+                <strong id="split-amount">₩0</strong>
+              </div>
+            </div>
+          </div>
+          <div class="summary__account">
+            <p class="summary__account-title">현장 계좌</p>
+            <p class="summary__account-name">국민 조승희(엘리시안강촌 월드스키 강습)</p>
+            <p class="summary__account-number">650701-01-339761</p>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="pricing.js"></script>
+    <script src="rental-pricing.js"></script>
+    <script src="app.js"></script>
+    <script src="rental-app.js"></script>
+  </body>
+</html>
+

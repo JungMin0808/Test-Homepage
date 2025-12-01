@@ -164,6 +164,7 @@ const manualDateInput = document.getElementById("manual-date");
 const generateQuoteBtn = document.getElementById("generate-quote-btn");
 const lodgingCategoryButtonsEl = document.getElementById("lodging-category-buttons");
 const isPhoneMode = document.body.classList.contains("phone-page");
+const isRentalMode = document.body.classList.contains("rental-page");
 
 function formatCurrency(value) {
   return value.toLocaleString("ko-KR", {
@@ -188,6 +189,27 @@ function getVatPrice(hours, season, period) {
   
   const vatItem = vatItems.find(item => item.name === `${hours}시간 VAT`);
   return vatItem?.price || 0;
+}
+
+// 리프트+렌탈권 대인 가격 조회 함수 (퍼센트 계산용)
+function getLiftAdultPrice(hours, season, period) {
+  if (!pricingState) return 0;
+  
+  const seasonData = pricingState[season];
+  if (!seasonData?.categories) return 0;
+  
+  const liftCategory = seasonData.categories.find(cat => cat.name === "리프트 + 렌탈권");
+  if (!liftCategory) return 0;
+  
+  // 그룹에서 대인 찾기
+  const groups = period === "weekend" ? (liftCategory.weekendGroups || liftCategory.groups) : liftCategory.groups;
+  if (!groups?.length) return 0;
+  
+  const adultGroup = groups.find(g => g.name === "대인");
+  if (!adultGroup?.items?.length) return 0;
+  
+  const liftItem = adultGroup.items.find(item => item.name === `${hours}시간`);
+  return liftItem?.price || 0;
 }
 
 // 선택된 항목에서 리프트 시간 추출
@@ -223,10 +245,15 @@ function calculateVatItems() {
       vatItems[key] = {
         hours,
         quantity: 0,
-        price: getVatPrice(hours, state.season, state.period)
+        price: getVatPrice(hours, state.season, state.period),
+        basePrice: selection.price || 0  // 원가 저장
       };
     }
     vatItems[key].quantity += selection.quantity;
+    // 원가가 더 높은 것으로 업데이트 (대인 기준)
+    if (selection.price > vatItems[key].basePrice) {
+      vatItems[key].basePrice = selection.price;
+    }
   });
   
   return Object.values(vatItems).filter(item => item.price > 0);
@@ -289,7 +316,7 @@ function calculateLodgingVatItems() {
           const typeName = activeType.name || "숙박";
           
           lodgingVatItems.push({
-            name: `${typeName} VAT`,
+            name: `${typeName} VAT (10%)`,
             baseAmount: lodgingTotal,
             vatAmount: vatAmount
           });
@@ -318,7 +345,8 @@ function calculateLodgingVatItems() {
         hourlyVat[key] = {
           hours,
           quantity: 0,
-          price: getVatPrice(hours, season, period)
+          price: getVatPrice(hours, season, period),
+          basePrice: getLiftAdultPrice(hours, season, period)  // 대인 원가 저장
         };
       }
       hourlyVat[key].quantity += totalCount;
@@ -328,8 +356,16 @@ function calculateLodgingVatItems() {
     Object.values(hourlyVat).forEach(item => {
       if (item.quantity > 0 && item.price > 0) {
         const vatAmount = item.price * item.quantity;
+        
+        // 원가 대비 퍼센트 계산
+        let percentText = "";
+        if (item.basePrice > 0) {
+          const percent = (item.price / item.basePrice) * 100;
+          percentText = ` (${percent.toFixed(1)}%)`;
+        }
+        
         lodgingVatItems.push({
-          name: `${item.hours}시간 VAT × ${item.quantity}`,
+          name: `${item.hours}시간 VAT${percentText} × ${item.quantity}`,
           baseAmount: 0,
           vatAmount: vatAmount
         });
@@ -367,9 +403,16 @@ function updateVatSection() {
     const subtotal = item.price * item.quantity;
     vatTotal += subtotal;
     
+    // 원가 대비 VAT 퍼센트 계산
+    let percentText = "";
+    if (item.basePrice > 0) {
+      const percent = (item.price / item.basePrice) * 100;
+      percentText = ` (${percent.toFixed(1)}%)`;
+    }
+    
     const li = document.createElement("li");
     li.innerHTML = `
-      <span class="vat-item-name">${item.hours}시간 VAT × ${item.quantity}</span>
+      <span class="vat-item-name">${item.hours}시간 VAT${percentText} × ${item.quantity}</span>
       <span class="vat-item-price">${formatCurrency(subtotal)}</span>
     `;
     vatItemsListEl.appendChild(li);
@@ -2070,19 +2113,6 @@ function generateQuoteImage() {
       <div style="
         text-align: center;
         margin-top: 1.5rem;
-        padding: 1rem;
-        background: rgba(201, 125, 96, 0.08);
-        border: 1px solid rgba(201, 125, 96, 0.2);
-        border-radius: 8px;
-      ">
-        <p style="margin: 0 0 0.5rem; font-size: 0.85rem; font-weight: 600; color: #8B4513;">예약계좌</p>
-        <p style="margin: 0 0 0.25rem; font-size: 0.9rem; color: #A67C5A;">국민 조승희(엘리시안강촌 월드스키 강습)</p>
-        <p style="margin: 0; font-size: 1.1rem; font-weight: 700; color: #6B4423; letter-spacing: 0.05em;">650701-01-486003</p>
-      </div>
-
-      <div style="
-        text-align: center;
-        margin-top: 1.5rem;
         padding-top: 1.5rem;
         border-top: 1px solid rgba(201, 125, 96, 0.2);
         color: #A67C5A;
@@ -2350,6 +2380,10 @@ function ensureActiveGroup(category) {
 
 function renderCategoryNav(categories) {
   if (!categoryNavEl) return;
+  
+  // 렌탈 모드에서는 rental-app.js에서 별도로 렌더링
+  if (isRentalMode) return;
+  
   categoryNavEl.innerHTML = "";
 
   // VAT, 안내문자 카테고리는 항상 제외, 현장 상담 모드에서는 숙박 패키지 카테고리도 제외
@@ -2394,6 +2428,10 @@ function renderCategoryNav(categories) {
 
 function renderItemGrid(categories) {
   if (!itemGridEl) return;
+  
+  // 렌탈 모드에서는 rental-app.js에서 별도로 렌더링
+  if (isRentalMode) return;
+  
   hideLodgingPanel();
   const activeCategory = categories.find((category) => category.name === state.activeCategory);
   if (groupNavEl) {
@@ -2907,7 +2945,15 @@ function adjustSelection(itemId, delta) {
 function getActiveCategories() {
   if (!pricingState) return [];
   const baseCategories = pricingState[state.season]?.categories || [];
-  return baseCategories.map((category) => {
+  let filteredCategories = baseCategories;
+  
+  // 렌탈 페이지인 경우 특정 카테고리만 표시
+  if (isRentalMode) {
+    const allowedCategories = ["장비 · 보호장비 렌탈", "구매 · 액세서리", "금액표"];
+    filteredCategories = baseCategories.filter(cat => allowedCategories.includes(cat.name));
+  }
+  
+  return filteredCategories.map((category) => {
     const useWeekendGroups = state.period === "weekend" && category.weekendGroups;
     const useWeekendItems = state.period === "weekend" && category.weekendItems;
     return {
@@ -4009,7 +4055,28 @@ lodgingPanelEl?.addEventListener("change", (event) => {
     }
     
     const currentState = getCurrentLodgingState();
-    currentState.selectedTypeId = target.value || null;
+    const previousTypeId = currentState.selectedTypeId;
+    const newTypeId = target.value || null;
+    
+    // 새로 선택하려는 타입의 최대 인원 확인
+    if (newTypeId) {
+      const types = getLodgingTypes();
+      const newType = types.find(type => type.id === newTypeId);
+      if (newType) {
+        const newMaxGuests = Number(newType.maxGuests) || 0;
+        const currentLiftGuests = getTotalLiftGuests();
+        
+        // 리프트+렌탈권 인원이 새 타입의 최대 인원보다 많은 경우 경고
+        if (newMaxGuests > 0 && currentLiftGuests > newMaxGuests) {
+          alert("리프트+렌탈권 인원을 확인해주세요.\n\n현재 리프트+렌탈권 인원(" + currentLiftGuests + "명)이 선택하려는 객실의 최대 인원(" + newMaxGuests + "명)보다 많습니다.");
+          // 이전 타입으로 되돌리기
+          target.value = previousTypeId || "";
+          return;
+        }
+      }
+    }
+    
+    currentState.selectedTypeId = newTypeId;
     const selected = getActiveLodgingType();
     if (selected) {
       currentState.selectedTypeGroup = selected.group || DEFAULT_LODGING_GROUP;

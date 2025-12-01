@@ -28,7 +28,7 @@
         <div class="header-right">
           <div class="header-actions">
             <div class="link-btn-group">
-              <a class="link-btn" href="pricing.html" aria-label="요금표 관리 페이지로 이동">요금표 관리</a>
+              <a class="link-btn" href="pricing.html" aria-label="요금표 관리 페이지로 이동" onclick="return checkPricingPassword()">요금표 관리</a>
               <a class="link-btn" href="index.html" aria-label="전화 상담 전용 계산기로 이동">현장 상담</a>
               <a class="link-btn" href="faq.html" aria-label="자주하는 질문 페이지로 이동">자주하는 질문</a>
             </div>
@@ -406,6 +406,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="pricing.js"></script>
     <script src="app.js"></script>
+    <script>
+      function checkPricingPassword() {
+        const password = prompt("비밀번호 4자리를 눌러주세요");
+        if (password === "0075") {
+          return true;
+        } else if (password !== null) {
+          alert("비밀번호가 올바르지 않습니다.");
+        }
+        return false;
+      }
+    </script>
   </body>
 </html>
 
