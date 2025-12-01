@@ -306,37 +306,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekday_student_2h",
                 "name": "2시간",
-                "price": 40000,
+                "price": 35000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_student_3h",
                 "name": "3시간",
-                "price": 43000,
+                "price": 38000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_student_4h",
                 "name": "4시간",
-                "price": 45000,
+                "price": 40000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_student_5h",
                 "name": "5시간",
-                "price": 48000,
+                "price": 43000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_student_6h",
                 "name": "6시간",
-                "price": 50000,
+                "price": 45000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekday_student_7h",
                 "name": "7시간",
-                "price": 53000,
+                "price": 48000,
                 "unit": "매"
               }
             ]
@@ -431,37 +431,37 @@ const pricingData = {
               {
                 "id": "liftRental_weekend_student_2h",
                 "name": "2시간",
-                "price": 47000,
+                "price": 42000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_student_3h",
                 "name": "3시간",
-                "price": 50000,
+                "price": 45000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_student_4h",
                 "name": "4시간",
-                "price": 52000,
+                "price": 47000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_student_5h",
                 "name": "5시간",
-                "price": 55000,
+                "price": 50000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_student_6h",
                 "name": "6시간",
-                "price": 57000,
+                "price": 52000,
                 "unit": "매"
               },
               {
                 "id": "liftRental_weekend_student_7h",
                 "name": "7시간",
-                "price": 60000,
+                "price": 55000,
                 "unit": "매"
               }
             ]
