@@ -216,6 +216,14 @@ body {
   line-height: 1;
 }
 
+.circle-btn--red {
+  color: #ef4444;
+}
+
+.circle-btn--yellow {
+  color: #eab308;
+}
+
 /* Google Sheets 모달 */
 .sheets-modal {
   position: fixed;
