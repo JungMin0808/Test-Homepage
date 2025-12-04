@@ -3739,6 +3739,299 @@ if (copySelectionBtn) {
   copySelectionBtn.addEventListener("click", copySelectionToClipboard);
 }
 
+// 블루투스 프린터 인쇄 기능
+let bluetoothDevice = null;
+let printerCharacteristic = null;
+const PRINTER_MAC_ADDRESS = "00:13:7B:90:CE:07";
+
+// 텍스트 내용을 생성하는 함수 (복사 기능과 동일한 내용)
+function generatePrintContent() {
+  const orderedSelections = renderOrder
+    .map((id) => state.selections[id])
+    .filter(Boolean);
+  
+  if (orderedSelections.length === 0) {
+    return null;
+  }
+  
+  const formatWon = (amount) => {
+    return amount.toLocaleString("ko-KR") + "원";
+  };
+  
+  let dateText = "";
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+  
+  const hasLodgingPackage = orderedSelections.some(s => s.category === "숙박 패키지");
+  
+  if (isPhoneMode && hasLodgingPackage) {
+    let lodgingDate = null;
+    for (const categoryName of ["대분류1", "대분류2", "대분류3"]) {
+      const categoryState = lodgingStates[categoryName];
+      if (categoryState && categoryState.dates && categoryState.dates.first) {
+        lodgingDate = categoryState.dates.first;
+        break;
+      }
+    }
+    
+    if (lodgingDate) {
+      const dateObj = new Date(`${lodgingDate}T00:00:00`);
+      const month = dateObj.getMonth() + 1;
+      const day = dateObj.getDate();
+      const dayName = dayNames[dateObj.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    }
+  }
+  
+  if (!dateText) {
+    if (isPhoneMode && manualDateInput && manualDateInput.value) {
+      const dateObj = new Date(`${manualDateInput.value}T00:00:00`);
+      const month = dateObj.getMonth() + 1;
+      const day = dateObj.getDate();
+      const dayName = dayNames[dateObj.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    } else if (state.dateInfo && state.dateInfo.month && state.dateInfo.day && state.dateInfo.dayName) {
+      dateText = `${state.dateInfo.month}월 ${state.dateInfo.day}일(${state.dateInfo.dayName})`;
+    } else {
+      const today = new Date();
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
+      const dayName = dayNames[today.getDay()];
+      dateText = `${month}월 ${day}일(${dayName})`;
+    }
+  }
+  
+  let lines = [];
+  
+  if (isPhoneMode && hasLodgingPackage) {
+    let lodgingTypeInfo = "";
+    
+    for (const categoryName of ["대분류1", "대분류2", "대분류3"]) {
+      const categoryState = lodgingStates[categoryName];
+      if (categoryState && categoryState.selectedTypeId) {
+        const activeType = getActiveLodgingTypeForCategory(categoryName);
+        if (activeType) {
+          const totalGuests = categoryState.guests || 1;
+          lodgingTypeInfo = `${activeType.name} ${totalGuests}인 기준`;
+          break;
+        }
+      }
+    }
+    
+    if (dateText && lodgingTypeInfo) {
+      lines.push(`${dateText} ${lodgingTypeInfo}`);
+      lines.push("");
+    } else if (dateText) {
+      lines.push(`${dateText} 이용 기준`);
+      lines.push("");
+    }
+  } else if (dateText) {
+    lines.push(`${dateText} 이용 기준`);
+    lines.push("");
+  }
+  
+  let grandTotal = 0;
+  orderedSelections.forEach((selection) => {
+    grandTotal += selection.subtotal;
+    
+    const categoryName = selection.category || "";
+    
+    let itemLabel;
+    if (categoryName === "강습" && selection.groupName) {
+      itemLabel = `${selection.groupName} ${selection.name} 강습`;
+    } else {
+      itemLabel = selection.groupName 
+        ? `${selection.groupName} ${selection.name}` 
+        : selection.name;
+    }
+    
+    if (categoryName === "숙박 패키지") {
+      itemLabel = itemLabel.replace(/\s*\(\d+명\)$/, "");
+    }
+    
+    let itemText = "";
+    const showCategory = categoryName && (categoryName.includes("리프트") || categoryName === "리프트권");
+    if (showCategory) {
+      itemText += `${categoryName} `;
+    }
+    const unit = (categoryName === "강습" || categoryName === "강습 패키지") ? "팀" : "명";
+    itemText += `${itemLabel} x ${selection.quantity}${unit} = ${formatWon(selection.subtotal)}`;
+    lines.push(itemText);
+  });
+  
+  lines.push("");
+  lines.push(`총 금액은 ${formatWon(grandTotal)} 입니다.`);
+  
+  return lines.join("\n");
+}
+
+// ESC/POS 명령어로 텍스트 인코딩
+function encodeForPrinter(text) {
+  const encoder = new TextEncoder();
+  
+  // ESC/POS 초기화 명령
+  const ESC = 0x1B;
+  const GS = 0x1D;
+  const LF = 0x0A;
+  
+  // 한글 인코딩을 위해 EUC-KR 또는 UTF-8 설정
+  // 대부분의 영수증 프린터는 EUC-KR을 사용하지만, 일부는 UTF-8 지원
+  const initCommands = new Uint8Array([
+    ESC, 0x40,           // 프린터 초기화
+    ESC, 0x74, 0x00,     // 코드 페이지 설정 (PC437)
+    ESC, 0x61, 0x01,     // 중앙 정렬
+  ]);
+  
+  // 텍스트를 바이트 배열로 변환 (UTF-8)
+  const textBytes = encoder.encode(text);
+  
+  // 줄바꿈 및 용지 피드
+  const feedCommands = new Uint8Array([
+    LF, LF, LF,          // 줄바꿈
+    GS, 0x56, 0x00,      // 용지 컷 (부분 컷)
+  ]);
+  
+  // 모든 명령 합치기
+  const result = new Uint8Array(initCommands.length + textBytes.length + feedCommands.length);
+  result.set(initCommands, 0);
+  result.set(textBytes, initCommands.length);
+  result.set(feedCommands, initCommands.length + textBytes.length);
+  
+  return result;
+}
+
+// 블루투스 프린터에 연결
+async function connectToPrinter() {
+  try {
+    // 이미 연결되어 있으면 기존 연결 사용
+    if (bluetoothDevice && bluetoothDevice.gatt.connected && printerCharacteristic) {
+      return printerCharacteristic;
+    }
+    
+    // 블루투스 장치 검색 및 선택
+    bluetoothDevice = await navigator.bluetooth.requestDevice({
+      filters: [
+        { services: ['000018f0-0000-1000-8000-00805f9b34fb'] },  // 일반적인 프린터 서비스
+        { services: ['e7810a71-73ae-499d-8c15-faa9aef0c3f2'] },  // 일부 프린터
+        { services: ['49535343-fe7d-4ae5-8fa9-9fafd205e455'] },  // Nordic UART
+      ],
+      optionalServices: [
+        '000018f0-0000-1000-8000-00805f9b34fb',
+        '0000ff00-0000-1000-8000-00805f9b34fb',
+        'e7810a71-73ae-499d-8c15-faa9aef0c3f2',
+        '49535343-fe7d-4ae5-8fa9-9fafd205e455',
+      ],
+      acceptAllDevices: true
+    });
+    
+    console.log("선택된 장치:", bluetoothDevice.name);
+    
+    // GATT 서버에 연결
+    const server = await bluetoothDevice.gatt.connect();
+    console.log("GATT 서버 연결됨");
+    
+    // 서비스 찾기
+    const services = await server.getPrimaryServices();
+    console.log("발견된 서비스:", services.map(s => s.uuid));
+    
+    // 쓰기 가능한 특성 찾기
+    for (const service of services) {
+      try {
+        const characteristics = await service.getCharacteristics();
+        for (const char of characteristics) {
+          if (char.properties.write || char.properties.writeWithoutResponse) {
+            printerCharacteristic = char;
+            console.log("쓰기 특성 발견:", char.uuid);
+            return printerCharacteristic;
+          }
+        }
+      } catch (e) {
+        console.log("서비스 탐색 중 오류:", e);
+      }
+    }
+    
+    throw new Error("쓰기 가능한 특성을 찾을 수 없습니다.");
+    
+  } catch (error) {
+    console.error("블루투스 연결 오류:", error);
+    throw error;
+  }
+}
+
+// 데이터를 청크로 나누어 전송
+async function sendDataInChunks(characteristic, data, chunkSize = 20) {
+  for (let i = 0; i < data.length; i += chunkSize) {
+    const chunk = data.slice(i, i + chunkSize);
+    if (characteristic.properties.writeWithoutResponse) {
+      await characteristic.writeValueWithoutResponse(chunk);
+    } else {
+      await characteristic.writeValue(chunk);
+    }
+    // 프린터가 데이터를 처리할 시간 확보
+    await new Promise(resolve => setTimeout(resolve, 50));
+  }
+}
+
+// 인쇄 실행
+async function printSelection() {
+  const content = generatePrintContent();
+  
+  if (!content) {
+    alert("인쇄할 선택 항목이 없습니다.");
+    return;
+  }
+  
+  // Web Bluetooth API 지원 확인
+  if (!navigator.bluetooth) {
+    alert("이 브라우저는 블루투스를 지원하지 않습니다.\nChrome 브라우저를 사용해주세요.");
+    return;
+  }
+  
+  const printBtn = document.getElementById("print-selection-btn");
+  const originalText = printBtn.textContent;
+  
+  try {
+    printBtn.textContent = "🔄 연결 중...";
+    printBtn.disabled = true;
+    
+    // 프린터 연결
+    const characteristic = await connectToPrinter();
+    
+    printBtn.textContent = "🖨️ 인쇄 중...";
+    
+    // 인쇄 데이터 준비
+    const printData = encodeForPrinter(content);
+    
+    // 데이터 전송
+    await sendDataInChunks(characteristic, printData);
+    
+    printBtn.textContent = "✅ 인쇄 완료!";
+    setTimeout(() => {
+      printBtn.textContent = originalText;
+      printBtn.disabled = false;
+    }, 2000);
+    
+  } catch (error) {
+    console.error("인쇄 오류:", error);
+    
+    let errorMessage = "인쇄에 실패했습니다.";
+    if (error.message.includes("cancelled") || error.message.includes("User cancelled")) {
+      errorMessage = "블루투스 장치 선택이 취소되었습니다.";
+    } else if (error.message.includes("Bluetooth")) {
+      errorMessage = "블루투스 연결에 실패했습니다.\n프린터가 켜져있고 페어링되어 있는지 확인해주세요.";
+    }
+    
+    alert(errorMessage);
+    printBtn.textContent = originalText;
+    printBtn.disabled = false;
+  }
+}
+
+// 인쇄 버튼 이벤트 연결
+const printSelectionBtn = document.getElementById("print-selection-btn");
+if (printSelectionBtn) {
+  printSelectionBtn.addEventListener("click", printSelection);
+}
+
 // 예약 안내문자 복사 버튼
 const copyMessageBtn = document.getElementById("copy-message-btn");
 
