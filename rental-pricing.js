@@ -6,7 +6,7 @@ const RENTAL_STORAGE_KEY = "rentalPricingData";
 const defaultRentalData = {
   categories: [
     {
-      name: "장비 · 보호장비 렌탈",
+      name: "장비렌탈",
       items: [
         { id: "rental_1", name: "일반의류 렌탈(2~3시간)", price: 10000, unit: "세트" },
         { id: "rental_2", name: "일반의류 렌탈(4~5시간)", price: 10000, unit: "세트" },
@@ -23,7 +23,7 @@ const defaultRentalData = {
       ]
     },
     {
-      name: "구매 · 액세서리",
+      name: "구매물품",
       items: [
         { id: "purchase_1", name: "장갑 구매", price: 18000, unit: "켤레" },
         { id: "purchase_2", name: "바라클라바 구매", price: 15000, unit: "개" },

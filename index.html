@@ -70,7 +70,7 @@
                   </div>
                 </div>
                 <div class="lodging-field">
-                  <label>리프트 + 렌탈권</label>
+                  <label>리프트+렌탈권</label>
                   <div class="lodging-lift-selections" id="lodging-lift-selections"></div>
                   <p class="lodging-note">각 시간권별로 대인/소인 인원을 설정하세요.</p>
                 </div>
@@ -257,11 +257,11 @@
         return false;
       }
 
-      if (circleBtn && sheetsModal) {
+      if (circleBtn) {
         circleBtn.addEventListener("click", () => {
           if (checkSheetsPassword()) {
-            sheetsModal.hidden = false;
-            document.body.style.overflow = "hidden";
+            // 새 탭에서 Google Sheets 열기
+            window.open('https://docs.google.com/spreadsheets/d/1ZldvNQtXf51oKB3IjEuwQuaJTkZVJofjf4tSDfILUM4/edit?gid=154773805#gid=154773805', '_blank');
           }
         });
       }
@@ -278,11 +278,11 @@
       const lessonSheetsModal = document.getElementById("lesson-sheets-modal");
       const lessonSheetsBackBtn = document.getElementById("lesson-sheets-back-btn");
 
-      if (yellowCircleBtn && lessonSheetsModal) {
+      if (yellowCircleBtn) {
         yellowCircleBtn.addEventListener("click", () => {
           if (checkSheetsPassword()) {
-            lessonSheetsModal.hidden = false;
-            document.body.style.overflow = "hidden";
+            // 새 탭에서 Google Sheets 열기
+            window.open('https://docs.google.com/spreadsheets/d/16bgrn3PoRgKuGfzknACMsJEOdO7DFNOFIKWE8ers6k4/edit?gid=1993106030#gid=1993106030', '_blank');
           }
         });
       }

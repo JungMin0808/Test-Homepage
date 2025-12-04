@@ -1,0 +1,33 @@
+# Git 관련
+.git
+.gitignore
+
+# Node.js
+node_modules/
+
+# 개발용 파일
+*.md
+*.bat
+*.ps1
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 로그
+*.log
+npm-debug.log*
+
+# 데이터베이스 (로컬용)
+data/
+
+# 기타
+desktop.ini
+Thumbs.db
+.DS_Store
+
+

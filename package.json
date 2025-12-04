@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "월드스키 카운터 계산기용 Node.js 서버",
   "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"

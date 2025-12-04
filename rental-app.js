@@ -6,14 +6,14 @@
   const categoryNavEl = document.getElementById("category-nav");
   const itemGridEl = document.getElementById("item-grid");
   
-  let currentRentalCategory = "장비 · 보호장비 렌탈";
+  let currentRentalCategory = "장비렌탈";
   let isEditMode = false;
 
   // 렌탈 전용 카테고리 렌더링
   function renderRentalCategoryNav() {
     if (!categoryNavEl) return;
     
-    const categories = ["장비 · 보호장비 렌탈", "구매 · 액세서리", "금액표"];
+    const categories = ["장비렌탈", "구매물품", "금액표"];
     
     categoryNavEl.innerHTML = categories.map(catName => `
       <button 
@@ -133,7 +133,7 @@
           ${allItems.map(item => `
             <div class="price-table-item" data-item-id="${item.id}" data-category="${item.categoryName}">
               <div class="price-table-item__info">
-                <span class="price-table-item__category">${item.categoryName === "장비 · 보호장비 렌탈" ? "렌탈" : "구매"}</span>
+                <span class="price-table-item__category">${item.categoryName === "장비렌탈" ? "렌탈" : "구매"}</span>
                 <span class="price-table-item__name">${item.name}</span>
                 <span class="price-table-item__price">${item.price.toLocaleString()}원</span>
               </div>
@@ -186,8 +186,8 @@
           <div class="rental-modal-field">
             <label>카테고리</label>
             <select id="modal-category">
-              <option value="장비 · 보호장비 렌탈">장비 · 보호장비 렌탈</option>
-              <option value="구매 · 액세서리">구매 · 액세서리</option>
+              <option value="장비렌탈">장비렌탈</option>
+              <option value="구매물품">구매물품</option>
             </select>
           </div>
           <div class="rental-modal-field">
@@ -247,8 +247,8 @@
           <div class="rental-modal-field">
             <label>카테고리</label>
             <select id="modal-category">
-              <option value="장비 · 보호장비 렌탈" ${categoryName === "장비 · 보호장비 렌탈" ? "selected" : ""}>장비 · 보호장비 렌탈</option>
-              <option value="구매 · 액세서리" ${categoryName === "구매 · 액세서리" ? "selected" : ""}>구매 · 액세서리</option>
+              <option value="장비렌탈" ${categoryName === "장비렌탈" ? "selected" : ""}>장비렌탈</option>
+              <option value="구매물품" ${categoryName === "구매물품" ? "selected" : ""}>구매물품</option>
             </select>
           </div>
           <div class="rental-modal-field">

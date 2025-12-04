@@ -198,7 +198,7 @@ function getLiftAdultPrice(hours, season, period) {
   const seasonData = pricingState[season];
   if (!seasonData?.categories) return 0;
   
-  const liftCategory = seasonData.categories.find(cat => cat.name === "리프트 + 렌탈권");
+  const liftCategory = seasonData.categories.find(cat => cat.name === "리프트+렌탈권");
   if (!liftCategory) return 0;
   
   // 그룹에서 대인 찾기
@@ -226,7 +226,7 @@ function extractLiftHours(selection) {
 // 리프트+렌탈권 또는 리프트권 카테고리인지 확인
 function isLiftCategory(selection) {
   const category = selection.category || (pricingIndex[selection.id]?.category || "");
-  return category === "리프트 + 렌탈권" || category === "리프트권";
+  return category === "리프트+렌탈권" || category === "리프트권";
 }
 
 // VAT 항목 계산
@@ -610,7 +610,7 @@ function getLodgingLiftStructure() {
   }
   const seasonData = pricingState[seasonKey];
   if (!seasonData?.categories) return [];
-  const category = seasonData.categories.find((cat) => cat.name === "리프트 + 렌탈권");
+  const category = seasonData.categories.find((cat) => cat.name === "리프트+렌탈권");
   if (!category) return [];
 
   const useWeekend = period === "weekend";
@@ -1148,7 +1148,7 @@ function applyMaintenanceWindow(start, durationHours) {
 
 function updateLiftTimerDisplay(meta) {
   if (!liftTimerEl || !meta) return;
-  const targetCategories = ["리프트 + 렌탈권", "리프트권"];
+  const targetCategories = ["리프트+렌탈권", "리프트권"];
   if (!targetCategories.includes(meta.category)) return;
   const duration = extractDurationHours(meta);
   if (!duration) return;
@@ -2441,8 +2441,8 @@ function renderItemGrid(categories) {
   itemGridEl.innerHTML = "";
   itemGridEl.hidden = false;
   
-  // 장비 · 보호장비 렌탈 카테고리일 때 스크롤 제거
-  if (activeCategory && activeCategory.name === "장비 · 보호장비 렌탈") {
+  // 장비렌탈 카테고리일 때 스크롤 제거
+  if (activeCategory && activeCategory.name === "장비렌탈") {
     itemGridEl.classList.add("no-scroll");
   } else {
     itemGridEl.classList.remove("no-scroll");
@@ -2949,7 +2949,7 @@ function getActiveCategories() {
   
   // 렌탈 페이지인 경우 특정 카테고리만 표시
   if (isRentalMode) {
-    const allowedCategories = ["장비 · 보호장비 렌탈", "구매 · 액세서리", "금액표"];
+    const allowedCategories = ["장비렌탈", "구매물품", "금액표"];
     filteredCategories = baseCategories.filter(cat => allowedCategories.includes(cat.name));
   }
   
